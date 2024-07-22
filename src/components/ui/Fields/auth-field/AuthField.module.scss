@@ -1,0 +1,16 @@
+.container {
+  @apply text-mine-shaft-200;
+
+  .input:focus + .icon {
+    @apply text-purple-heart-400;
+  }
+
+  .icon {
+    position: absolute;
+    top: 50%;
+    right: 2%;
+    transform: translate(-50%, -50%);
+
+    @apply text-mine-shaft-400 transition-colors;
+  }
+}
