@@ -1,0 +1,74 @@
+.container {
+	@apply h-[600px] bg-mine-shaft-600 bg-opacity-20 w-[1000px] rounded-r-xl overflow-hidden grid place-items-center;
+	grid-template-columns: 460px 1fr;
+
+	.wrapper {
+		.header {
+			@apply mb-8;
+			.heading {
+				@apply text-3xl font-semibold;
+			}
+			p {
+				@apply text-base font-semibold;
+			}
+		}
+		.form {
+			@apply flex flex-col gap-4;
+			.link {
+				@apply flex justify-center gap-4;
+			}
+		}
+	}
+
+	.illustration {
+		@apply bg-purple-heart-500/55 w-full h-full relative overflow-hidden;
+
+		.text {
+			@apply text-3xl text-left max-w-[280px];
+			position: absolute;
+			top: 20%;
+			left: 40%;
+			transform: translate(-50%, -50%);
+			z-index: 100;
+		}
+		.image {
+			position: absolute;
+			top: 60%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 500px;
+			z-index: 100;
+		}
+
+		.vector1 {
+			position: absolute;
+			top: -50px;
+			right: -50px;
+			z-index: 1;
+			width: 300px;
+		}
+		.vector2 {
+			position: absolute;
+			top: -50px;
+			right: 40%;
+			transform: rotate(45deg);
+			z-index: 1;
+			width: 200px;
+		}
+		.vector3 {
+			position: absolute;
+			top: 50%;
+			left: 0%;
+			transform: translate(-50%, -50%);
+			z-index: 1;
+			width: 300px;
+		}
+		.vector4 {
+			position: absolute;
+			bottom: 0;
+			right: 0;
+			z-index: 1;
+			width: 300px;
+		}
+	}
+}
