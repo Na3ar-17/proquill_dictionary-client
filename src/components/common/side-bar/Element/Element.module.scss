@@ -1,0 +1,19 @@
+.element {
+	@apply px-3 transition-all rounded-md w-full py-2 last:mt-auto cursor-pointer;
+	.label {
+		@apply flex transition-all items-center gap-2;
+		.text {
+			@apply text-lg font-semibold;
+			letter-spacing: 0.5px;
+		}
+		.icon {
+		}
+	}
+
+	&:hover {
+		@apply bg-purple-heart-700/30;
+		.label {
+			transform: translateX(5px);
+		}
+	}
+}
