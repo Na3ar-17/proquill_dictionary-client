@@ -1,6 +1,6 @@
 import { NextPage } from 'next'
 import styles from './Content.module.scss'
-const Content: NextPage = () => {
+const Dictionary: NextPage = () => {
 	return (
 		<div>
 			Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores,
@@ -19,4 +19,4 @@ const Content: NextPage = () => {
 	)
 }
 
-export default Content
+export default Dictionary
