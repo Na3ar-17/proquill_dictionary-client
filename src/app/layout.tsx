@@ -1,4 +1,5 @@
 import { ApolloWrapper } from '@/lib/apollo-wrapper'
+import { Providers } from '@/providers/Providers'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.scss'
@@ -16,9 +17,11 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en'>
-			<body suppressHydrationWarning className={inter.className}>
-				<ApolloWrapper>{children}</ApolloWrapper>
-			</body>
+			<Providers>
+				<body suppressHydrationWarning className={inter.className}>
+					<ApolloWrapper>{children}</ApolloWrapper>
+				</body>
+			</Providers>
 		</html>
 	)
 }

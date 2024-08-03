@@ -13,6 +13,7 @@
     "@apollo/experimental-nextjs-app-support": "^0.11.2",
     "@radix-ui/react-context-menu": "^2.2.1",
     "@tanstack/react-query": "^5.51.21",
+    "axios": "^1.7.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "graphql": "^16.9.0",
