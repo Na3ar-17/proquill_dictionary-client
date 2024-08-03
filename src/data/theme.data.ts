@@ -1,4 +1,4 @@
-import { ITheme } from '@/types/theme.types'
+import { ITheme } from '@/entities/theme.entity'
 
 export const themeData: ITheme[] = [
 	{

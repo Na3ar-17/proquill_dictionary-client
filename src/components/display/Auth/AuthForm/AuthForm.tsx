@@ -1,6 +1,8 @@
+'use client'
 import { SimpleButton } from '@/components/ui/Buttons/simple-button/SimpleButton'
 import { AuthField } from '@/components/ui/Fields/auth-field/AuthField'
 import { SITE_NAME } from '@/constants/seo.constants'
+import { useQuery } from '@tanstack/react-query'
 import { NextPage } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -10,11 +12,53 @@ import vector2 from '../../../../../public/Vector2.png'
 import vector3 from '../../../../../public/Vector3.png'
 import vector4 from '../../../../../public/Vector4.png'
 import styles from './AuthForm.module.scss'
+
+import axios from '@/api/interceptors'
+import { gql } from '@apollo/client'
+import request from 'graphql-request'
 interface IProps {
 	isRegister?: boolean
 }
 
 const AuthForm: NextPage<IProps> = ({ isRegister = false }) => {
+	// const testQuery = gql`
+	// 	query findOne {
+	// 		findOne {
+	// 			id
+	// 			email
+	// 		}
+	// 	}
+	// `
+
+	// const { data } = useQuery({
+	// 	queryKey: ['test'],
+	// 	queryFn: async () => request('http://localhost:4200/graphql', testQuery),
+	// })
+
+	// console.log(data)
+
+	// const testQuery = `
+	// 	query findOne {
+	// 		findOne {
+	// 			id
+	// 			createdAt
+	// 			email
+	// 		}
+	// 	}
+	// `
+
+	// const { data } = useQuery({
+	// 	queryKey: ['test'],
+	// 	queryFn: async () => {
+	// 		const { data } = await axios.post('', {
+	// 			query: testQuery,
+	// 		})
+	// 		return data
+	// 	},
+	// })
+
+	// console.log(data)
+
 	return (
 		<div className={styles.container}>
 			<div className={styles.wrapper}>

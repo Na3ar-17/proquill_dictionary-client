@@ -1,8 +1,6 @@
-export interface ILearningProgress {
-	createdAt: Date
+import { IBase } from './base'
 
-	updatedAt: Date
-
+export interface ILearningProgress extends Omit<IBase, 'id'> {
 	userId: string
 
 	themeId: string
