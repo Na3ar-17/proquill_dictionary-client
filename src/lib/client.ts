@@ -6,6 +6,7 @@ export const { getClient } = registerApolloClient(() => {
 		cache: new InMemoryCache(),
 		link: new HttpLink({
 			uri: 'http://localhost:4200/graphql',
+			credentials: 'include',
 		}),
 	})
 })

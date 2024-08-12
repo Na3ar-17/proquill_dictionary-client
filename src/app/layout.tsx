@@ -1,5 +1,6 @@
+import { ThemeToogler } from '@/components/ui/theme-toogler'
 import { ApolloWrapper } from '@/lib/apollo-wrapper'
-import { Providers } from '@/providers/Providers'
+import { ThemeProvider } from '@/providers/theme-provider'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.scss'
@@ -17,11 +18,18 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en'>
-			<Providers>
-				<body suppressHydrationWarning className={inter.className}>
-					<ApolloWrapper>{children}</ApolloWrapper>
-				</body>
-			</Providers>
+			<body suppressHydrationWarning className={inter.className}>
+				<ApolloWrapper>
+					<ThemeProvider
+						attribute='class'
+						defaultTheme='dark'
+						enableSystem
+						disableTransitionOnChange
+					>
+						{children}
+					</ThemeProvider>
+				</ApolloWrapper>
+			</body>
 		</html>
 	)
 }
