@@ -3,7 +3,7 @@
 		@apply grid place-items-center;
 		grid-template-rows: 100px 1fr;
 		.actions {
-			@apply flex justify-end items-center w-[90%];
+			@apply flex justify-end mt-2 items-center w-[90%];
 		}
 
 		.themes {

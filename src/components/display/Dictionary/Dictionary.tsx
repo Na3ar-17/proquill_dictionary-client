@@ -8,10 +8,10 @@ const Dictionary: NextPage = () => {
 		<section className={styles.container}>
 			<Heading text='Dictionary' />
 			<div className={styles.content}>
+				<h2 className=' text-muted-foreground text-lg '>My Themes</h2>
 				<div className={styles.actions}>
 					<Button>Create new theme</Button>
 				</div>
-				<h2 className=' text-muted-foreground text-lg'>My Themes</h2>
 				<div className={styles.themes}>
 					<ThemeCard />
 					<ThemeCard />
