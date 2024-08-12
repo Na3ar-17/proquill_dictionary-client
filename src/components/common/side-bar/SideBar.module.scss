@@ -1,5 +1,5 @@
 .container {
-	@apply w-[250px] bg-card border-r-2 border-border h-screen fixed flex justify-center items-center;
+	@apply w-[230px] bg-card border-r-2 border-border h-screen fixed flex justify-center items-center;
 
 	.nav {
 		@apply flex flex-col h-[80%] items-start px-2 text-sm gap-2 font-medium lg:px-4;

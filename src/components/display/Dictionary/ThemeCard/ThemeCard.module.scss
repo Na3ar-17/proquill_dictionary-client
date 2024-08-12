@@ -1,0 +1,7 @@
+.progress-container {
+	@apply absolute w-full;
+	position: absolute;
+	bottom: -4px;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
