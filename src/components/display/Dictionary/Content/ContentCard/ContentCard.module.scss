@@ -1,0 +1,38 @@
+.card {
+	@apply hover:bg-muted transition-colors px-2 flex flex-col;
+
+	.content {
+		@apply w-full p-0 py-1.5 min-h-14 h-full  flex items-center gap-3;
+
+		.checkbox {
+			@apply opacity-0 invisible transition-all;
+		}
+
+		.sentence {
+			@apply hover:underline transition-all -translate-x-[10px] cursor-pointer;
+		}
+	}
+
+	&:hover {
+		.content {
+			.checkbox {
+				@apply opacity-100 visible;
+			}
+			.sentence {
+				@apply -translate-x-[0px];
+			}
+		}
+	}
+
+	&.checked {
+		@apply outline-2 border-ring bg-muted;
+		.content {
+			.checkbox {
+				@apply opacity-100 visible;
+			}
+			.sentence {
+				@apply -translate-x-[0px];
+			}
+		}
+	}
+}

@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button'
 import Heading from '@/components/ui/custom/heading/Heading'
 import { NextPage } from 'next'
 import styles from './Dictionary.module.scss'
-import { default as Card, default as ThemeCard } from './ThemeCard/ThemeCard'
+import ThemeCard from './ThemeCard/ThemeCard'
 const Dictionary: NextPage = () => {
 	return (
 		<section className={styles.container}>
