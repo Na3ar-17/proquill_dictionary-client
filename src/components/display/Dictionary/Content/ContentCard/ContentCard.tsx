@@ -1,6 +1,7 @@
 'use client'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
+import ContentCardDialog from '@/components/ui/custom/content-card-dialog/ContentCardDialog'
 import BaseContextMenu from '@/components/ui/custom/context-menus/BaseContextMenu'
 import { cn } from '@/lib/utils'
 import { textAbstract } from '@/utils/textAbstract'
@@ -32,13 +33,16 @@ const ContentCard: NextPage<IProps> = ({}) => {
 						checked={isChecked}
 						onCheckedChange={() => setIsChecked(!isChecked)}
 					/>
-					<p className={styles.sentence}>
-						{textAbstract(
-							`Ten years you have been king, and yet not once have you ask me to be
-							your hand`,
-							42
-						)}
-					</p>
+
+					<ContentCardDialog>
+						<p className={styles.sentence}>
+							{textAbstract(
+								`Ten years you have been king, and yet not once have you ask me to be
+								your hand`,
+								42
+							)}
+						</p>
+					</ContentCardDialog>
 				</CardContent>
 				<CardFooter className='pb-2'>
 					<p className='mt-auto text-sm text-zinc-500'>12.08.2024</p>
