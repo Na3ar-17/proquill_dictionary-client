@@ -4,14 +4,16 @@ import { Checkbox } from '@/components/ui/checkbox'
 import ContentCardDialog from '@/components/ui/custom/content-card-dialog/ContentCardDialog'
 import BaseContextMenu from '@/components/ui/custom/context-menus/BaseContextMenu'
 import { cn } from '@/lib/utils'
+import { useContentCardDialog } from '@/store/content-card-dialog.store'
 import { textAbstract } from '@/utils/textAbstract'
 import { NextPage } from 'next'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import styles from './ContentCard.module.scss'
 interface IProps {}
 
 const ContentCard: NextPage<IProps> = ({}) => {
 	const [isChecked, setIsChecked] = useState<boolean>(false)
+	const { onOpen, setId } = useContentCardDialog()
 
 	const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
 		if (e.ctrlKey) {
@@ -20,35 +22,44 @@ const ContentCard: NextPage<IProps> = ({}) => {
 	}
 
 	return (
-		<BaseContextMenu isRename={false}>
-			<Card
-				onClick={handleClick}
-				className={cn(styles.card, {
-					[styles.checked]: isChecked,
-				})}
-			>
-				<CardContent className={styles.content}>
-					<Checkbox
-						className={styles.checkbox}
-						checked={isChecked}
-						onCheckedChange={() => setIsChecked(!isChecked)}
-					/>
+		<>
+			<BaseContextMenu isRename={false}>
+				<Card
+					onClick={handleClick}
+					className={cn(styles.card, {
+						[styles.checked]: isChecked,
+					})}
+				>
+					<CardContent className={styles.content}>
+						<Checkbox
+							className={styles.checkbox}
+							checked={isChecked}
+							onCheckedChange={() => setIsChecked(!isChecked)}
+						/>
 
-					<ContentCardDialog>
-						<p className={styles.sentence}>
+						<p
+							onClick={(e: React.MouseEvent<HTMLParagraphElement>) => {
+								if (!e.ctrlKey) {
+									onOpen()
+									setId('asdasd')
+								}
+							}}
+							className={styles.sentence}
+						>
 							{textAbstract(
 								`Ten years you have been king, and yet not once have you ask me to be
-								your hand`,
+									your hand`,
 								42
 							)}
 						</p>
-					</ContentCardDialog>
-				</CardContent>
-				<CardFooter className='pb-2'>
-					<p className='mt-auto text-sm text-zinc-500'>12.08.2024</p>
-				</CardFooter>
-			</Card>
-		</BaseContextMenu>
+					</CardContent>
+					<CardFooter className='pb-2'>
+						<p className='mt-auto text-sm text-zinc-500'>12.08.2024</p>
+					</CardFooter>
+				</Card>
+			</BaseContextMenu>
+			<ContentCardDialog />
+		</>
 	)
 }
 
