@@ -13,8 +13,6 @@ export const useAuth = () => {
 					user {
 						id
 						email
-						createdAt
-						updatedAt
 						profilePictureUrl
 						fullName
 					}
@@ -42,6 +40,37 @@ export const useAuth = () => {
 
 		return { mutation, data, error, loading }
 	}
+	const useLogin = () => {
+		const LOGIN_MUTATION = gql`
+			mutation login($loginDto: CreateUserInput!) {
+				login(loginDto: $loginDto) {
+					user {
+						id
+						email
+						profilePictureUrl
+						fullName
+					}
+					accessToken
+				}
+			}
+		`
 
-	return { useRegister }
+		const [mutation, { data, error, loading }] = useMutation(LOGIN_MUTATION, {
+			context: {
+				fetchOptions: {
+					credentials: 'include',
+				},
+			},
+		})
+		useEffect(() => {
+			if (data?.login?.accessToken) {
+				cookie.set('accessToken', data.login.accessToken)
+				replace(PAGES_URL.DICTIONARY)
+			}
+		}, [data])
+
+		return { mutation, data, error, loading }
+	}
+
+	return { useRegister, useLogin }
 }

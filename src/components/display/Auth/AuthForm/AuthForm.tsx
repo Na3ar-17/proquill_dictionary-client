@@ -46,8 +46,10 @@ const AuthForm: NextPage<IProps> = ({ isRegister = false }) => {
 		form.formState.errors.fullName ||
 		form.formState.errors.password
 
-	const { onSubmit, registerLoading } = useAuthForm({ isRegister })
-	const isAuthLoading = registerLoading
+	const { onSubmit, registerLoading, loginLoading } = useAuthForm({
+		isRegister,
+	})
+	const isAuthLoading = registerLoading || loginLoading
 	return (
 		<Card className='mx-auto min-w-[380px] max-w-sm'>
 			<CardHeader>
