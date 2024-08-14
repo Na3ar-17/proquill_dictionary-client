@@ -6,21 +6,21 @@ export default async function middleware(
 	request: NextRequest,
 	response: NextResponse
 ) {
-	// const { url, cookies } = request
-	// const refreshToken = cookies.get(EnumTokens.REFRESH_TOKEN)?.value
+	const { url, cookies } = request
+	const refreshToken = cookies.get(EnumTokens.REFRESH_TOKEN)?.value
 
-	// const isAuthPage =
-	// 	url.includes(PAGES_URL.LOGIN) || url.includes(PAGES_URL.REGISTER)
+	const isAuthPage =
+		url.includes(PAGES_URL.LOGIN) || url.includes(PAGES_URL.REGISTER)
 
-	// if (isAuthPage && refreshToken) {
-	// 	return NextResponse.redirect(new URL(PAGES_URL.DICTIONARY, url))
-	// }
+	if (isAuthPage && refreshToken) {
+		return NextResponse.redirect(new URL(PAGES_URL.DICTIONARY, url))
+	}
 
-	// // if (!refreshToken && !isAuthPage) {
-	// // 	return NextResponse.redirect(new URL('http://localhost:3000/login'))
-	// // }
+	if (!refreshToken && !isAuthPage) {
+		return NextResponse.redirect(new URL(PAGES_URL.LOGIN, url))
+	}
 
-	// return NextResponse.next()
+	return NextResponse.next()
 }
 
 export const config = {
