@@ -1,0 +1,83 @@
+.label {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+	padding: 0px 20px;
+	cursor: pointer;
+	height: 50px;
+	position: relative;
+
+	&::before {
+		position: absolute;
+		content: '';
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 100%;
+		height: 45px;
+		transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+		border-radius: 10px;
+		border: 2px solid transparent;
+	}
+
+	&:hover::before {
+		transition: all 0.2s ease;
+		@apply bg-accent;
+	}
+
+	&:has(input:checked)::before {
+		@apply border-primary bg-secondary;
+		height: 50px;
+	}
+
+	.text {
+		color: #fff;
+		z-index: 100;
+	}
+
+	input[type='radio'] {
+		@apply bg-background;
+
+		appearance: none;
+		width: 17px;
+		height: 17px;
+		border-radius: 50%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		z-index: 100;
+
+		&:checked {
+			@apply bg-primary;
+
+			-webkit-animation: puls 0.7s forwards;
+			animation: pulse 0.7s forwards;
+		}
+
+		&::before {
+			content: '';
+			width: 6px;
+			height: 6px;
+			border-radius: 50%;
+			transition: all 0.1s cubic-bezier(0.165, 0.84, 0.44, 1);
+			background-color: #fff;
+			transform: scale(0);
+		}
+
+		&:checked::before {
+			transform: scale(1);
+		}
+	}
+}
+
+@keyframes pulse {
+	0% {
+		box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+	}
+	70% {
+		box-shadow: 0 0 0 8px rgba(255, 255, 255, 0);
+	}
+	100% {
+		box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+	}
+}
