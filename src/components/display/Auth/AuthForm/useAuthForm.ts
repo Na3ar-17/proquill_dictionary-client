@@ -1,21 +1,15 @@
 import { useAuth } from '@/api/hooks/useAuth'
 import { IAuthFormData } from '@/types/auth-form.types'
-import { useForm } from 'react-hook-form'
 
-export const useAuthForm = () => {
-	const form = useForm<IAuthFormData>({
-		mode: 'onChange',
-		defaultValues: {
-			email: 'test@gmail.com',
-			password: '123456',
-		},
-	})
+export const useAuthForm = ({ isRegister }: { isRegister: boolean }) => {
 	const { useRegister } = useAuth()
-	const { mutation } = useRegister()
-
+	const { mutation: register, loading: registerLoading } = useRegister()
 	const onSubmit = (values: IAuthFormData) => {
-		mutation({ variables: { registerDto: values } })
+		if (isRegister) {
+			register({ variables: { registerDto: values } })
+		} else {
+		}
 	}
 
-	return { form, onSubmit }
+	return { onSubmit, registerLoading }
 }

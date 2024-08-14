@@ -19,6 +19,7 @@ import { FaGoogle } from 'react-icons/fa'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+import { useAuthForm } from './useAuthForm'
 
 const formSchema = z.object({
 	password: z.string().min(6, {
@@ -45,10 +46,8 @@ const AuthForm: NextPage<IProps> = ({ isRegister = false }) => {
 		form.formState.errors.fullName ||
 		form.formState.errors.password
 
-	const onSubmit = (data: IAuthFormData) => {
-		console.log(data)
-	}
-
+	const { onSubmit, registerLoading } = useAuthForm({ isRegister })
+	const isAuthLoading = registerLoading
 	return (
 		<Card className='mx-auto min-w-[380px] max-w-sm'>
 			<CardHeader>
@@ -136,7 +135,7 @@ const AuthForm: NextPage<IProps> = ({ isRegister = false }) => {
 								</p>
 							</div>
 							<Button
-								disabled={!!isFormFieldsError}
+								disabled={!!isFormFieldsError || isAuthLoading}
 								type='submit'
 								className='w-full cursor-pointer'
 							>
@@ -144,6 +143,7 @@ const AuthForm: NextPage<IProps> = ({ isRegister = false }) => {
 							</Button>
 							<Button
 								variant='outline'
+								type='button'
 								className='w-full flex items-center gap-2 cursor-pointer'
 							>
 								<span>Continue with Google</span>

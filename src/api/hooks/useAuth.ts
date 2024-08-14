@@ -1,8 +1,11 @@
+import { PAGES_URL } from '@/config/pages-url.config'
 import { gql, useMutation } from '@apollo/client'
 import cookie from 'js-cookie'
+import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
 export const useAuth = () => {
+	const { replace } = useRouter()
 	const useRegister = () => {
 		const REGISTER_MUTATION = gql`
 			mutation register($registerDto: CreateUserInput!) {
@@ -33,6 +36,7 @@ export const useAuth = () => {
 		useEffect(() => {
 			if (data?.register?.accessToken) {
 				cookie.set('accessToken', data.register.accessToken)
+				replace(PAGES_URL.DICTIONARY)
 			}
 		}, [data])
 
