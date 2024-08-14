@@ -1,4 +1,5 @@
-import { cn } from '@/lib/utils'
+import { useAuth } from '@/api/hooks/useAuth'
+import { Button } from '@/components/ui/button'
 import { ISideBarElement } from '@/types/sidebar.types'
 import { NextPage } from 'next'
 import Link from 'next/link'
@@ -10,7 +11,21 @@ interface IProps {
 
 const Element: NextPage<IProps> = ({ data }) => {
 	const { Icon, href, label } = data
-	return (
+	const { useLogOut } = useAuth()
+
+	const { loading, mutation } = useLogOut()
+
+	return label === 'Log Out' ? (
+		<Button
+			disabled={loading}
+			onClick={() => mutation()}
+			variant={'ghost'}
+			className={styles.element}
+		>
+			<Icon className='size-5' />
+			{label}
+		</Button>
+	) : (
 		<Link href={href} className={styles.element}>
 			<Icon className='size-5' />
 			<span>{label}</span>

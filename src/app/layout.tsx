@@ -1,10 +1,10 @@
 import { ThemeToogler } from '@/components/ui/theme-toogler'
-import { ApolloWrapper } from '@/lib/apollo-wrapper'
+// import { ApolloWrapper } from '@/lib/apollo-wrapper'
 import { ThemeProvider } from '@/providers/theme-provider'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { ApolloWrapper } from './ApolloWrapper'
 import './globals.scss'
-
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {

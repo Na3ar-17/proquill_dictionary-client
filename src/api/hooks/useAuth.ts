@@ -29,14 +29,12 @@ export const useAuth = () => {
 						credentials: 'include',
 					},
 				},
+				onCompleted: ({ register }) => {
+					cookie.set('accessToken', register.accessToken)
+					replace(PAGES_URL.DICTIONARY)
+				},
 			}
 		)
-		useEffect(() => {
-			if (data?.register?.accessToken) {
-				cookie.set('accessToken', data.register.accessToken)
-				replace(PAGES_URL.DICTIONARY)
-			}
-		}, [data])
 
 		return { mutation, data, error, loading }
 	}
@@ -61,16 +59,32 @@ export const useAuth = () => {
 					credentials: 'include',
 				},
 			},
-		})
-		useEffect(() => {
-			if (data?.login?.accessToken) {
-				cookie.set('accessToken', data.login.accessToken)
+			onCompleted: ({ login }) => {
+				cookie.set('accessToken', login.accessToken)
 				replace(PAGES_URL.DICTIONARY)
-			}
-		}, [data])
+			},
+		})
 
 		return { mutation, data, error, loading }
 	}
 
-	return { useRegister, useLogin }
+	const useLogOut = () => {
+		const LOGOUT_MUTATION = gql`
+			mutation logOut {
+				logout
+			}
+		`
+
+		const [mutation, { data, error, loading }] = useMutation(LOGOUT_MUTATION, {
+			context: {
+				fetchOptions: {
+					credentials: 'include',
+				},
+			},
+		})
+
+		return { mutation, loading }
+	}
+
+	return { useRegister, useLogin, useLogOut }
 }
