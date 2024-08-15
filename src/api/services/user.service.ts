@@ -1,9 +1,6 @@
-// import axios from '@/api/interceptors'
-// import { gql } from '@apollo/client'
-// class UserService {
-// 	findOne() {
-// 		const {} = await
-// 	}
-// }
+import { gql } from '@apollo/client'
+class UserService {
+	findOne() {}
+}
 
-// export const userService = new UserService()
+export const userService = new UserService()

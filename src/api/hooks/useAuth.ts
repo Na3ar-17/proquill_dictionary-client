@@ -3,6 +3,7 @@ import { gql, useMutation } from '@apollo/client'
 import cookie from 'js-cookie'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
+import { EnumTokens } from '../services/auth-tokens.service'
 
 export const useAuth = () => {
 	const { replace } = useRouter()
@@ -80,6 +81,15 @@ export const useAuth = () => {
 				fetchOptions: {
 					credentials: 'include',
 				},
+			},
+			onCompleted: ({ logout }) => {
+				if (logout) {
+					cookie.remove(EnumTokens.ACCESS_TOKEN)
+					replace(PAGES_URL.LOGIN)
+				}
+			},
+			onError: e => {
+				console.log(e.message)
 			},
 		})
 

@@ -1,9 +1,15 @@
+'use client'
+import { useUser } from '@/api/hooks/useUser'
 import { Button } from '@/components/ui/button'
 import Heading from '@/components/ui/custom/heading/Heading'
 import { NextPage } from 'next'
+import { useEffect } from 'react'
 import styles from './Dictionary.module.scss'
 import ThemeCard from './ThemeCard/ThemeCard'
 const Dictionary: NextPage = () => {
+	const { useGetUser } = useUser()
+	// const { data, loading } = useGetUser()
+
 	return (
 		<section className={styles.container}>
 			<Heading text='Dictionary' />
