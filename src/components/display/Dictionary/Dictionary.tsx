@@ -8,13 +8,13 @@ import styles from './Dictionary.module.scss'
 import ThemeCard from './ThemeCard/ThemeCard'
 const Dictionary: NextPage = () => {
 	const { useGetUser } = useUser()
-	// const { data, loading } = useGetUser()
+	const { data, loading } = useGetUser()
 
 	return (
 		<section className={styles.container}>
 			<Heading text='Dictionary' />
 			<div className={styles.content}>
-				<h2 className=' text-muted-foreground text-lg '>My Themes</h2>
+				<h2 className=' text-muted-foreground text-lg'>My Themes</h2>
 				<div className={styles.actions}>
 					<Button>Create new theme</Button>
 				</div>

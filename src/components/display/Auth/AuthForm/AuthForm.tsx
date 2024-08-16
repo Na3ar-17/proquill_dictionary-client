@@ -17,6 +17,8 @@ import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { FaGoogle } from 'react-icons/fa'
 
+import { graphql } from '@/gql'
+import { useMutation } from '@apollo/client'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useAuthForm } from './useAuthForm'
@@ -34,6 +36,20 @@ const formSchema = z.object({
 interface IProps {
 	isRegister?: boolean
 }
+
+const registerMutation = graphql(`
+	mutation register($registerDto: CreateUserInput!) {
+		register(registerDto: $registerDto) {
+			user {
+				id
+				email
+				profilePictureUrl
+				fullName
+			}
+			accessToken
+		}
+	}
+`)
 
 const AuthForm: NextPage<IProps> = ({ isRegister = false }) => {
 	const form = useForm<IAuthFormData>({

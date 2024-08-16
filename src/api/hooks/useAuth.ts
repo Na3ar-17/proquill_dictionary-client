@@ -1,26 +1,28 @@
 import { PAGES_URL } from '@/config/pages-url.config'
-import { gql, useMutation } from '@apollo/client'
+import { graphql } from '@/gql'
+import { useMutation } from '@apollo/client'
 import cookie from 'js-cookie'
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
 import { EnumTokens } from '../services/auth-tokens.service'
 
 export const useAuth = () => {
 	const { replace } = useRouter()
+
 	const useRegister = () => {
-		const REGISTER_MUTATION = gql`
-			mutation register($registerDto: CreateUserInput!) {
+		const REGISTER_MUTATION = graphql(`
+			mutation registration($registerDto: CreateUserInput!) {
 				register(registerDto: $registerDto) {
 					user {
 						id
 						email
 						profilePictureUrl
 						fullName
+						createdAt
 					}
 					accessToken
 				}
 			}
-		`
+		`)
 
 		const [mutation, { data, error, loading }] = useMutation(
 			REGISTER_MUTATION,
@@ -40,7 +42,7 @@ export const useAuth = () => {
 		return { mutation, data, error, loading }
 	}
 	const useLogin = () => {
-		const LOGIN_MUTATION = gql`
+		const LOGIN_MUTATION = graphql(`
 			mutation login($loginDto: CreateUserInput!) {
 				login(loginDto: $loginDto) {
 					user {
@@ -52,7 +54,7 @@ export const useAuth = () => {
 					accessToken
 				}
 			}
-		`
+		`)
 
 		const [mutation, { data, error, loading }] = useMutation(LOGIN_MUTATION, {
 			context: {
@@ -70,11 +72,11 @@ export const useAuth = () => {
 	}
 
 	const useLogOut = () => {
-		const LOGOUT_MUTATION = gql`
+		const LOGOUT_MUTATION = graphql(`
 			mutation logOut {
 				logout
 			}
-		`
+		`)
 
 		const [mutation, { data, error, loading }] = useMutation(LOGOUT_MUTATION, {
 			context: {
