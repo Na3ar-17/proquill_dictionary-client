@@ -1,9 +1,9 @@
 import { PAGES_URL } from '@/config/pages-url.config'
 import { graphql } from '@/gql'
+import { EnumTokens } from '@/types/auth-token.types'
 import { useMutation } from '@apollo/client'
 import cookie from 'js-cookie'
 import { useRouter } from 'next/navigation'
-import { EnumTokens } from '../services/auth-tokens.service'
 
 export const useAuth = () => {
 	const { replace } = useRouter()

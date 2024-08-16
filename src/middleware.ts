@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { EnumTokens } from './api/services/auth-tokens.service'
 import { PAGES_URL } from './config/pages-url.config'
+import { EnumTokens } from './types/auth-token.types'
 
 export default async function middleware(
 	request: NextRequest,

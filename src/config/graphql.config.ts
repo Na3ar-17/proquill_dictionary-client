@@ -1,4 +1,4 @@
-import { EnumTokens } from '@/api/services/auth-tokens.service'
+import { EnumTokens } from '@/types/auth-token.types'
 import { createHttpLink } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
 import cookies from 'js-cookie'
