@@ -3,11 +3,11 @@ import { ILearningProgress } from './learning-progress.entity'
 import { IUser } from './user.entity'
 
 export interface ITheme extends IBase {
-	userId: string
+	userId?: string
 
-	title?: string
+	title?: string | null | undefined
 
 	user?: IUser
 
-	learningProgress: ILearningProgress
+	learningProgress?: ILearningProgress
 }
