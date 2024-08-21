@@ -1,5 +1,5 @@
 import { graphql } from '@/gql'
-import { useQuery } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 
 export const useContent = () => {
 	const useGetContent = () => {
@@ -18,6 +18,28 @@ export const useContent = () => {
 		const { data, loading, error } = useQuery(GET_CONTENT_QUERY)
 
 		return { data, loading, error }
+	}
+	const useCreateContent = () => {
+		const CREATE_CONTENT_MUTATION = graphql(`
+			mutation crateContent($createContentInput: CreateContentInput!) {
+				createContent(createContentInput: $createContentInput) {
+					id
+					createdAt
+					sentence
+					translation
+					transcription
+				}
+			}
+		`)
+
+		const [mutation, { loading, error }] = useMutation(
+			CREATE_CONTENT_MUTATION,
+			{
+				refetchQueries: ['getAllContent'],
+			}
+		)
+
+		return { mutation, loading, error }
 	}
 	return {}
 }
