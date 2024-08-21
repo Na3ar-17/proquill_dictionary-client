@@ -2,7 +2,7 @@ import { graphql } from '@/gql'
 import { useMutation, useQuery } from '@apollo/client'
 
 export const useContent = () => {
-	const useGetContent = () => {
+	const useGetContent = ({ themeId }: { themeId: string }) => {
 		const GET_CONTENT_QUERY = graphql(`
 			query getAllContent($themeId: String!) {
 				getAllContent(themeId: $themeId) {
@@ -11,11 +11,18 @@ export const useContent = () => {
 					sentence
 					translation
 					transcription
+					themeId
+					lernedCounts
+					hasLearned
+					exampleSentences
+					imageUrl
 				}
 			}
 		`)
 
-		const { data, loading, error } = useQuery(GET_CONTENT_QUERY)
+		const { data, loading, error } = useQuery(GET_CONTENT_QUERY, {
+			variables: { themeId },
+		})
 
 		return { data, loading, error }
 	}
@@ -28,18 +35,32 @@ export const useContent = () => {
 					sentence
 					translation
 					transcription
+					themeId
+					lernedCounts
+					hasLearned
+					exampleSentences
+					imageUrl
 				}
 			}
 		`)
 
-		const [mutation, { loading, error }] = useMutation(
-			CREATE_CONTENT_MUTATION,
+		const [
+			mutation,
 			{
-				refetchQueries: ['getAllContent'],
-			}
-		)
+				loading: createContentLoading,
+				error: createContentError,
+				data: createContentResData,
+			},
+		] = useMutation(CREATE_CONTENT_MUTATION, {
+			refetchQueries: ['getAllContent'],
+		})
 
-		return { mutation, loading, error }
+		return {
+			mutation,
+			createContentLoading,
+			createContentError,
+			createContentResData,
+		}
 	}
 
 	const useDeleteContent = () => {
@@ -67,6 +88,11 @@ export const useContent = () => {
 					sentence
 					translation
 					transcription
+					themeId
+					lernedCounts
+					hasLearned
+					exampleSentences
+					imageUrl
 				}
 			}
 		`)
@@ -80,5 +106,5 @@ export const useContent = () => {
 
 		return { mutation, loading, error }
 	}
-	return {}
+	return { useCreateContent, useDeleteContent, useGetContent, useUpdateContent }
 }

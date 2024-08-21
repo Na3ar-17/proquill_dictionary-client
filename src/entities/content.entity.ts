@@ -11,9 +11,9 @@ export interface IContent extends IBase {
 
 	hasLearned: boolean
 
-	transcription?: string
+	transcription?: string | null | undefined
 
-	exampleSentences?: string[]
+	exampleSentences?: string[] | null | undefined[]
 
-	imageUrl?: string
+	imageUrl?: string | null | undefined
 }

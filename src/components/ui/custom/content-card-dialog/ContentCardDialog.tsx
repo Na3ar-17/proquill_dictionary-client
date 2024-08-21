@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form'
 import { Button } from '../../button'
 import { Form } from '../../form'
 
+import { IContent } from '@/entities/content.entity'
 import { IContetnDialog } from '@/types/content-dialog.types'
 import { Dispatch, SetStateAction } from 'react'
 import Fields from './FIelds/Fields'
@@ -14,15 +15,31 @@ import Fields from './FIelds/Fields'
 interface IProps {
 	dialog?: IContetnDialog
 	setDialog?: Dispatch<SetStateAction<IContetnDialog>>
+	onCreate?: ({
+		createContentInput,
+	}: {
+		createContentInput: IContentForm
+	}) => void
 }
 
-const ContentCardDialog: NextPage<IProps> = ({ dialog, setDialog }) => {
+const ContentCardDialog: NextPage<IProps> = ({
+	dialog,
+	setDialog,
+	onCreate,
+}) => {
 	const form = useForm<IContentForm>({
 		mode: 'onChange',
 	})
 
 	const onSubmit = (data: IContentForm) => {
-		console.log(data)
+		if (!!onCreate) {
+			if (dialog?.contentCardId) {
+			}
+
+			// console.log(data)
+
+			onCreate({ createContentInput: data })
+		}
 	}
 
 	return (
