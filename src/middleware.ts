@@ -12,6 +12,10 @@ export default async function middleware(
 	const isAuthPage =
 		url.includes(PAGES_URL.LOGIN) || url.includes(PAGES_URL.REGISTER)
 
+	if (url.endsWith('/') && refreshToken) {
+		return NextResponse.redirect(new URL(PAGES_URL.DICTIONARY, url))
+	}
+
 	if (isAuthPage && refreshToken) {
 		return NextResponse.redirect(new URL(PAGES_URL.DICTIONARY, url))
 	}

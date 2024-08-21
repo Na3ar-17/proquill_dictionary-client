@@ -41,5 +41,38 @@ export const useTheme = () => {
 		)
 		return { mutation, mutationLoading }
 	}
-	return { useGetThemes, useCreateTheme }
+
+	const useDeleteTheme = () => {
+		const DELETE_THEME_MUTATION = graphql(`
+			mutation deleteTheme($ids: [String!]!) {
+				deleteOneOrMoreTheme(ids: $ids)
+			}
+		`)
+
+		const [mutation, { loading, called }] = useMutation(DELETE_THEME_MUTATION, {
+			refetchQueries: ['getThemes'],
+			onError: ({ message }) => {
+				console.error(message)
+			},
+		})
+		return { mutation, loading, called }
+	}
+
+	const useUpdateTheme = () => {
+		const UPDATE_THEME_MUTATION = graphql(`
+			mutation updateTheme($updateThemeInput: UpdateThemeInput!) {
+				updateTheme(updateThemeInput: $updateThemeInput) {
+					id
+					createdAt
+					title
+				}
+			}
+		`)
+
+		const [mutation, { loading, called }] = useMutation(UPDATE_THEME_MUTATION, {
+			refetchQueries: ['getThemes'],
+		})
+		return { mutation, loading, called }
+	}
+	return { useGetThemes, useCreateTheme, useDeleteTheme, useUpdateTheme }
 }

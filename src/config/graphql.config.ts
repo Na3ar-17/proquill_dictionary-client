@@ -10,7 +10,6 @@ export const httpLink = createHttpLink({
 
 export const authLink = setContext((_, { headers }) => {
 	const accessToken = cookies.get(EnumTokens.ACCESS_TOKEN)
-	console.log(accessToken)
 
 	return {
 		headers: {
