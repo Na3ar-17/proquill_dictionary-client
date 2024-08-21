@@ -58,5 +58,27 @@ export const useContent = () => {
 
 		return { mutation, loading, error }
 	}
+	const useUpdateContent = () => {
+		const UPDATE_CONTENT_MUTATION = graphql(`
+			mutation updateContent($updateContentInput: UpdateContentInput!) {
+				updateContent(updateContentInput: $updateContentInput) {
+					id
+					createdAt
+					sentence
+					translation
+					transcription
+				}
+			}
+		`)
+
+		const [mutation, { loading, error }] = useMutation(
+			UPDATE_CONTENT_MUTATION,
+			{
+				refetchQueries: ['getAllContent'],
+			}
+		)
+
+		return { mutation, loading, error }
+	}
 	return {}
 }

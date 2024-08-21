@@ -19,6 +19,7 @@ const documents = {
     "\n\t\t\tquery getAllContent($themeId: String!) {\n\t\t\t\tgetAllContent(themeId: $themeId) {\n\t\t\t\t\tid\n\t\t\t\t\tcreatedAt\n\t\t\t\t\tsentence\n\t\t\t\t\ttranslation\n\t\t\t\t\ttranscription\n\t\t\t\t}\n\t\t\t}\n\t\t": types.GetAllContentDocument,
     "\n\t\t\tmutation crateContent($createContentInput: CreateContentInput!) {\n\t\t\t\tcreateContent(createContentInput: $createContentInput) {\n\t\t\t\t\tid\n\t\t\t\t\tcreatedAt\n\t\t\t\t\tsentence\n\t\t\t\t\ttranslation\n\t\t\t\t\ttranscription\n\t\t\t\t}\n\t\t\t}\n\t\t": types.CrateContentDocument,
     "\n\t\t\tmutation deleteContent($ids: [String!]!, $themeId: String!) {\n\t\t\t\tdeleteOneOrMoreContent(ids: $ids, themeId: $themeId)\n\t\t\t}\n\t\t": types.DeleteContentDocument,
+    "\n\t\t\tmutation updateContent($updateContentInput: UpdateContentInput!) {\n\t\t\t\tupdateContent(updateContentInput: $updateContentInput) {\n\t\t\t\t\tid\n\t\t\t\t\tcreatedAt\n\t\t\t\t\tsentence\n\t\t\t\t\ttranslation\n\t\t\t\t\ttranscription\n\t\t\t\t}\n\t\t\t}\n\t\t": types.UpdateContentDocument,
     "\n\t\t\tquery getAllThemes {\n\t\t\t\tgetAllThemes {\n\t\t\t\t\tid\n\t\t\t\t\tcreatedAt\n\t\t\t\t\ttitle\n\t\t\t\t}\n\t\t\t}\n\t\t": types.GetAllThemesDocument,
     "\n\t\t\tmutation createTheme {\n\t\t\t\tcreateTheme {\n\t\t\t\t\tid\n\t\t\t\t\tcreatedAt\n\t\t\t\t\ttitle\n\t\t\t\t}\n\t\t\t}\n\t\t": types.CreateThemeDocument,
     "\n\t\t\tmutation deleteTheme($ids: [String!]!) {\n\t\t\t\tdeleteOneOrMoreTheme(ids: $ids)\n\t\t\t}\n\t\t": types.DeleteThemeDocument,
@@ -64,6 +65,10 @@ export function graphql(source: "\n\t\t\tmutation crateContent($createContentInp
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n\t\t\tmutation deleteContent($ids: [String!]!, $themeId: String!) {\n\t\t\t\tdeleteOneOrMoreContent(ids: $ids, themeId: $themeId)\n\t\t\t}\n\t\t"): (typeof documents)["\n\t\t\tmutation deleteContent($ids: [String!]!, $themeId: String!) {\n\t\t\t\tdeleteOneOrMoreContent(ids: $ids, themeId: $themeId)\n\t\t\t}\n\t\t"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n\t\t\tmutation updateContent($updateContentInput: UpdateContentInput!) {\n\t\t\t\tupdateContent(updateContentInput: $updateContentInput) {\n\t\t\t\t\tid\n\t\t\t\t\tcreatedAt\n\t\t\t\t\tsentence\n\t\t\t\t\ttranslation\n\t\t\t\t\ttranscription\n\t\t\t\t}\n\t\t\t}\n\t\t"): (typeof documents)["\n\t\t\tmutation updateContent($updateContentInput: UpdateContentInput!) {\n\t\t\t\tupdateContent(updateContentInput: $updateContentInput) {\n\t\t\t\t\tid\n\t\t\t\t\tcreatedAt\n\t\t\t\t\tsentence\n\t\t\t\t\ttranslation\n\t\t\t\t\ttranscription\n\t\t\t\t}\n\t\t\t}\n\t\t"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
