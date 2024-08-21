@@ -31,7 +31,6 @@ const ContentCardDialog: NextPage<IProps> = ({ dialog, setDialog }) => {
 			onOpenChange={() => {
 				if (!!setDialog) {
 					setDialog(prev => {
-						if (!prev) return prev
 						return {
 							...prev,
 							isOpen: false,

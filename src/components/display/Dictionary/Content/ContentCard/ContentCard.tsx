@@ -37,7 +37,6 @@ const ContentCard: NextPage<IProps> = ({ setDialog }) => {
 							checked={isChecked}
 							onCheckedChange={() => setIsChecked(!isChecked)}
 						/>
-
 						<p
 							onClick={(e: React.MouseEvent<HTMLParagraphElement>) => {
 								if (!e.ctrlKey) {

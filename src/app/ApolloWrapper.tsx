@@ -12,6 +12,7 @@ import {
 
 const removeTypenameLink = removeTypenameFromVariables()
 const link = from([removeTypenameLink, authLink.concat(httpLink)])
+
 function makeClient() {
 	return new ApolloClient({
 		cache: new InMemoryCache(),

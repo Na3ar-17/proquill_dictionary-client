@@ -1,5 +1,3 @@
-import { ThemeToogler } from '@/components/ui/theme-toogler'
-// import { ApolloWrapper } from '@/lib/apollo-wrapper'
 import { ThemeProvider } from '@/providers/theme-provider'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'

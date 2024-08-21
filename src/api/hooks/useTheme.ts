@@ -4,7 +4,7 @@ import { useMutation, useQuery } from '@apollo/client'
 export const useTheme = () => {
 	const useGetThemes = () => {
 		const GET_THEMES_QUERY = graphql(`
-			query getThemes {
+			query getAllThemes {
 				getAllThemes {
 					id
 					createdAt
