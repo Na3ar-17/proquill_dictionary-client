@@ -26,6 +26,40 @@ export const useContent = () => {
 
 		return { data, loading, error }
 	}
+	const useGetOneContent = ({
+		themeId,
+		id,
+	}: {
+		themeId: string
+		id: string
+	}) => {
+		const GET_ONE_CONTENT_QUERY = graphql(`
+			query getOneContent($id: String!, $themeId: String!) {
+				getOneContent(id: $id, themeId: $themeId) {
+					id
+					createdAt
+					sentence
+					translation
+					transcription
+					themeId
+					lernedCounts
+					hasLearned
+					exampleSentences
+					imageUrl
+				}
+			}
+		`)
+
+		const {
+			data: oneContentData,
+			loading: oneContentLoading,
+			error: oneContentError,
+		} = useQuery(GET_ONE_CONTENT_QUERY, {
+			variables: { themeId, id },
+		})
+
+		return { oneContentData, oneContentLoading, oneContentError }
+	}
 	const useCreateContent = () => {
 		const CREATE_CONTENT_MUTATION = graphql(`
 			mutation crateContent($createContentInput: CreateContentInput!) {
@@ -46,11 +80,7 @@ export const useContent = () => {
 
 		const [
 			mutation,
-			{
-				loading: createContentLoading,
-				error: createContentError,
-				data: createContentResData,
-			},
+			{ loading: createContentLoading, error: createContentError },
 		] = useMutation(CREATE_CONTENT_MUTATION, {
 			refetchQueries: ['getAllContent'],
 		})
@@ -59,7 +89,6 @@ export const useContent = () => {
 			mutation,
 			createContentLoading,
 			createContentError,
-			createContentResData,
 		}
 	}
 
@@ -106,5 +135,11 @@ export const useContent = () => {
 
 		return { mutation, loading, error }
 	}
-	return { useCreateContent, useDeleteContent, useGetContent, useUpdateContent }
+	return {
+		useCreateContent,
+		useDeleteContent,
+		useGetContent,
+		useUpdateContent,
+		useGetOneContent,
+	}
 }

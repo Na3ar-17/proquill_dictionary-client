@@ -22,12 +22,8 @@ const Content: NextPage<IProps> = ({ id }) => {
 	})
 	const { useGetContent, useCreateContent } = useContent()
 	const { data, error, loading } = useGetContent({ themeId: id })
-	const {
-		mutation,
-		createContentError,
-		createContentLoading,
-		createContentResData,
-	} = useCreateContent()
+	const { mutation, createContentError, createContentLoading } =
+		useCreateContent()
 
 	const handleCreate = ({
 		createContentInput,
