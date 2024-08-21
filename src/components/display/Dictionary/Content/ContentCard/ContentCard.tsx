@@ -44,7 +44,7 @@ const ContentCard: NextPage<IProps> = ({ setDialog, data }) => {
 								if (!e.ctrlKey) {
 									setDialog({
 										isOpen: true,
-										contentCardId: 'asdasd',
+										contentCardId: data.id,
 									})
 								}
 							}}

@@ -54,11 +54,13 @@ export const useContent = () => {
 			data: oneContentData,
 			loading: oneContentLoading,
 			error: oneContentError,
+			refetch,
 		} = useQuery(GET_ONE_CONTENT_QUERY, {
 			variables: { themeId, id },
+			skip: !id,
 		})
 
-		return { oneContentData, oneContentLoading, oneContentError }
+		return { oneContentData, oneContentLoading, oneContentError, refetch }
 	}
 	const useCreateContent = () => {
 		const CREATE_CONTENT_MUTATION = graphql(`

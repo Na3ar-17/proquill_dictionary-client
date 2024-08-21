@@ -1,15 +1,13 @@
 'use client'
-import { NextPage } from 'next'
-
+import { useContent } from '@/api/hooks/useContent'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
+import { IContetnDialog } from '@/types/content-dialog.types'
 import { IContentForm } from '@/types/content-form.types'
+import { NextPage } from 'next'
+import { Dispatch, SetStateAction, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { Button } from '../../button'
 import { Form } from '../../form'
-
-import { IContent } from '@/entities/content.entity'
-import { IContetnDialog } from '@/types/content-dialog.types'
-import { Dispatch, SetStateAction } from 'react'
 import Fields from './FIelds/Fields'
 
 interface IProps {
@@ -20,27 +18,46 @@ interface IProps {
 	}: {
 		createContentInput: IContentForm
 	}) => void
+	themeId?: string
 }
 
 const ContentCardDialog: NextPage<IProps> = ({
 	dialog,
 	setDialog,
 	onCreate,
+	themeId,
 }) => {
+	const { useGetOneContent } = useContent()
+
+	const { oneContentData, oneContentError, oneContentLoading, refetch } =
+		useGetOneContent({
+			themeId: themeId || '',
+			id: dialog?.contentCardId || '',
+		})
+
 	const form = useForm<IContentForm>({
 		mode: 'onChange',
+		defaultValues: {
+			...oneContentData?.getOneContent,
+		},
 	})
 
 	const onSubmit = (data: IContentForm) => {
+		if (dialog?.contentCardId) {
+		}
+
 		if (!!onCreate) {
-			if (dialog?.contentCardId) {
-			}
-
-			// console.log(data)
-
 			onCreate({ createContentInput: data })
 		}
 	}
+
+	useEffect(() => {
+		if (oneContentData && form.formState.isDirty) {
+			refetch()
+		}
+
+		//FIXME
+	}, [oneContentData, form.formState.isDirty])
 
 	return (
 		<Dialog
@@ -57,19 +74,23 @@ const ContentCardDialog: NextPage<IProps> = ({
 			}}
 		>
 			<DialogContent className='min-w-[70%]'>
-				<Form {...form}>
-					<form
-						onSubmit={form.handleSubmit(onSubmit)}
-						className='flex flex-col gap-4'
-					>
-						<Fields control={form.control} />
-						<div className='flex justify-end items-center'>
-							<Button type='submit' variant={'secondary'}>
-								{dialog?.contentCardId ? 'Save' : 'Create'}
-							</Button>
-						</div>
-					</form>
-				</Form>
+				{oneContentLoading ? (
+					<div>Loading</div>
+				) : (
+					<Form {...form}>
+						<form
+							onSubmit={form.handleSubmit(onSubmit)}
+							className='flex flex-col gap-4'
+						>
+							<Fields control={form.control} />
+							<div className='flex justify-end items-center'>
+								<Button type='submit' variant={'secondary'}>
+									{dialog?.contentCardId ? 'Save' : 'Create'}
+								</Button>
+							</div>
+						</form>
+					</Form>
+				)}
 			</DialogContent>
 		</Dialog>
 	)

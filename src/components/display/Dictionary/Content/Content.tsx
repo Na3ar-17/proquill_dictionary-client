@@ -20,7 +20,7 @@ const Content: NextPage<IProps> = ({ id }) => {
 		isOpen: false,
 		contentCardId: '',
 	})
-	const { useGetContent, useCreateContent } = useContent()
+	const { useGetContent, useCreateContent, useGetOneContent } = useContent()
 	const { data, error, loading } = useGetContent({ themeId: id })
 	const { mutation, createContentError, createContentLoading } =
 		useCreateContent()
@@ -72,6 +72,7 @@ const Content: NextPage<IProps> = ({ id }) => {
 				onCreate={handleCreate}
 				dialog={dialog}
 				setDialog={setDialog}
+				themeId={id}
 			/>
 		</section>
 	)
