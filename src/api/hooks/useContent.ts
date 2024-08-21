@@ -41,5 +41,22 @@ export const useContent = () => {
 
 		return { mutation, loading, error }
 	}
+
+	const useDeleteContent = () => {
+		const DELETE_CONTENT_MUTATION = graphql(`
+			mutation deleteContent($ids: [String!]!, $themeId: String!) {
+				deleteOneOrMoreContent(ids: $ids, themeId: $themeId)
+			}
+		`)
+
+		const [mutation, { loading, error }] = useMutation(
+			DELETE_CONTENT_MUTATION,
+			{
+				refetchQueries: ['getAllContent'],
+			}
+		)
+
+		return { mutation, loading, error }
+	}
 	return {}
 }
