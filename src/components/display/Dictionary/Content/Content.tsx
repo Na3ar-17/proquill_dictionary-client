@@ -1,19 +1,23 @@
 'use client'
-
 import { Button } from '@/components/ui/button'
 import ContentCardDialog from '@/components/ui/custom/content-card-dialog/ContentCardDialog'
 import Heading from '@/components/ui/custom/heading/Heading'
 import { Input } from '@/components/ui/input'
-import { useContentCardDialog } from '@/store/content-card-dialog.store'
+import { IContetnDialog } from '@/types/content-dialog.types'
 import { NextPage } from 'next'
+import { useState } from 'react'
 import styles from './Content.module.scss'
 import ContentCard from './ContentCard/ContentCard'
+
 interface IProps {
 	id: string
 }
 
 const Content: NextPage<IProps> = ({ id }) => {
-	const { isDialogOpen, onOpen, setId } = useContentCardDialog()
+	const [dialog, setDialog] = useState<IContetnDialog>({
+		isOpen: false,
+		contentCardId: '',
+	})
 
 	return (
 		<section className={styles.container}>
@@ -26,8 +30,10 @@ const Content: NextPage<IProps> = ({ id }) => {
 					<div>
 						<Button
 							onClick={() => {
-								onOpen()
-								setId('')
+								setDialog({
+									contentCardId: '',
+									isOpen: true,
+								})
 							}}
 							variant={'default'}
 						>
@@ -36,10 +42,10 @@ const Content: NextPage<IProps> = ({ id }) => {
 					</div>
 				</div>
 				<div className={styles.sentences}>
-					<ContentCard />
+					<ContentCard setDialog={setDialog} />
 				</div>
 			</div>
-			<ContentCardDialog />
+			<ContentCardDialog dialog={dialog} setDialog={setDialog} />
 		</section>
 	)
 }

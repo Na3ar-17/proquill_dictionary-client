@@ -1,42 +1,45 @@
 'use client'
 import { NextPage } from 'next'
 
-import {
-	Dialog,
-	DialogContent,
-	DialogTitle,
-	DialogTrigger,
-} from '@/components/ui/dialog'
+import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { IContentForm } from '@/types/content-form.types'
 import { useForm } from 'react-hook-form'
 import { Button } from '../../button'
-import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from '../../form'
+import { Form } from '../../form'
 
-import { useContentCardDialog } from '@/store/content-card-dialog.store'
+import { IContetnDialog } from '@/types/content-dialog.types'
+import { Dispatch, SetStateAction } from 'react'
 import Fields from './FIelds/Fields'
 
-interface IProps {}
+interface IProps {
+	dialog?: IContetnDialog
+	setDialog?: Dispatch<SetStateAction<IContetnDialog>>
+}
 
-const ContentCardDialog: NextPage<IProps> = () => {
+const ContentCardDialog: NextPage<IProps> = ({ dialog, setDialog }) => {
 	const form = useForm<IContentForm>({
 		mode: 'onChange',
 	})
-
-	const { onClose, isDialogOpen, id } = useContentCardDialog()
 
 	const onSubmit = (data: IContentForm) => {
 		console.log(data)
 	}
 
 	return (
-		<Dialog open={isDialogOpen} onOpenChange={onClose}>
+		<Dialog
+			open={dialog?.isOpen}
+			onOpenChange={() => {
+				if (!!setDialog) {
+					setDialog(prev => {
+						if (!prev) return prev
+						return {
+							...prev,
+							isOpen: false,
+						}
+					})
+				}
+			}}
+		>
 			<DialogContent className='min-w-[70%]'>
 				<Form {...form}>
 					<form
@@ -46,7 +49,7 @@ const ContentCardDialog: NextPage<IProps> = () => {
 						<Fields control={form.control} />
 						<div className='flex justify-end items-center'>
 							<Button type='submit' variant={'secondary'}>
-								{id ? 'Save' : 'Create'}
+								{dialog?.contentCardId ? 'Save' : 'Create'}
 							</Button>
 						</div>
 					</form>

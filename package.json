@@ -47,8 +47,7 @@
 		"sass": "^1.77.8",
 		"tailwind-merge": "^2.5.0",
 		"tailwindcss-animate": "^1.0.7",
-		"zod": "^3.23.8",
-		"zustand": "^4.5.4"
+		"zod": "^3.23.8"
 	},
 	"devDependencies": {
 		"@0no-co/graphqlsp": "^1.12.13",

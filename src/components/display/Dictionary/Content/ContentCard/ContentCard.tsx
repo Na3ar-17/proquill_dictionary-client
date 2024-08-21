@@ -4,16 +4,17 @@ import { Checkbox } from '@/components/ui/checkbox'
 import ContentCardDialog from '@/components/ui/custom/content-card-dialog/ContentCardDialog'
 import BaseContextMenu from '@/components/ui/custom/context-menus/BaseContextMenu'
 import { cn } from '@/lib/utils'
-import { useContentCardDialog } from '@/store/content-card-dialog.store'
+import { IContetnDialog } from '@/types/content-dialog.types'
 import { textAbstract } from '@/utils/textAbstract'
 import { NextPage } from 'next'
-import React, { useState } from 'react'
+import React, { Dispatch, SetStateAction, useState } from 'react'
 import styles from './ContentCard.module.scss'
-interface IProps {}
+interface IProps {
+	setDialog: Dispatch<SetStateAction<IContetnDialog>>
+}
 
-const ContentCard: NextPage<IProps> = ({}) => {
+const ContentCard: NextPage<IProps> = ({ setDialog }) => {
 	const [isChecked, setIsChecked] = useState<boolean>(false)
-	const { onOpen, setId } = useContentCardDialog()
 
 	const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
 		if (e.ctrlKey) {
@@ -23,7 +24,7 @@ const ContentCard: NextPage<IProps> = ({}) => {
 
 	return (
 		<>
-			<BaseContextMenu isRename={false}>
+			<BaseContextMenu onDelete={() => {}} isRename={false}>
 				<Card
 					onClick={handleClick}
 					className={cn(styles.card, {
@@ -40,8 +41,10 @@ const ContentCard: NextPage<IProps> = ({}) => {
 						<p
 							onClick={(e: React.MouseEvent<HTMLParagraphElement>) => {
 								if (!e.ctrlKey) {
-									onOpen()
-									setId('asdasd')
+									setDialog({
+										isOpen: true,
+										contentCardId: 'asdasd',
+									})
 								}
 							}}
 							className={styles.sentence}
