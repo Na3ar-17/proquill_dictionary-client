@@ -4,6 +4,7 @@ import BaseContextMenu from '@/components/ui/custom/context-menus/BaseContextMen
 import TransparentField from '@/components/ui/custom/fields/transparent-field/TransparentField'
 import ProgressBar from '@/components/ui/custom/progress-bar/ProgressBar'
 import { Form, FormField } from '@/components/ui/form'
+import { PAGES_URL } from '@/config/pages-url.config'
 import { ITheme } from '@/entities/theme.entity'
 import { NextPage } from 'next'
 import Link from 'next/link'
@@ -59,7 +60,10 @@ const ThemeCard: NextPage<IProps> = ({ data: { createdAt, title, id } }) => {
 									</form>
 								</Form>
 							) : (
-								<Link href={'#'} className='cursor-pointer hover:underline'>
+								<Link
+									href={`${PAGES_URL.DICTIONARY}/${id}`}
+									className='cursor-pointer hover:underline'
+								>
 									{title}
 								</Link>
 							)}
