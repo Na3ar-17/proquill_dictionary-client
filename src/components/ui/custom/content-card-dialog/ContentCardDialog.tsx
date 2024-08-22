@@ -1,10 +1,16 @@
 'use client'
 import { useContent } from '@/api/hooks/useContent'
-import { Dialog, DialogContent } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
 import { IContetnDialog } from '@/types/content-dialog.types'
 import { IContentForm } from '@/types/content-form.types'
 import { NextPage } from 'next'
-import { Dispatch, SetStateAction, useEffect } from 'react'
+import {
+	Dispatch,
+	SetStateAction,
+	useEffect,
+	useLayoutEffect,
+	useState,
+} from 'react'
 import { useForm } from 'react-hook-form'
 import { Button } from '../../button'
 import { Form } from '../../form'
@@ -28,18 +34,25 @@ const ContentCardDialog: NextPage<IProps> = ({
 	themeId,
 }) => {
 	const { useGetOneContent } = useContent()
-
-	const { oneContentData, oneContentError, oneContentLoading, refetch } =
-		useGetOneContent({
-			themeId: themeId || '',
-			id: dialog?.contentCardId || '',
-		})
+	const [isDisabled, setIsDisabled] = useState<boolean>(false)
+	const {
+		oneContentData,
+		oneContentError,
+		oneContentLoading,
+		refetch,
+		previousData,
+		called,
+	} = useGetOneContent({
+		themeId: themeId || '',
+		id: dialog?.contentCardId || '',
+	})
 
 	const form = useForm<IContentForm>({
 		mode: 'onChange',
 		defaultValues: {
 			...oneContentData?.getOneContent,
 		},
+		disabled: isDisabled,
 	})
 
 	const onSubmit = (data: IContentForm) => {
@@ -50,14 +63,6 @@ const ContentCardDialog: NextPage<IProps> = ({
 			onCreate({ createContentInput: data })
 		}
 	}
-
-	useEffect(() => {
-		if (oneContentData && form.formState.isDirty) {
-			refetch()
-		}
-
-		//FIXME
-	}, [oneContentData, form.formState.isDirty])
 
 	return (
 		<Dialog
@@ -74,7 +79,9 @@ const ContentCardDialog: NextPage<IProps> = ({
 			}}
 		>
 			<DialogContent className='min-w-[70%]'>
-				{oneContentLoading ? (
+				<DialogTitle></DialogTitle>
+
+				{oneContentLoading || !called ? (
 					<div>Loading</div>
 				) : (
 					<Form {...form}>

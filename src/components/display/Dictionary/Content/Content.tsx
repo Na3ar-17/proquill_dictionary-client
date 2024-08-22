@@ -48,7 +48,6 @@ const Content: NextPage<IProps> = ({ id }) => {
 									contentCardId: '',
 									isOpen: true,
 								})
-								// mutation()
 							}}
 							variant={'default'}
 						>

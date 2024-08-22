@@ -1,4 +1,5 @@
 'use client'
+import { useContent } from '@/api/hooks/useContent'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import ContentCardDialog from '@/components/ui/custom/content-card-dialog/ContentCardDialog'
@@ -17,6 +18,8 @@ interface IProps {
 
 const ContentCard: NextPage<IProps> = ({ setDialog, data }) => {
 	const [isChecked, setIsChecked] = useState<boolean>(false)
+	const { useDeleteContent } = useContent()
+	const { error, loading, mutation } = useDeleteContent()
 
 	const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
 		if (e.ctrlKey) {
@@ -24,9 +27,16 @@ const ContentCard: NextPage<IProps> = ({ setDialog, data }) => {
 		}
 	}
 
+	const handleDelete = ({ ids }: { ids: string[] }) => {
+		mutation({ variables: { ids, themeId: data.themeId } })
+	}
+
 	return (
 		<>
-			<BaseContextMenu onDelete={() => {}} isRename={false}>
+			<BaseContextMenu
+				onDelete={() => handleDelete({ ids: [data.id] })}
+				isRename={false}
+			>
 				<Card
 					onClick={handleClick}
 					className={cn(styles.card, {
