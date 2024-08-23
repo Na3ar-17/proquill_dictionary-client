@@ -54,9 +54,6 @@ export const useContent = () => {
 			data: oneContentData,
 			loading: oneContentLoading,
 			error: oneContentError,
-			refetch,
-			previousData,
-			called,
 		} = useQuery(GET_ONE_CONTENT_QUERY, {
 			variables: { themeId, id },
 			skip: !id,
@@ -66,9 +63,6 @@ export const useContent = () => {
 			oneContentData,
 			oneContentLoading,
 			oneContentError,
-			refetch,
-			previousData,
-			called,
 		}
 	}
 	const useCreateContent = () => {

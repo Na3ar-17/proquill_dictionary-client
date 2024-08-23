@@ -35,17 +35,11 @@ const ContentCardDialog: NextPage<IProps> = ({
 }) => {
 	const { useGetOneContent } = useContent()
 	const [isDisabled, setIsDisabled] = useState<boolean>(false)
-	const {
-		oneContentData,
-		oneContentError,
-		oneContentLoading,
-		refetch,
-		previousData,
-		called,
-	} = useGetOneContent({
-		themeId: themeId || '',
-		id: dialog?.contentCardId || '',
-	})
+	const { oneContentData, oneContentError, oneContentLoading } =
+		useGetOneContent({
+			themeId: themeId || '',
+			id: dialog?.contentCardId || '',
+		})
 
 	const form = useForm<IContentForm>({
 		mode: 'onChange',
@@ -81,7 +75,7 @@ const ContentCardDialog: NextPage<IProps> = ({
 			<DialogContent className='min-w-[70%]'>
 				<DialogTitle></DialogTitle>
 
-				{oneContentLoading || !called ? (
+				{oneContentLoading ? (
 					<div>Loading</div>
 				) : (
 					<Form {...form}>
