@@ -4,23 +4,27 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import ContentCardDialog from '@/components/ui/custom/content-card-dialog/ContentCardDialog'
 import BaseContextMenu from '@/components/ui/custom/context-menus/BaseContextMenu'
+import TipTap from '@/components/ui/custom/text-editors/tiptap/Tiptap'
 import { IContent } from '@/entities/content.entity'
 import { cn } from '@/lib/utils'
-import { IContetnDialog } from '@/types/content-dialog.types'
+import { useContentCardDialogStore } from '@/store/content-dialog.store'
+import type { IContentForm } from '@/types/content-form.types'
 import { textAbstract } from '@/utils/textAbstract'
 import { NextPage } from 'next'
-import React, { Dispatch, SetStateAction, useState } from 'react'
+import React, { useState } from 'react'
+import { useFormContext } from 'react-hook-form'
 import styles from './ContentCard.module.scss'
+
 interface IProps {
-	setDialog: Dispatch<SetStateAction<IContetnDialog>>
 	data: IContent
 }
 
-const ContentCard: NextPage<IProps> = ({ setDialog, data }) => {
+const ContentCard: NextPage<IProps> = ({ data }) => {
 	const [isChecked, setIsChecked] = useState<boolean>(false)
+	const { setValue } = useFormContext<IContentForm>()
 	const { useDeleteContent } = useContent()
 	const { error, loading, mutation } = useDeleteContent()
-
+	const { onOpen } = useContentCardDialogStore()
 	const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
 		if (e.ctrlKey) {
 			setIsChecked(!isChecked)
@@ -52,15 +56,16 @@ const ContentCard: NextPage<IProps> = ({ setDialog, data }) => {
 						<p
 							onClick={(e: React.MouseEvent<HTMLParagraphElement>) => {
 								if (!e.ctrlKey) {
-									setDialog({
-										isOpen: true,
-										contentCardId: data.id,
-									})
+									setValue('id', data.id)
+									onOpen()
 								}
 							}}
 							className={styles.sentence}
 						>
-							{textAbstract(data.sentence, 42)}
+							<TipTap
+								content={textAbstract(data.sentence, 42)}
+								isCanEdit={false}
+							/>
 						</p>
 					</CardContent>
 					<CardFooter className='pb-2'>

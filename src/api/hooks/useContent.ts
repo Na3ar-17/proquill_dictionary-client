@@ -1,5 +1,6 @@
 import { graphql } from '@/gql'
 import { useMutation, useQuery } from '@apollo/client'
+import toast from 'react-hot-toast'
 
 export const useContent = () => {
 	const useGetContent = ({ themeId }: { themeId: string }) => {
@@ -20,11 +21,11 @@ export const useContent = () => {
 			}
 		`)
 
-		const { data, loading, error } = useQuery(GET_CONTENT_QUERY, {
+		const { data, loading, error, refetch } = useQuery(GET_CONTENT_QUERY, {
 			variables: { themeId },
 		})
 
-		return { data, loading, error }
+		return { data, loading, error, refetch }
 	}
 	const useGetOneContent = ({
 		themeId,
@@ -50,20 +51,12 @@ export const useContent = () => {
 			}
 		`)
 
-		const {
-			data: oneContentData,
-			loading: oneContentLoading,
-			error: oneContentError,
-		} = useQuery(GET_ONE_CONTENT_QUERY, {
+		const query = useQuery(GET_ONE_CONTENT_QUERY, {
 			variables: { themeId, id },
 			skip: !id,
 		})
 
-		return {
-			oneContentData,
-			oneContentLoading,
-			oneContentError,
-		}
+		return query
 	}
 	const useCreateContent = () => {
 		const CREATE_CONTENT_MUTATION = graphql(`
@@ -83,18 +76,14 @@ export const useContent = () => {
 			}
 		`)
 
-		const [
-			mutation,
-			{ loading: createContentLoading, error: createContentError },
-		] = useMutation(CREATE_CONTENT_MUTATION, {
+		const mutation = useMutation(CREATE_CONTENT_MUTATION, {
 			refetchQueries: ['getAllContent'],
+			onCompleted: () => {
+				toast.success('Successfully created nontent')
+			},
 		})
 
-		return {
-			mutation,
-			createContentLoading,
-			createContentError,
-		}
+		return mutation
 	}
 
 	const useDeleteContent = () => {
@@ -131,14 +120,11 @@ export const useContent = () => {
 			}
 		`)
 
-		const [mutation, { loading, error }] = useMutation(
-			UPDATE_CONTENT_MUTATION,
-			{
-				refetchQueries: ['getAllContent'],
-			}
-		)
+		const mutation = useMutation(UPDATE_CONTENT_MUTATION, {
+			refetchQueries: ['getAllContent'],
+		})
 
-		return { mutation, loading, error }
+		return mutation
 	}
 	return {
 		useCreateContent,

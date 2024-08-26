@@ -32,7 +32,6 @@ const Fields: NextPage<IProps> = ({ control }) => {
 					</FormItem>
 				)}
 			/>
-
 			<FormField
 				control={control}
 				name='translation'

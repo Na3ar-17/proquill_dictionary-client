@@ -1,82 +1,65 @@
 'use client'
-import { useContent } from '@/api/hooks/useContent'
-import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
-import { IContetnDialog } from '@/types/content-dialog.types'
-import { IContentForm } from '@/types/content-form.types'
-import { NextPage } from 'next'
 import {
-	Dispatch,
-	SetStateAction,
-	useEffect,
-	useLayoutEffect,
-	useState,
-} from 'react'
-import { useForm } from 'react-hook-form'
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogTitle,
+} from '@/components/ui/dialog'
+import { useContentCardDialogStore } from '@/store/content-dialog.store'
+import { NextPage } from 'next'
+import { useLayoutEffect } from 'react'
 import { Button } from '../../button'
 import { Form } from '../../form'
 import Fields from './FIelds/Fields'
+import { useContentDialog } from './useContentDialog'
 
 interface IProps {
-	dialog?: IContetnDialog
-	setDialog?: Dispatch<SetStateAction<IContetnDialog>>
-	onCreate?: ({
-		createContentInput,
-	}: {
-		createContentInput: IContentForm
-	}) => void
 	themeId?: string
 }
 
-const ContentCardDialog: NextPage<IProps> = ({
-	dialog,
-	setDialog,
-	onCreate,
-	themeId,
-}) => {
-	const { useGetOneContent } = useContent()
-	const [isDisabled, setIsDisabled] = useState<boolean>(false)
-	const { oneContentData, oneContentError, oneContentLoading } =
-		useGetOneContent({
-			themeId: themeId || '',
-			id: dialog?.contentCardId || '',
-		})
-
-	const form = useForm<IContentForm>({
-		mode: 'onChange',
-		defaultValues: {
-			...oneContentData?.getOneContent,
-		},
-		disabled: isDisabled,
+const ContentCardDialog: NextPage<IProps> = ({ themeId }) => {
+	const {
+		currentData,
+		onSubmit,
+		prevData,
+		existsId,
+		form,
+		isFormInitialized,
+		setIsFormInitialized,
+		loading,
+	} = useContentDialog({
+		themeId: themeId || '',
 	})
+	const { onClose, isOpen } = useContentCardDialogStore()
 
-	const onSubmit = (data: IContentForm) => {
-		if (dialog?.contentCardId) {
-		}
+	useLayoutEffect(() => {
+		if (existsId) {
+			if (currentData) {
+				form.reset({
+					sentence: currentData.sentence,
+					transcription: currentData.transcription,
+					translation: currentData.translation,
+					themeId: currentData.themeId,
+					id: currentData.id,
+				})
+			}
+			if (currentData?.id !== prevData?.id) {
+				setIsFormInitialized(false)
+			}
 
-		if (!!onCreate) {
-			onCreate({ createContentInput: data })
+			if (currentData?.id === form.getValues().id) {
+				setIsFormInitialized(true)
+			}
 		}
-	}
+	}, [currentData, prevData])
 
 	return (
-		<Dialog
-			open={dialog?.isOpen}
-			onOpenChange={() => {
-				if (!!setDialog) {
-					setDialog(prev => {
-						return {
-							...prev,
-							isOpen: false,
-						}
-					})
-				}
-			}}
-		>
+		<Dialog open={isOpen} onOpenChange={onClose}>
 			<DialogContent className='min-w-[70%]'>
 				<DialogTitle></DialogTitle>
-
-				{oneContentLoading ? (
-					<div>Loading</div>
+				<DialogDescription></DialogDescription>
+				{loading || (!isFormInitialized && existsId) ? (
+					<div>loading</div>
 				) : (
 					<Form {...form}>
 						<form
@@ -86,7 +69,7 @@ const ContentCardDialog: NextPage<IProps> = ({
 							<Fields control={form.control} />
 							<div className='flex justify-end items-center'>
 								<Button type='submit' variant={'secondary'}>
-									{dialog?.contentCardId ? 'Save' : 'Create'}
+									{existsId ? 'Save' : 'Create'}
 								</Button>
 							</div>
 						</form>
