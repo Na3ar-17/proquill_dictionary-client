@@ -11,28 +11,46 @@ import { useContentCardDialogStore } from '@/store/content-dialog.store'
 import type { IContentForm } from '@/types/content-form.types'
 import { textAbstract } from '@/utils/textAbstract'
 import { NextPage } from 'next'
-import React, { useState } from 'react'
+import React, { Dispatch, SetStateAction, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import styles from './ContentCard.module.scss'
 
 interface IProps {
 	data: IContent
+	setIdsState: Dispatch<SetStateAction<string[]>>
+	handleDelete: ({ ids }: { ids: string[] }) => void
 }
 
-const ContentCard: NextPage<IProps> = ({ data }) => {
+const ContentCard: NextPage<IProps> = ({ data, setIdsState, handleDelete }) => {
 	const [isChecked, setIsChecked] = useState<boolean>(false)
 	const { setValue } = useFormContext<IContentForm>()
 	const { useDeleteContent } = useContent()
-	const { error, loading, mutation } = useDeleteContent()
 	const { onOpen } = useContentCardDialogStore()
+
 	const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
 		if (e.ctrlKey) {
 			setIsChecked(!isChecked)
+			setIdsState(prev => {
+				if (!prev) return prev
+				if (isChecked) {
+					return [...prev.filter(el => el !== data.id)]
+				} else {
+					return [...prev, data.id]
+				}
+			})
 		}
 	}
 
-	const handleDelete = ({ ids }: { ids: string[] }) => {
-		mutation({ variables: { ids, themeId: data.themeId } })
+	const onCheckedChange = () => {
+		setIsChecked(!isChecked)
+		setIdsState(prev => {
+			if (!prev) return prev
+			if (isChecked) {
+				return [...prev.filter(el => el !== data.id)]
+			} else {
+				return [...prev, data.id]
+			}
+		})
 	}
 
 	return (
@@ -51,7 +69,7 @@ const ContentCard: NextPage<IProps> = ({ data }) => {
 						<Checkbox
 							className={styles.checkbox}
 							checked={isChecked}
-							onCheckedChange={() => setIsChecked(!isChecked)}
+							onCheckedChange={onCheckedChange}
 						/>
 						<p
 							onClick={(e: React.MouseEvent<HTMLParagraphElement>) => {

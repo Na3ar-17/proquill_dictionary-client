@@ -92,15 +92,13 @@ export const useContent = () => {
 				deleteOneOrMoreContent(ids: $ids, themeId: $themeId)
 			}
 		`)
-
-		const [mutation, { loading, error }] = useMutation(
+		const [mutation, { loading, error, data }] = useMutation(
 			DELETE_CONTENT_MUTATION,
 			{
 				refetchQueries: ['getAllContent'],
 			}
 		)
-
-		return { mutation, loading, error }
+		return { mutation, loading, error, data }
 	}
 	const useUpdateContent = () => {
 		const UPDATE_CONTENT_MUTATION = graphql(`

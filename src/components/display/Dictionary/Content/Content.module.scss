@@ -2,7 +2,7 @@
 	.content {
 		@apply grid mt-8 px-6 grid-rows-[100px_1fr];
 		.actions {
-			@apply flex justify-end items-center;
+			@apply flex justify-end gap-8 items-center;
 		}
 
 		.sentences {
