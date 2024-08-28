@@ -6,6 +6,7 @@ import ProgressBar from '@/components/ui/custom/progress-bar/ProgressBar'
 import { Form, FormField } from '@/components/ui/form'
 import { PAGES_URL } from '@/config/pages-url.config'
 import { ITheme } from '@/entities/theme.entity'
+import { dateFormatter } from '@/utils/dateFormatter'
 import { NextPage } from 'next'
 import Link from 'next/link'
 import styles from './ThemeCard.module.scss'
@@ -69,7 +70,9 @@ const ThemeCard: NextPage<IProps> = ({ data: { createdAt, title, id } }) => {
 							)}
 						</CardTitle>
 						{!isRename && (
-							<p className='text-sm text-zinc-500'>{createdAt.toString()}</p>
+							<p className='text-sm text-zinc-500'>
+								{dateFormatter(createdAt)}
+							</p>
 						)}
 					</CardHeader>
 					<CardContent className='w-full h-full flex items-end justify-end'>

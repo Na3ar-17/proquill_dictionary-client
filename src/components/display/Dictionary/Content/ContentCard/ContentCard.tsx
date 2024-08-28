@@ -8,6 +8,7 @@ import { IContent } from '@/entities/content.entity'
 import { cn } from '@/lib/utils'
 import { useContentCardDialogStore } from '@/store/content-dialog.store'
 import type { IContentForm } from '@/types/content-form.types'
+import { dateFormatter } from '@/utils/dateFormatter'
 import { textAbstract } from '@/utils/textAbstract'
 import { NextPage } from 'next'
 import React, { Dispatch, SetStateAction, useState } from 'react'
@@ -80,7 +81,7 @@ const ContentCard: NextPage<IProps> = ({ data, setIdsState, handleDelete }) => {
 					</CardContent>
 					<CardFooter className='pb-2'>
 						<p className='mt-auto text-sm text-zinc-500'>
-							{data.createdAt.toString()}
+							{dateFormatter(data.createdAt)}
 						</p>
 					</CardFooter>
 				</Card>

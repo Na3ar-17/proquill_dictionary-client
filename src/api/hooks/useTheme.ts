@@ -36,7 +36,7 @@ export const useTheme = () => {
 		const [mutation, { loading: mutationLoading }] = useMutation(
 			CREATE_THEME_MUTATION,
 			{
-				refetchQueries: ['getThemes'],
+				refetchQueries: ['getAllThemes'],
 			}
 		)
 		return { mutation, mutationLoading }
@@ -50,7 +50,7 @@ export const useTheme = () => {
 		`)
 
 		const [mutation, { loading, called }] = useMutation(DELETE_THEME_MUTATION, {
-			refetchQueries: ['getThemes'],
+			refetchQueries: ['getAllThemes'],
 			onError: ({ message }) => {
 				console.error(message)
 			},
@@ -70,7 +70,7 @@ export const useTheme = () => {
 		`)
 
 		const [mutation, { loading, called }] = useMutation(UPDATE_THEME_MUTATION, {
-			refetchQueries: ['getThemes'],
+			refetchQueries: ['getAllThemes'],
 		})
 		return { mutation, loading, called }
 	}
