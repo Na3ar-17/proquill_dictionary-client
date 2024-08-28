@@ -1,45 +1,29 @@
 'use client'
-import { useContent } from '@/api/hooks/useContent'
 import { Button } from '@/components/ui/button'
 import ContentCardDialog from '@/components/ui/custom/content-card-dialog/ContentCardDialog'
 import Heading from '@/components/ui/custom/heading/Heading'
-import { useContentCardDialogStore } from '@/store/content-dialog.store'
-import { IContentForm } from '@/types/content-form.types'
 import { Trash2 } from 'lucide-react'
 import { NextPage } from 'next'
-import { useState } from 'react'
-import { FormProvider, useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
+import { FormProvider } from 'react-hook-form'
 import styles from './Content.module.scss'
 import ContentCard from './ContentCard/ContentCard'
+import { useContentLogic } from './useContentLogic'
 
 interface IProps {
 	id: string
 }
 
 const Content: NextPage<IProps> = ({ id }) => {
-	const methods = useForm<IContentForm>()
-	const { onOpen } = useContentCardDialogStore()
-	const [idsState, setIdsState] = useState<string[]>([])
-
-	const { useGetContent, useCreateContent, useDeleteContent } = useContent()
-	const { data, error, loading } = useGetContent({ themeId: id })
 	const {
-		error: deleteError,
-		loading: deleteLoading,
-		data: deletedData,
-		mutation,
-	} = useDeleteContent()
-
-	const handleDelete = ({ ids }: { ids: string[] }) => {
-		mutation({
-			variables: { ids, themeId: id },
-			onCompleted: ({ deleteOneOrMoreContent }) => {
-				setIdsState([])
-				toast.success('Successfully deleted')
-			},
-		})
-	}
+		data,
+		error,
+		handleDelete,
+		loading,
+		methods,
+		onOpen,
+		idsState,
+		setIdsState,
+	} = useContentLogic({ themeId: id })
 
 	return (
 		<section className={styles.container}>
@@ -80,20 +64,17 @@ const Content: NextPage<IProps> = ({ id }) => {
 						</div>
 					</div>
 					<div className={styles.sentences}>
-						{error ? (
-							<div>Error</div>
-						) : loading ? (
-							<div>loading</div>
-						) : (
-							data?.getAllContent.map(el => (
-								<ContentCard
-									setIdsState={setIdsState}
-									handleDelete={handleDelete}
-									data={el}
-									key={el.id}
-								/>
-							))
-						)}
+						{error && <div>{error.message}</div>}
+						{loading && <div>Loading...</div>}
+
+						{data?.getAllContent?.map(el => (
+							<ContentCard
+								setIdsState={setIdsState}
+								handleDelete={handleDelete}
+								data={el}
+								key={el.id}
+							/>
+						))}
 					</div>
 				</div>
 				<ContentCardDialog themeId={id} />

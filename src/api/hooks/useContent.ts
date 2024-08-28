@@ -1,31 +1,23 @@
-import { graphql } from '@/gql'
 import { useMutation, useQuery } from '@apollo/client'
 import toast from 'react-hot-toast'
+import {
+	CREATE_CONTENT_MUTATION,
+	DELETE_CONTENT_MUTATION,
+	DELETE_MANY_CONTENT_MUTATION,
+	GET_CONTENT_QUERY,
+	GET_ONE_CONTENT_QUERY,
+	UPDATE_CONTENT_MUTATION,
+} from '../queries/content.queris'
 
 export const useContent = () => {
 	const useGetContent = ({ themeId }: { themeId: string }) => {
-		const GET_CONTENT_QUERY = graphql(`
-			query getAllContent($themeId: String!) {
-				getAllContent(themeId: $themeId) {
-					id
-					createdAt
-					sentence
-					translation
-					transcription
-					themeId
-					lernedCounts
-					hasLearned
-					exampleSentences
-					imageUrl
-				}
+		const { data, loading, error, refetch, previousData } = useQuery(
+			GET_CONTENT_QUERY,
+			{
+				variables: { themeId },
 			}
-		`)
-
-		const { data, loading, error, refetch } = useQuery(GET_CONTENT_QUERY, {
-			variables: { themeId },
-		})
-
-		return { data, loading, error, refetch }
+		)
+		return { data, loading, error, refetch, previousData }
 	}
 	const useGetOneContent = ({
 		themeId,
@@ -34,23 +26,6 @@ export const useContent = () => {
 		themeId: string
 		id: string
 	}) => {
-		const GET_ONE_CONTENT_QUERY = graphql(`
-			query getOneContent($id: String!, $themeId: String!) {
-				getOneContent(id: $id, themeId: $themeId) {
-					id
-					createdAt
-					sentence
-					translation
-					transcription
-					themeId
-					lernedCounts
-					hasLearned
-					exampleSentences
-					imageUrl
-				}
-			}
-		`)
-
 		const query = useQuery(GET_ONE_CONTENT_QUERY, {
 			variables: { themeId, id },
 			skip: !id,
@@ -59,23 +34,6 @@ export const useContent = () => {
 		return query
 	}
 	const useCreateContent = () => {
-		const CREATE_CONTENT_MUTATION = graphql(`
-			mutation crateContent($createContentInput: CreateContentInput!) {
-				createContent(createContentInput: $createContentInput) {
-					id
-					createdAt
-					sentence
-					translation
-					transcription
-					themeId
-					lernedCounts
-					hasLearned
-					exampleSentences
-					imageUrl
-				}
-			}
-		`)
-
 		const mutation = useMutation(CREATE_CONTENT_MUTATION, {
 			refetchQueries: ['getAllContent'],
 			onCompleted: () => {
@@ -86,38 +44,26 @@ export const useContent = () => {
 		return mutation
 	}
 
-	const useDeleteContent = () => {
-		const DELETE_CONTENT_MUTATION = graphql(`
-			mutation deleteContent($ids: [String!]!, $themeId: String!) {
-				deleteOneOrMoreContent(ids: $ids, themeId: $themeId)
-			}
-		`)
+	const useDeleteManyContent = () => {
 		const [mutation, { loading, error, data }] = useMutation(
-			DELETE_CONTENT_MUTATION,
+			DELETE_MANY_CONTENT_MUTATION,
 			{
 				refetchQueries: ['getAllContent'],
 			}
 		)
 		return { mutation, loading, error, data }
 	}
-	const useUpdateContent = () => {
-		const UPDATE_CONTENT_MUTATION = graphql(`
-			mutation updateContent($updateContentInput: UpdateContentInput!) {
-				updateContent(updateContentInput: $updateContentInput) {
-					id
-					createdAt
-					sentence
-					translation
-					transcription
-					themeId
-					lernedCounts
-					hasLearned
-					exampleSentences
-					imageUrl
-				}
-			}
-		`)
 
+	const useDeleteOneContent = () => {
+		const { '0': deleteOneContentMutation } = useMutation(
+			DELETE_CONTENT_MUTATION,
+			{
+				refetchQueries: ['getAllContent'],
+			}
+		)
+		return { deleteOneContentMutation }
+	}
+	const useUpdateContent = () => {
 		const mutation = useMutation(UPDATE_CONTENT_MUTATION, {
 			refetchQueries: ['getAllContent'],
 		})
@@ -126,9 +72,10 @@ export const useContent = () => {
 	}
 	return {
 		useCreateContent,
-		useDeleteContent,
+		useDeleteManyContent,
 		useGetContent,
 		useUpdateContent,
 		useGetOneContent,
+		useDeleteOneContent,
 	}
 }

@@ -47,6 +47,7 @@ export const useContentDialog = ({ themeId }: IProps) => {
 					toast.error(message)
 				},
 				refetchQueries: ['getAllContent'],
+				awaitRefetchQueries: true,
 			})
 		} else {
 			mutation({

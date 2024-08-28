@@ -7,7 +7,7 @@ import {
 } from '@/components/ui/dialog'
 import { useContentCardDialogStore } from '@/store/content-dialog.store'
 import { NextPage } from 'next'
-import { useLayoutEffect } from 'react'
+import { useEffect, useLayoutEffect } from 'react'
 import { Button } from '../../button'
 import { Form } from '../../form'
 import Fields from './FIelds/Fields'
@@ -33,6 +33,27 @@ const ContentCardDialog: NextPage<IProps> = ({ themeId }) => {
 	const { onClose, isOpen } = useContentCardDialogStore()
 
 	useLayoutEffect(() => {
+		if (existsId) {
+			if (currentData) {
+				form.reset({
+					sentence: currentData.sentence,
+					transcription: currentData.transcription,
+					translation: currentData.translation,
+					themeId: currentData.themeId,
+					id: currentData.id,
+				})
+			}
+			if (currentData?.id !== prevData?.id) {
+				setIsFormInitialized(false)
+			}
+
+			if (currentData?.id === form.getValues().id) {
+				setIsFormInitialized(true)
+			}
+		}
+	}, [currentData, prevData])
+
+	useEffect(() => {
 		if (existsId) {
 			if (currentData) {
 				form.reset({

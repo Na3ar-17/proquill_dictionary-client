@@ -1,5 +1,4 @@
 'use client'
-import { useContent } from '@/api/hooks/useContent'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import ContentCardDialog from '@/components/ui/custom/content-card-dialog/ContentCardDialog'
@@ -24,25 +23,9 @@ interface IProps {
 const ContentCard: NextPage<IProps> = ({ data, setIdsState, handleDelete }) => {
 	const [isChecked, setIsChecked] = useState<boolean>(false)
 	const { setValue } = useFormContext<IContentForm>()
-	const { useDeleteContent } = useContent()
 	const { onOpen } = useContentCardDialogStore()
 
-	const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-		if (e.ctrlKey) {
-			setIsChecked(!isChecked)
-			setIdsState(prev => {
-				if (!prev) return prev
-				if (isChecked) {
-					return [...prev.filter(el => el !== data.id)]
-				} else {
-					return [...prev, data.id]
-				}
-			})
-		}
-	}
-
-	const onCheckedChange = () => {
-		setIsChecked(!isChecked)
+	const handleIdsState = () => {
 		setIdsState(prev => {
 			if (!prev) return prev
 			if (isChecked) {
@@ -52,7 +35,16 @@ const ContentCard: NextPage<IProps> = ({ data, setIdsState, handleDelete }) => {
 			}
 		})
 	}
-
+	const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+		if (e.ctrlKey) {
+			setIsChecked(!isChecked)
+			handleIdsState()
+		}
+	}
+	const onCheckedChange = () => {
+		setIsChecked(!isChecked)
+		handleIdsState()
+	}
 	return (
 		<>
 			<BaseContextMenu
@@ -71,7 +63,7 @@ const ContentCard: NextPage<IProps> = ({ data, setIdsState, handleDelete }) => {
 							checked={isChecked}
 							onCheckedChange={onCheckedChange}
 						/>
-						<p
+						<div
 							onClick={(e: React.MouseEvent<HTMLParagraphElement>) => {
 								if (!e.ctrlKey) {
 									setValue('id', data.id)
@@ -84,7 +76,7 @@ const ContentCard: NextPage<IProps> = ({ data, setIdsState, handleDelete }) => {
 								content={textAbstract(data.sentence, 42)}
 								isCanEdit={false}
 							/>
-						</p>
+						</div>
 					</CardContent>
 					<CardFooter className='pb-2'>
 						<p className='mt-auto text-sm text-zinc-500'>
