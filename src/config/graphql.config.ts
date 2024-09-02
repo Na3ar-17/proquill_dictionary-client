@@ -1,5 +1,6 @@
 import { GET_NEW_TOKENS_MUTATION } from '@/api/queries/auth.queries'
-import { EnumTokens, ITokensResponse } from '@/types/auth-token.types'
+import { GetNewTokensMutation } from '@/gql/graphql'
+import { EnumTokens } from '@/types/auth-token.types'
 import { EnumApolloErrors } from '@/types/errors.types'
 import { createHttpLink, FetchResult, from, Observable } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
@@ -29,7 +30,7 @@ export const authLink = setContext((_, { headers }) => {
 
 async function getNewTokens() {
 	try {
-		const { data } = await client.mutate<ITokensResponse>({
+		const { data } = await client.mutate<GetNewTokensMutation>({
 			mutation: GET_NEW_TOKENS_MUTATION,
 		})
 

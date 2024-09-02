@@ -7,7 +7,7 @@ interface IProps {
 	}
 }
 
-const page: NextPage<IProps> = ({ params: { id } }) => {
+const page: NextPage<IProps> = async ({ params: { id } }) => {
 	return <Content id={id} />
 }
 
