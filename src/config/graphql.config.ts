@@ -29,7 +29,7 @@ export const authLink = setContext((_, { headers }) => {
 
 async function getNewTokens() {
 	try {
-		const { data } = await getClient().mutate<ITokensResponse>({
+		const { data } = await client.mutate<ITokensResponse>({
 			mutation: GET_NEW_TOKENS_MUTATION,
 		})
 
@@ -89,7 +89,3 @@ export const client = new ApolloClient({
 	cache: new InMemoryCache(),
 	link,
 })
-
-export function getClient() {
-	return client
-}
