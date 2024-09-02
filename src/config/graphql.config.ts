@@ -84,7 +84,11 @@ export const errorLink = onError(
 
 const removeTypenameLink = removeTypenameFromVariables()
 
-const link = from([errorLink, removeTypenameLink, authLink.concat(httpLink)])
+export const link = from([
+	errorLink,
+	removeTypenameLink,
+	authLink.concat(httpLink),
+])
 
 export const client = new ApolloClient({
 	cache: new InMemoryCache(),
