@@ -1,4 +1,5 @@
 'use client'
+import { useTheme } from '@/api/hooks/useTheme'
 import { Button } from '@/components/ui/button'
 import ContentCardDialog from '@/components/ui/custom/content-card-dialog/ContentCardDialog'
 import Heading from '@/components/ui/custom/heading/Heading'
@@ -24,10 +25,15 @@ const Content: NextPage<IProps> = ({ id }) => {
 		idsState,
 		setIdsState,
 	} = useContentLogic({ themeId: id })
-
+	const { useGetTheme } = useTheme()
+	const { data: oneThemeData, loading: oneThemeLoading } = useGetTheme({ id })
 	return (
 		<section className={styles.container}>
-			<Heading text={'Add Title'} />
+			<Heading
+				text={
+					oneThemeLoading ? 'loading' : oneThemeData?.getOneTheme.title || ''
+				}
+			/>
 			<FormProvider {...methods}>
 				<div className={styles.content}>
 					<div className={styles.actions}>

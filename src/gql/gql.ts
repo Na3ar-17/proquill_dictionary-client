@@ -25,6 +25,7 @@ const documents = {
     "\n\tmutation deleteContent($id: String!, $themeId: String!) {\n\t\tdeleteContent(id: $id, themeId: $themeId) {\n\t\t\tid\n\t\t\tcreatedAt\n\t\t\tsentence\n\t\t\ttranslation\n\t\t\ttranscription\n\t\t\tthemeId\n\t\t\tlernedCounts\n\t\t\thasLearned\n\t\t\texampleSentences\n\t\t\timageUrl\n\t\t}\n\t}\n": types.DeleteContentDocument,
     "\n\tmutation updateContent($updateContentInput: UpdateContentInput!) {\n\t\tupdateContent(updateContentInput: $updateContentInput) {\n\t\t\tid\n\t\t\tcreatedAt\n\t\t\tsentence\n\t\t\ttranslation\n\t\t\ttranscription\n\t\t\tthemeId\n\t\t\tlernedCounts\n\t\t\thasLearned\n\t\t\texampleSentences\n\t\t\timageUrl\n\t\t}\n\t}\n": types.UpdateContentDocument,
     "\n\tquery getAllThemes {\n\t\tgetAllThemes {\n\t\t\tid\n\t\t\tcreatedAt\n\t\t\ttitle\n\t\t}\n\t}\n": types.GetAllThemesDocument,
+    "\n\tquery getTheme($id: String!) {\n\t\tgetOneTheme(id: $id) {\n\t\t\ttitle\n\t\t}\n\t}\n": types.GetThemeDocument,
     "\n\tmutation createTheme {\n\t\tcreateTheme {\n\t\t\tid\n\t\t\tcreatedAt\n\t\t\ttitle\n\t\t}\n\t}\n": types.CreateThemeDocument,
     "\n\tmutation deleteTheme($ids: [String!]!) {\n\t\tdeleteOneOrMoreTheme(ids: $ids)\n\t}\n": types.DeleteThemeDocument,
     "\n\tmutation updateTheme($updateThemeInput: UpdateThemeInput!) {\n\t\tupdateTheme(updateThemeInput: $updateThemeInput) {\n\t\t\tid\n\t\t\tcreatedAt\n\t\t\ttitle\n\t\t}\n\t}\n": types.UpdateThemeDocument,
@@ -93,6 +94,10 @@ export function graphql(source: "\n\tmutation updateContent($updateContentInput:
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n\tquery getAllThemes {\n\t\tgetAllThemes {\n\t\t\tid\n\t\t\tcreatedAt\n\t\t\ttitle\n\t\t}\n\t}\n"): (typeof documents)["\n\tquery getAllThemes {\n\t\tgetAllThemes {\n\t\t\tid\n\t\t\tcreatedAt\n\t\t\ttitle\n\t\t}\n\t}\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n\tquery getTheme($id: String!) {\n\t\tgetOneTheme(id: $id) {\n\t\t\ttitle\n\t\t}\n\t}\n"): (typeof documents)["\n\tquery getTheme($id: String!) {\n\t\tgetOneTheme(id: $id) {\n\t\t\ttitle\n\t\t}\n\t}\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

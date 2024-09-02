@@ -3,6 +3,7 @@ import { CardContent } from '@/components/ui/card'
 import ProgressBar from '@/components/ui/custom/progress-bar/ProgressBar'
 import { NextPage } from 'next'
 import styles from '../ThemeCard.module.scss'
+
 interface IProps {
 	wordsLearned: number
 	themeId: string

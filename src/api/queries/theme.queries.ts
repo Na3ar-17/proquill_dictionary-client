@@ -9,6 +9,13 @@ export const GET_THEMES_QUERY = graphql(`
 		}
 	}
 `)
+export const GET_THEME_QUERY = graphql(`
+	query getTheme($id: String!) {
+		getOneTheme(id: $id) {
+			title
+		}
+	}
+`)
 
 export const CREATE_THEME_MUTATION = graphql(`
 	mutation createTheme {
