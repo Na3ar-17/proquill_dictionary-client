@@ -5,16 +5,19 @@ import { NextPage } from 'next'
 import { useEffect, useState } from 'react'
 interface IProps {
 	className?: string
+	progress: number
 }
 
-const ProgressBar: NextPage<IProps> = ({ className }) => {
-	const [progress, setProgress] = useState(13)
+const ProgressBar: NextPage<IProps> = ({ className, progress }) => {
+	const [indicator, setIndicator] = useState(0)
 
 	useEffect(() => {
-		const timer = setTimeout(() => setProgress(66), 500)
+		const timer = setTimeout(() => setIndicator(progress), 500)
 		return () => clearTimeout(timer)
 	}, [])
-	return <Progress value={progress} className={cn('w-[100%] h-2', className)} />
+	return (
+		<Progress value={indicator} className={cn('w-[100%] h-2', className)} />
+	)
 }
 
 export default ProgressBar

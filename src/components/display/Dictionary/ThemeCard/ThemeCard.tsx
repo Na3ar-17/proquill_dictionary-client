@@ -16,7 +16,9 @@ interface IProps {
 	data: ITheme
 }
 
-const ThemeCard: NextPage<IProps> = ({ data: { createdAt, title, id } }) => {
+const ThemeCard: NextPage<IProps> = ({
+	data: { createdAt, title, id, learningProgress },
+}) => {
 	const {
 		form,
 		handleDelete,
@@ -77,7 +79,10 @@ const ThemeCard: NextPage<IProps> = ({ data: { createdAt, title, id } }) => {
 					</CardHeader>
 					<CardContent className='w-full h-full flex items-end justify-end'>
 						<div className={styles['progress-container']}>
-							<ProgressBar className='h-[5px]' />
+							<ProgressBar
+								className='h-[5px]'
+								progress={learningProgress?.wordsLearned || 0}
+							/>
 						</div>
 						<p className='text-base text-zinc-500 font-semibold'>20 items</p>
 					</CardContent>
