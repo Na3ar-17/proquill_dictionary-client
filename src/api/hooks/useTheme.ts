@@ -1,18 +1,13 @@
-import { graphql } from '@/gql'
 import { useMutation, useQuery } from '@apollo/client'
+import {
+	CREATE_THEME_MUTATION,
+	DELETE_THEME_MUTATION,
+	GET_THEMES_QUERY,
+	UPDATE_THEME_MUTATION,
+} from '../queries/theme.queries'
 
 export const useTheme = () => {
 	const useGetThemes = () => {
-		const GET_THEMES_QUERY = graphql(`
-			query getAllThemes {
-				getAllThemes {
-					id
-					createdAt
-					title
-				}
-			}
-		`)
-
 		const { data, loading, error } = useQuery(GET_THEMES_QUERY, {
 			errorPolicy: 'all',
 		})
@@ -25,16 +20,6 @@ export const useTheme = () => {
 	}
 
 	const useCreateTheme = () => {
-		const CREATE_THEME_MUTATION = graphql(`
-			mutation createTheme {
-				createTheme {
-					id
-					createdAt
-					title
-				}
-			}
-		`)
-
 		const [mutation, { loading: mutationLoading }] = useMutation(
 			CREATE_THEME_MUTATION,
 			{
@@ -45,12 +30,6 @@ export const useTheme = () => {
 	}
 
 	const useDeleteTheme = () => {
-		const DELETE_THEME_MUTATION = graphql(`
-			mutation deleteTheme($ids: [String!]!) {
-				deleteOneOrMoreTheme(ids: $ids)
-			}
-		`)
-
 		const [mutation, { loading, called }] = useMutation(DELETE_THEME_MUTATION, {
 			refetchQueries: ['getAllThemes'],
 			onError: ({ message }) => {
@@ -61,16 +40,6 @@ export const useTheme = () => {
 	}
 
 	const useUpdateTheme = () => {
-		const UPDATE_THEME_MUTATION = graphql(`
-			mutation updateTheme($updateThemeInput: UpdateThemeInput!) {
-				updateTheme(updateThemeInput: $updateThemeInput) {
-					id
-					createdAt
-					title
-				}
-			}
-		`)
-
 		const [mutation, { loading, called }] = useMutation(UPDATE_THEME_MUTATION, {
 			refetchQueries: ['getAllThemes'],
 		})

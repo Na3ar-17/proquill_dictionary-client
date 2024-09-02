@@ -7,7 +7,7 @@ import {
 	GET_CONTENT_QUERY,
 	GET_ONE_CONTENT_QUERY,
 	UPDATE_CONTENT_MUTATION,
-} from '../queries/content.queris'
+} from '../queries/content.queries'
 
 export const useContent = () => {
 	const useGetContent = ({ themeId }: { themeId: string }) => {
