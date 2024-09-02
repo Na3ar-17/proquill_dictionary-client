@@ -74,7 +74,7 @@ const ContentCard: NextPage<IProps> = ({ data, setIdsState, handleDelete }) => {
 							className={styles.sentence}
 						>
 							<TipTap
-								content={textAbstract(data.sentence, 42)}
+								content={textAbstract(data.sentence, 30)}
 								isCanEdit={false}
 							/>
 						</div>
