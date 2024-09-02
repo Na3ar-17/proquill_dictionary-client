@@ -1,4 +1,5 @@
 import { useContent } from '@/api/hooks/useContent'
+import { GET_CONTENT_QUERY } from '@/api/queries/content.queries'
 import { useContentCardDialogStore } from '@/store/content-dialog.store'
 import { IContentForm } from '@/types/content-form.types'
 import { useState } from 'react'
@@ -43,7 +44,7 @@ export const useContentDialog = ({ themeId }: IProps) => {
 				onError: ({ message }) => {
 					toast.error(message)
 				},
-				refetchQueries: ['getAllContent'],
+				refetchQueries: [GET_CONTENT_QUERY],
 			})
 		} else {
 			mutation({
@@ -57,7 +58,7 @@ export const useContentDialog = ({ themeId }: IProps) => {
 					form.reset()
 					onClose()
 				},
-				refetchQueries: ['getAllContent'],
+				refetchQueries: [GET_CONTENT_QUERY],
 			})
 		}
 	}
