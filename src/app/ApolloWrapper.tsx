@@ -1,7 +1,5 @@
 'use client'
-
-import { getClient } from '@/config/ApolloClient'
-import { authLink, httpLink } from '@/config/graphql.config'
+import { authLink, errorLink, httpLink } from '@/config/graphql.config'
 import { from } from '@apollo/client'
 import { removeTypenameFromVariables } from '@apollo/client/link/remove-typename'
 import {
@@ -11,7 +9,7 @@ import {
 } from '@apollo/experimental-nextjs-app-support'
 
 const removeTypenameLink = removeTypenameFromVariables()
-const link = from([removeTypenameLink, authLink.concat(httpLink)])
+const link = from([errorLink, removeTypenameLink, authLink.concat(httpLink)])
 
 function makeClient() {
 	return new ApolloClient({

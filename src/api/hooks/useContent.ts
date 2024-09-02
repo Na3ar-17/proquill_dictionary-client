@@ -28,7 +28,7 @@ export const useContent = () => {
 	}) => {
 		const query = useQuery(GET_ONE_CONTENT_QUERY, {
 			variables: { themeId, id },
-			skip: !id,
+			skip: !id || !themeId,
 		})
 
 		return query

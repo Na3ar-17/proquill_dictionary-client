@@ -13,7 +13,9 @@ export const useTheme = () => {
 			}
 		`)
 
-		const { data, loading, error } = useQuery(GET_THEMES_QUERY)
+		const { data, loading, error } = useQuery(GET_THEMES_QUERY, {
+			errorPolicy: 'all',
+		})
 
 		return {
 			data,

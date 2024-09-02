@@ -15,10 +15,9 @@ const Dictionary: NextPage = () => {
 		return <div>Loading</div>
 	}
 
-	if (error || !data) {
-		return <div>{error && error.message}</div>
+	if (error) {
+		return <div>{error.message}</div>
 	}
-
 	return (
 		<section className={styles.container}>
 			<Heading text='Dictionary' />
@@ -30,7 +29,7 @@ const Dictionary: NextPage = () => {
 					</Button>
 				</div>
 				<div className={styles.themes}>
-					{data.getAllThemes.map((el, i) => (
+					{data?.getAllThemes.map((el, i) => (
 						<ThemeCard data={el} key={i} />
 					))}
 				</div>

@@ -22,10 +22,7 @@ export const useContentDialog = ({ themeId }: IProps) => {
 	})
 
 	const [mutation] = useCreateContent()
-	const {
-		'0': updateMutation,
-		'1': { data: updatedData },
-	} = useUpdateContent()
+	const { '0': updateMutation } = useUpdateContent()
 	const currentData = data?.getOneContent
 	const prevData = previousData?.getOneContent
 
@@ -47,7 +44,6 @@ export const useContentDialog = ({ themeId }: IProps) => {
 					toast.error(message)
 				},
 				refetchQueries: ['getAllContent'],
-				awaitRefetchQueries: true,
 			})
 		} else {
 			mutation({

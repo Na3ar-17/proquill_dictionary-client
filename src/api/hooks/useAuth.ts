@@ -4,6 +4,7 @@ import { EnumTokens } from '@/types/auth-token.types'
 import { useMutation } from '@apollo/client'
 import cookie from 'js-cookie'
 import { useRouter } from 'next/navigation'
+import { GET_NEW_TOKENS_MUTATION } from '../queries/auth.queries'
 
 export const useAuth = () => {
 	const { replace } = useRouter()
@@ -63,7 +64,7 @@ export const useAuth = () => {
 				},
 			},
 			onCompleted: ({ login }) => {
-				cookie.set('accessToken', login.accessToken)
+				cookie.set('accessToken', login.accessToken, { expires: 0.003 })
 				replace(PAGES_URL.DICTIONARY)
 			},
 		})
@@ -97,6 +98,15 @@ export const useAuth = () => {
 
 		return { mutation, loading }
 	}
-
-	return { useRegister, useLogin, useLogOut }
+	const useGetNewTokens = () => {
+		const mutation = useMutation(GET_NEW_TOKENS_MUTATION, {
+			context: {
+				fetchOptions: {
+					credentials: 'include',
+				},
+			},
+		})
+		return mutation
+	}
+	return { useRegister, useLogin, useLogOut, useGetNewTokens }
 }
