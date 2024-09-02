@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button'
 import {
 	FormControl,
 	FormField,
@@ -8,7 +7,6 @@ import {
 } from '@/components/ui/form'
 import { IContentForm } from '@/types/content-form.types'
 import { NextPage } from 'next'
-import { type } from 'os'
 import { Control } from 'react-hook-form'
 import TipTap from '../../text-editors/tiptap/Tiptap'
 

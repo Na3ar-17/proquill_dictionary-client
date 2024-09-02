@@ -3,13 +3,11 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import ContentCardDialog from '@/components/ui/custom/content-card-dialog/ContentCardDialog'
 import BaseContextMenu from '@/components/ui/custom/context-menus/BaseContextMenu'
-import TipTap from '@/components/ui/custom/text-editors/tiptap/Tiptap'
 import { IContent } from '@/entities/content.entity'
 import { cn } from '@/lib/utils'
 import { useContentCardDialogStore } from '@/store/content-dialog.store'
 import type { IContentForm } from '@/types/content-form.types'
 import { dateFormatter } from '@/utils/dateFormatter'
-import { textAbstract } from '@/utils/textAbstract'
 import { NextPage } from 'next'
 import React, { Dispatch, SetStateAction, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
@@ -73,10 +71,7 @@ const ContentCard: NextPage<IProps> = ({ data, setIdsState, handleDelete }) => {
 							}}
 							className={styles.sentence}
 						>
-							<TipTap
-								content={textAbstract(data.sentence, 30)}
-								isCanEdit={false}
-							/>
+							{data.sentence.replace(/(<([^>]+)>)/gi, '')}
 						</div>
 					</CardContent>
 					<CardFooter className='pb-2'>

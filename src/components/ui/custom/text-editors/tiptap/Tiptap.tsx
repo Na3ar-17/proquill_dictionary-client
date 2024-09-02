@@ -2,17 +2,16 @@
 
 import { EditorContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-
 import { NextPage } from 'next'
 import MenuBar from '../menu-bar/MenuBar'
+import './Tiptap.css'
 
 interface IProps {
 	content: string
 	onChange?: (text: string) => void
-	isCanEdit?: boolean
 }
 
-const TipTap: NextPage<IProps> = ({ content, onChange, isCanEdit = true }) => {
+const TipTap: NextPage<IProps> = ({ content, onChange }) => {
 	const editor = useEditor({
 		extensions: [StarterKit.configure()],
 		content: content,
@@ -30,28 +29,12 @@ const TipTap: NextPage<IProps> = ({ content, onChange, isCanEdit = true }) => {
 		immediatelyRender: false,
 	})
 
-	const simpleEditor = useEditor({
-		extensions: [StarterKit.configure()],
-		content: content,
-		immediatelyRender: false,
-		editorProps: {
-			attributes: {
-				class: 'border-none outline-none',
-			},
-		},
-		editable: false,
-	})
-
 	return (
 		<div className='flex flex-col gap-1.5'>
-			{isCanEdit ? (
-				<>
-					<MenuBar editor={editor} />
-					<EditorContent editor={editor} />
-				</>
-			) : (
-				<EditorContent editor={simpleEditor} />
-			)}
+			<>
+				<MenuBar editor={editor} />
+				<EditorContent editor={editor} />
+			</>
 		</div>
 	)
 }

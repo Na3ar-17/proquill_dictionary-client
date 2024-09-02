@@ -9,7 +9,10 @@
 		}
 
 		.sentence {
-			@apply hover:underline transition-all -translate-x-[10px] cursor-pointer;
+			@apply hover:underline transition-all -translate-x-[10px] cursor-pointer w-[90%];
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
 		}
 	}
 
