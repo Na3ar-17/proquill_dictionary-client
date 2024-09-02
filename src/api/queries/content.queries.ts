@@ -16,6 +16,11 @@ export const GET_CONTENT_QUERY = graphql(`
 		}
 	}
 `)
+export const GET_CONTENT_LENGTH = graphql(`
+	query getContentLength($themeId: String!) {
+		getContentLength(themeId: $themeId)
+	}
+`)
 export const GET_ONE_CONTENT_QUERY = graphql(`
 	query getOneContent($id: String!, $themeId: String!) {
 		getOneContent(id: $id, themeId: $themeId) {

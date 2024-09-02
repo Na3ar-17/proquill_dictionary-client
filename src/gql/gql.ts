@@ -18,6 +18,7 @@ const documents = {
     "\n\tmutation logOut {\n\t\tlogout\n\t}\n": types.LogOutDocument,
     "\n\tmutation getNewTokens {\n\t\tgetNewTokens {\n\t\t\taccessToken\n\t\t}\n\t}\n": types.GetNewTokensDocument,
     "\n\tquery getAllContent($themeId: String!) {\n\t\tgetAllContent(themeId: $themeId) {\n\t\t\tid\n\t\t\tcreatedAt\n\t\t\tsentence\n\t\t\ttranslation\n\t\t\ttranscription\n\t\t\tthemeId\n\t\t\tlernedCounts\n\t\t\thasLearned\n\t\t\texampleSentences\n\t\t\timageUrl\n\t\t}\n\t}\n": types.GetAllContentDocument,
+    "\n\tquery getContentLength($themeId: String!) {\n\t\tgetContentLength(themeId: $themeId)\n\t}\n": types.GetContentLengthDocument,
     "\n\tquery getOneContent($id: String!, $themeId: String!) {\n\t\tgetOneContent(id: $id, themeId: $themeId) {\n\t\t\tid\n\t\t\tcreatedAt\n\t\t\tsentence\n\t\t\ttranslation\n\t\t\ttranscription\n\t\t\tthemeId\n\t\t\tlernedCounts\n\t\t\thasLearned\n\t\t\texampleSentences\n\t\t\timageUrl\n\t\t}\n\t}\n": types.GetOneContentDocument,
     "\n\tmutation crateContent($createContentInput: CreateContentInput!) {\n\t\tcreateContent(createContentInput: $createContentInput) {\n\t\t\tid\n\t\t\tcreatedAt\n\t\t\tsentence\n\t\t\ttranslation\n\t\t\ttranscription\n\t\t\tthemeId\n\t\t\tlernedCounts\n\t\t\thasLearned\n\t\t\texampleSentences\n\t\t\timageUrl\n\t\t}\n\t}\n": types.CrateContentDocument,
     "\n\tmutation deleteManyContent($ids: [String!]!, $themeId: String!) {\n\t\tdeleteManyContent(ids: $ids, themeId: $themeId)\n\t}\n": types.DeleteManyContentDocument,
@@ -64,6 +65,10 @@ export function graphql(source: "\n\tmutation getNewTokens {\n\t\tgetNewTokens {
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n\tquery getAllContent($themeId: String!) {\n\t\tgetAllContent(themeId: $themeId) {\n\t\t\tid\n\t\t\tcreatedAt\n\t\t\tsentence\n\t\t\ttranslation\n\t\t\ttranscription\n\t\t\tthemeId\n\t\t\tlernedCounts\n\t\t\thasLearned\n\t\t\texampleSentences\n\t\t\timageUrl\n\t\t}\n\t}\n"): (typeof documents)["\n\tquery getAllContent($themeId: String!) {\n\t\tgetAllContent(themeId: $themeId) {\n\t\t\tid\n\t\t\tcreatedAt\n\t\t\tsentence\n\t\t\ttranslation\n\t\t\ttranscription\n\t\t\tthemeId\n\t\t\tlernedCounts\n\t\t\thasLearned\n\t\t\texampleSentences\n\t\t\timageUrl\n\t\t}\n\t}\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n\tquery getContentLength($themeId: String!) {\n\t\tgetContentLength(themeId: $themeId)\n\t}\n"): (typeof documents)["\n\tquery getContentLength($themeId: String!) {\n\t\tgetContentLength(themeId: $themeId)\n\t}\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

@@ -1,15 +1,14 @@
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardHeader, CardTitle } from '@/components/ui/card'
 import BaseContextMenu from '@/components/ui/custom/context-menus/BaseContextMenu'
 import TransparentField from '@/components/ui/custom/fields/transparent-field/TransparentField'
-import ProgressBar from '@/components/ui/custom/progress-bar/ProgressBar'
 import { Form, FormField } from '@/components/ui/form'
 import { PAGES_URL } from '@/config/pages-url.config'
 import { ITheme } from '@/entities/theme.entity'
 import { dateFormatter } from '@/utils/dateFormatter'
 import { NextPage } from 'next'
 import Link from 'next/link'
-import styles from './ThemeCard.module.scss'
+import Content from './CardContent/Content'
 import { useThemeCard } from './useThemeCard'
 
 interface IProps {
@@ -28,6 +27,7 @@ const ThemeCard: NextPage<IProps> = ({
 		updataThemeLoading,
 		loading,
 	} = useThemeCard({ id, title })
+
 	return (
 		<BaseContextMenu
 			isRename
@@ -77,15 +77,10 @@ const ThemeCard: NextPage<IProps> = ({
 							</p>
 						)}
 					</CardHeader>
-					<CardContent className='w-full h-full flex items-end justify-end'>
-						<div className={styles['progress-container']}>
-							<ProgressBar
-								className='h-[5px]'
-								progress={learningProgress?.wordsLearned || 0}
-							/>
-						</div>
-						<p className='text-base text-zinc-500 font-semibold'>20 items</p>
-					</CardContent>
+					<Content
+						themeId={id}
+						wordsLearned={learningProgress?.wordsLearned || 0}
+					/>
 				</Card>
 			)}
 		</BaseContextMenu>

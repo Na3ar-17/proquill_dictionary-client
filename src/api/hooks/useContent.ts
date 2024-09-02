@@ -4,6 +4,7 @@ import {
 	CREATE_CONTENT_MUTATION,
 	DELETE_CONTENT_MUTATION,
 	DELETE_MANY_CONTENT_MUTATION,
+	GET_CONTENT_LENGTH,
 	GET_CONTENT_QUERY,
 	GET_ONE_CONTENT_QUERY,
 	UPDATE_CONTENT_MUTATION,
@@ -70,6 +71,15 @@ export const useContent = () => {
 
 		return mutation
 	}
+
+	const useGetContentLength = ({ themeId }: { themeId: string }) => {
+		const { data, loading: isContentLengthLoading } = useQuery(
+			GET_CONTENT_LENGTH,
+			{ variables: { themeId } }
+		)
+
+		return { data, isContentLengthLoading }
+	}
 	return {
 		useCreateContent,
 		useDeleteManyContent,
@@ -77,5 +87,6 @@ export const useContent = () => {
 		useUpdateContent,
 		useGetOneContent,
 		useDeleteOneContent,
+		useGetContentLength,
 	}
 }
