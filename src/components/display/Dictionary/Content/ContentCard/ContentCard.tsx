@@ -44,6 +44,7 @@ const ContentCard: NextPage<IProps> = ({ data, setIdsState, handleDelete }) => {
 		setIsChecked(!isChecked)
 		handleIdsState()
 	}
+
 	return (
 		<>
 			<BaseContextMenu

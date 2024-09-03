@@ -1,5 +1,5 @@
 .card {
-	@apply hover:bg-muted transition-colors px-2 flex flex-col;
+	@apply hover:bg-muted relative transition-colors px-2 flex flex-col;
 
 	.content {
 		@apply w-full p-0 py-1.5 min-h-14 h-full  flex items-center gap-3;
@@ -9,7 +9,7 @@
 		}
 
 		.sentence {
-			@apply hover:underline transition-all -translate-x-[10px] cursor-pointer w-[90%];
+			@apply hover:underline  z-[100] transition-all -translate-x-[10px] cursor-pointer;
 			overflow: hidden;
 			text-overflow: ellipsis;
 			white-space: nowrap;

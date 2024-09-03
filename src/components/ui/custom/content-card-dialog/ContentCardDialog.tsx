@@ -76,7 +76,7 @@ const ContentCardDialog: NextPage<IProps> = ({ themeId }) => {
 
 	return (
 		<Dialog open={isOpen} onOpenChange={onClose}>
-			<DialogContent className='min-w-[70%]'>
+			<DialogContent className='min-w-[70%] z-[200]'>
 				<DialogTitle></DialogTitle>
 				<DialogDescription></DialogDescription>
 				{loading || (!isFormInitialized && existsId) ? (
