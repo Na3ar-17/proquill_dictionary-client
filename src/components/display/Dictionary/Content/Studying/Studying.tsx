@@ -2,7 +2,7 @@
 import { useStudy } from '@/api/hooks/useStudy'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import LearningRadio from '@/components/ui/custom/radios/learning-radio/LearningRadio'
+import StudyingRadio from '@/components/ui/custom/radios/studying-radio/LearningRadio'
 import { Form, FormField } from '@/components/ui/form'
 import { IContentForm } from '@/types/content-form.types'
 import { htmlCleaner } from '@/utils/htmlCleaner'
@@ -52,7 +52,7 @@ const Studying: NextPage<IProps> = ({ id }) => {
 									control={form.control}
 									name='translation'
 									render={({ field: { onChange, value } }) => (
-										<LearningRadio
+										<StudyingRadio
 											onChange={() => onChange(el.translation)}
 											text={htmlCleaner(el.translation)}
 											value={el.translation}

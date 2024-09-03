@@ -1,7 +1,7 @@
 'use client'
 
 import { NextPage } from 'next'
-import styles from './LearningRadio.module.scss'
+import styles from './StudyingRadio.module.scss'
 
 interface IProps {
 	text: string
@@ -10,7 +10,7 @@ interface IProps {
 	selectedValue: string
 }
 
-const LearningRadio: NextPage<IProps> = ({
+const StudyingRadio: NextPage<IProps> = ({
 	text,
 	onChange,
 	value,
@@ -30,4 +30,4 @@ const LearningRadio: NextPage<IProps> = ({
 	)
 }
 
-export default LearningRadio
+export default StudyingRadio
