@@ -1,25 +1,29 @@
 'use client'
 
 import { NextPage } from 'next'
-import { useState } from 'react'
 import styles from './LearningRadio.module.scss'
+
 interface IProps {
 	text: string
-	id: string
 	onChange: () => void
+	value: string
+	selectedValue: string
 }
 
-const LearningRadio: NextPage<IProps> = ({ text, id, onChange }) => {
-	const [isChecked, setIsCkecked] = useState<boolean>(false)
+const LearningRadio: NextPage<IProps> = ({
+	text,
+	onChange,
+	value,
+	selectedValue,
+}) => {
 	return (
 		<label className={styles['label']}>
 			<input
 				type='radio'
-				id={id}
-				checked={isChecked}
+				checked={value === selectedValue}
 				name='value-radio'
-				value={id}
 				onChange={onChange}
+				value={value}
 			/>
 			<p className={styles['text']}>{text}</p>
 		</label>

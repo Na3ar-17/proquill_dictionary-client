@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils'
 import { useContentCardDialogStore } from '@/store/content-dialog.store'
 import type { IContentForm } from '@/types/content-form.types'
 import { dateFormatter } from '@/utils/dateFormatter'
+import { htmlCleaner } from '@/utils/htmlCleaner'
 import { NextPage } from 'next'
 import React, { Dispatch, SetStateAction, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
@@ -72,7 +73,7 @@ const ContentCard: NextPage<IProps> = ({ data, setIdsState, handleDelete }) => {
 							}}
 							className={styles.sentence}
 						>
-							{data.sentence.replace(/(<([^>]+)>)/gi, '')}
+							{htmlCleaner(data.sentence)}
 						</div>
 					</CardContent>
 					<CardFooter className='pb-2'>

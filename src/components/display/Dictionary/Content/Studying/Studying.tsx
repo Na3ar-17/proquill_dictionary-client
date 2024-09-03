@@ -1,16 +1,11 @@
 'use client'
+import { useStudy } from '@/api/hooks/useStudy'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from '@/components/ui/form'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import LearningRadio from '@/components/ui/custom/radios/learning-radio/LearningRadio'
+import { Form, FormField } from '@/components/ui/form'
 import { IContentForm } from '@/types/content-form.types'
+import { htmlCleaner } from '@/utils/htmlCleaner'
 import { NextPage } from 'next'
 import { useForm } from 'react-hook-form'
 
@@ -19,7 +14,13 @@ interface IProps {
 }
 
 const Studying: NextPage<IProps> = ({ id }) => {
-	const form = useForm<Pick<IContentForm, 'translation'>>({})
+	const { useGetForSelectTrueTranslation } = useStudy()
+	const { data, loading, error } = useGetForSelectTrueTranslation({
+		themeId: id,
+	})
+	const form = useForm<Pick<IContentForm, 'translation'>>({
+		mode: 'onChange',
+	})
 
 	const onSubmit = (values: Pick<IContentForm, 'translation'>) => {
 		console.log(values)
@@ -36,35 +37,30 @@ const Studying: NextPage<IProps> = ({ id }) => {
 				<CardContent className='flex flex-col gap-12 mt-5 px-12'>
 					<div className='text-center'>
 						<p className='text-lg'>
-							Lorem, ipsum dolor sit amet consectetur adipisicing elit. Amet,
-							quam!
+							{error && <span>{error.message}</span>}
+							{loading && <span>Loading</span>}
+							{htmlCleaner(data?.selectTrueTranslation.sentence || '')}
 						</p>
 					</div>
 					<Form {...form}>
 						<form onSubmit={form.handleSubmit(onSubmit)}>
-							<FormField
-								control={form.control}
-								name='translation'
-								render={({ field }) => (
-									<FormItem className='space-y-3'>
-										<FormControl>
-											<RadioGroup
-												onValueChange={field.onChange}
-												defaultValue={field.value}
-												className='flex flex-col space-y-1'
-											>
-												<FormItem className='flex items-center space-x-3 space-y-0'>
-													<FormControl>
-														<RadioGroupItem value='' />
-													</FormControl>
-													<FormLabel className='font-normal'></FormLabel>
-												</FormItem>
-											</RadioGroup>
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
+							{error && <p>{error.message}</p>}
+							{loading && <p>Loading</p>}
+							{data?.selectTrueTranslation.variations.map((el, i) => (
+								<FormField
+									key={i}
+									control={form.control}
+									name='translation'
+									render={({ field: { onChange, value } }) => (
+										<LearningRadio
+											onChange={() => onChange(el.translation)}
+											text={htmlCleaner(el.translation)}
+											value={el.translation}
+											selectedValue={value}
+										/>
+									)}
+								/>
+							))}
 							<div className='flex flex-col gap-3'>
 								<div>
 									<Button>Submit</Button>
