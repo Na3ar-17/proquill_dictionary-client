@@ -3,8 +3,10 @@ import { useTheme } from '@/api/hooks/useTheme'
 import { Button } from '@/components/ui/button'
 import ContentCardDialog from '@/components/ui/custom/content-card-dialog/ContentCardDialog'
 import Heading from '@/components/ui/custom/heading/Heading'
-import { Trash2 } from 'lucide-react'
+import { PAGES_URL } from '@/config/pages-url.config'
+import { BookA, Trash2 } from 'lucide-react'
 import { NextPage } from 'next'
+import Link from 'next/link'
 import { FormProvider } from 'react-hook-form'
 import styles from './Content.module.scss'
 import ContentCard from './ContentCard/ContentCard'
@@ -50,7 +52,15 @@ const Content: NextPage<IProps> = ({ id }) => {
 								</Button>
 							</div>
 						)}
-
+						<Button variant={'outline'}>
+							<Link
+								className='flex items-center gap-2'
+								href={`${PAGES_URL.DICTIONARY}/${id}/studying`}
+							>
+								<p>Study</p>
+								<BookA className='size-5' />
+							</Link>
+						</Button>
 						<div>
 							<Button
 								onClick={() => {

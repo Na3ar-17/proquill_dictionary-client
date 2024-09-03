@@ -1,7 +1,6 @@
 'use client'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import LearningRadio from '@/components/ui/custom/radios/learning-radio/LearningRadio'
 import {
 	Form,
 	FormControl,
@@ -11,7 +10,6 @@ import {
 	FormMessage,
 } from '@/components/ui/form'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
-import { IContent } from '@/entities/content.entity'
 import { IContentForm } from '@/types/content-form.types'
 import { NextPage } from 'next'
 import { useForm } from 'react-hook-form'
@@ -20,7 +18,7 @@ interface IProps {
 	id: string
 }
 
-const Learning: NextPage<IProps> = ({ id }) => {
+const Studying: NextPage<IProps> = ({ id }) => {
 	const form = useForm<Pick<IContentForm, 'translation'>>({})
 
 	const onSubmit = (values: Pick<IContentForm, 'translation'>) => {
@@ -80,4 +78,4 @@ const Learning: NextPage<IProps> = ({ id }) => {
 	)
 }
 
-export default Learning
+export default Studying

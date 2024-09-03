@@ -1,4 +1,4 @@
-import Learning from '@/components/display/Dictionary/Content/Learning/Learning'
+import Studying from '@/components/display/Dictionary/Content/Studying/Studying'
 import { NextPage } from 'next'
 
 interface IProps {
@@ -8,7 +8,7 @@ interface IProps {
 }
 
 const page: NextPage<IProps> = ({ params: { id } }) => {
-	return <Learning id={id} />
+	return <Studying id={id} />
 }
 
 export default page
