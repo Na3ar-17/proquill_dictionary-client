@@ -13,6 +13,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
+    "\n\t\t\tquery GetForSelectTrueTranslation($themeId: String!) {\n\t\t\t\tselectTrueTranslation(themeId: $themeId) {\n\t\t\t\t\tid\n\t\t\t\t\titemsLeft\n\t\t\t\t\tthemeId\n\t\t\t\t\tsentence\n\t\t\t\t\tvariations {\n\t\t\t\t\t\ttranslation\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t": types.GetForSelectTrueTranslationDocument,
     "\n\tmutation registration($registerDto: CreateUserInput!) {\n\t\tregister(registerDto: $registerDto) {\n\t\t\tuser {\n\t\t\t\tid\n\t\t\t\temail\n\t\t\t\tprofilePictureUrl\n\t\t\t\tfullName\n\t\t\t\tcreatedAt\n\t\t\t}\n\t\t\taccessToken\n\t\t}\n\t}\n": types.RegistrationDocument,
     "\n\tmutation login($loginDto: CreateUserInput!) {\n\t\tlogin(loginDto: $loginDto) {\n\t\t\tuser {\n\t\t\t\tid\n\t\t\t\temail\n\t\t\t\tprofilePictureUrl\n\t\t\t\tfullName\n\t\t\t}\n\t\t\taccessToken\n\t\t}\n\t}\n": types.LoginDocument,
     "\n\tmutation logOut {\n\t\tlogout\n\t}\n": types.LogOutDocument,
@@ -46,6 +47,10 @@ const documents = {
  */
 export function graphql(source: string): unknown;
 
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n\t\t\tquery GetForSelectTrueTranslation($themeId: String!) {\n\t\t\t\tselectTrueTranslation(themeId: $themeId) {\n\t\t\t\t\tid\n\t\t\t\t\titemsLeft\n\t\t\t\t\tthemeId\n\t\t\t\t\tsentence\n\t\t\t\t\tvariations {\n\t\t\t\t\t\ttranslation\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t"): (typeof documents)["\n\t\t\tquery GetForSelectTrueTranslation($themeId: String!) {\n\t\t\t\tselectTrueTranslation(themeId: $themeId) {\n\t\t\t\t\tid\n\t\t\t\t\titemsLeft\n\t\t\t\t\tthemeId\n\t\t\t\t\tsentence\n\t\t\t\t\tvariations {\n\t\t\t\t\t\ttranslation\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
