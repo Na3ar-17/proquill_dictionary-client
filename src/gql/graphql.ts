@@ -80,6 +80,7 @@ export type Mutation = {
   updateLearningProgress: LearningProgress;
   updateTheme: Theme;
   updateUser: User;
+  validateSelectedTranslation: Scalars['Boolean']['output'];
 };
 
 
@@ -134,6 +135,11 @@ export type MutationUpdateUserArgs = {
   updateUserInput: UpdateUserInput;
 };
 
+
+export type MutationValidateSelectedTranslationArgs = {
+  validateSelectedTranslation: ValidateSelectedTranslation;
+};
+
 export type Query = {
   __typename?: 'Query';
   findOne: User;
@@ -143,6 +149,7 @@ export type Query = {
   getLearningProgress: LearningProgress;
   getOneContent: Content;
   getOneTheme: Theme;
+  selectTrueTranslation: SelectTrueTranslation;
 };
 
 
@@ -169,6 +176,20 @@ export type QueryGetOneContentArgs = {
 
 export type QueryGetOneThemeArgs = {
   id: Scalars['String']['input'];
+};
+
+
+export type QuerySelectTrueTranslationArgs = {
+  themeId: Scalars['String']['input'];
+};
+
+export type SelectTrueTranslation = {
+  __typename?: 'SelectTrueTranslation';
+  id: Scalars['String']['output'];
+  itemsLeft: Scalars['Int']['output'];
+  sentence: Scalars['String']['output'];
+  themeId: Scalars['String']['output'];
+  variations: Array<Variations>;
 };
 
 export type Theme = {
@@ -227,6 +248,17 @@ export type User = {
   profilePictureUrl?: Maybe<Scalars['String']['output']>;
   themes: Array<Theme>;
   updatedAt: Scalars['DateTime']['output'];
+};
+
+export type ValidateSelectedTranslation = {
+  currentSentenceId: Scalars['String']['input'];
+  themeId: Scalars['String']['input'];
+  translation: Scalars['String']['input'];
+};
+
+export type Variations = {
+  __typename?: 'Variations';
+  translation: Scalars['String']['output'];
 };
 
 export type RegistrationMutationVariables = Exact<{
