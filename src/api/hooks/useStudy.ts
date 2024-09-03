@@ -1,5 +1,6 @@
 import { graphql } from '@/gql'
-import { useQuery } from '@apollo/client'
+import { ValidateSelectedTranslation } from '@/gql/graphql'
+import { useMutation, useQuery } from '@apollo/client'
 
 export const useStudy = () => {
 	const useGetForSelectTrueTranslation = ({ themeId }: { themeId: string }) => {
@@ -23,5 +24,28 @@ export const useStudy = () => {
 		})
 		return query
 	}
-	return { useGetForSelectTrueTranslation }
+
+	const useValidateSelectedTranslation = (dto: ValidateSelectedTranslation) => {
+		const VALIDATE_SELECTED_TRANSLATION_MUTATION = graphql(`
+			mutation validateSelectedTranslation($dto: ValidateSelectedTranslation!) {
+				validateSelectedTranslation(validateSelectedTranslation: $dto)
+			}
+		`)
+
+		const [
+			mutation,
+			{
+				data: validateSelectedTranslationData,
+				loading: validateSelectedTranslationLoading,
+			},
+		] = useMutation(VALIDATE_SELECTED_TRANSLATION_MUTATION, {
+			variables: { dto },
+		})
+		return {
+			mutation,
+			validateSelectedTranslationData,
+			validateSelectedTranslationLoading,
+		}
+	}
+	return { useGetForSelectTrueTranslation, useValidateSelectedTranslation }
 }
