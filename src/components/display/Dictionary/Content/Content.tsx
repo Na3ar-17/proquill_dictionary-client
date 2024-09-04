@@ -42,6 +42,7 @@ const Content: NextPage<IProps> = ({ id }) => {
 						{idsState.length >= 1 && (
 							<div className='flex items-center gap-3'>
 								<p className='text-sm text-zinc-500'>
+									{/* TODO: implement unchecking all */}
 									Selected {idsState.length} from {data?.getAllContent.length}
 								</p>
 								<Button variant={'ghost'} className='h-0 px-3 py-5'>
@@ -52,9 +53,9 @@ const Content: NextPage<IProps> = ({ id }) => {
 								</Button>
 							</div>
 						)}
-						<Button variant={'outline'}>
+						<Button variant={'outline'} className='p-0'>
 							<Link
-								className='flex items-center gap-2'
+								className='flex px-4 py-2 items-center gap-2 w-full h-full'
 								href={`${PAGES_URL.DICTIONARY}/${id}/studying`}
 							>
 								<p>Study</p>
