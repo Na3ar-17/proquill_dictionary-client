@@ -1,5 +1,4 @@
 import { graphql } from '@/gql'
-import { ValidateSelectedTranslation } from '@/gql/graphql'
 import { useMutation, useQuery } from '@apollo/client'
 
 export const useStudy = () => {
@@ -25,7 +24,7 @@ export const useStudy = () => {
 		return query
 	}
 
-	const useValidateSelectedTranslation = (dto: ValidateSelectedTranslation) => {
+	const useValidateSelectedTranslation = () => {
 		const VALIDATE_SELECTED_TRANSLATION_MUTATION = graphql(`
 			mutation validateSelectedTranslation($dto: ValidateSelectedTranslation!) {
 				validateSelectedTranslation(validateSelectedTranslation: $dto)
@@ -38,9 +37,7 @@ export const useStudy = () => {
 				data: validateSelectedTranslationData,
 				loading: validateSelectedTranslationLoading,
 			},
-		] = useMutation(VALIDATE_SELECTED_TRANSLATION_MUTATION, {
-			variables: { dto },
-		})
+		] = useMutation(VALIDATE_SELECTED_TRANSLATION_MUTATION)
 		return {
 			mutation,
 			validateSelectedTranslationData,
