@@ -9,7 +9,7 @@ import { IContentForm } from '@/types/content-form.types'
 import { htmlCleaner } from '@/utils/htmlCleaner'
 import { NextPage } from 'next'
 import { useForm } from 'react-hook-form'
-
+import styles from './Studying.module.scss'
 interface IProps {
 	id: string
 }
@@ -23,13 +23,13 @@ const Studying: NextPage<IProps> = ({ id }) => {
 		mode: 'onChange',
 	})
 
-	const onSubmit = (values: Pick<IContentForm, 'translation'>) => {
-		console.log(values)
+	const onSubmit = (data: Pick<IContentForm, 'translation'>) => {
+		console.log(data)
 	}
 
 	return (
 		<section className='flex justify-center items-center min-h-[95vh]'>
-			<Card className='w-[80%]'>
+			<Card className='w-[80%] relative overflow-hidden'>
 				<CardHeader>
 					<CardTitle className='text-muted-foreground text-base font-normal'>
 						Choose correct translation
@@ -83,6 +83,7 @@ const Studying: NextPage<IProps> = ({ id }) => {
 						</form>
 					</Form>
 				</CardContent>
+				<div className={styles.indicator}></div>
 			</Card>
 		</section>
 	)
