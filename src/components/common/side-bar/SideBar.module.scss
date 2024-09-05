@@ -11,7 +11,7 @@
 		@apply flex relative  flex-col h-[80%] items-start px-2 text-sm gap-2 font-medium lg:px-4;
 
 		.element {
-			@apply flex last:mt-auto items-center gap-3 text-lg rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary;
+			@apply flex cursor-pointer last:mt-auto items-center gap-3 text-lg rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary;
 			.icon {
 				@apply size-5;
 			}
