@@ -1,4 +1,5 @@
 import { ThemeProvider } from '@/providers/theme-provider'
+import { LazyMotion, domAnimation } from 'framer-motion'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { Toaster } from 'react-hot-toast'
@@ -17,32 +18,34 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en'>
-			<body
-				suppressHydrationWarning
-				suppressContentEditableWarning
-				className={inter.className}
-			>
-				<ApolloWrapper>
-					<ThemeProvider
-						attribute='class'
-						defaultTheme='dark'
-						enableSystem
-						disableTransitionOnChange
-					>
-						{children}
-						<Toaster
-							position='top-center'
-							toastOptions={{
-								style: {
-									borderRadius: '10px',
-									background: '#333',
-									color: '#fff',
-								},
-							}}
-						/>
-					</ThemeProvider>
-				</ApolloWrapper>
-			</body>
+			<LazyMotion features={domAnimation}>
+				<body
+					suppressHydrationWarning={true}
+					suppressContentEditableWarning={true}
+					className={inter.className}
+				>
+					<ApolloWrapper>
+						<ThemeProvider
+							attribute='class'
+							defaultTheme='dark'
+							enableSystem
+							disableTransitionOnChange
+						>
+							{children}
+							<Toaster
+								position='top-center'
+								toastOptions={{
+									style: {
+										borderRadius: '10px',
+										background: '#333',
+										color: '#fff',
+									},
+								}}
+							/>
+						</ThemeProvider>
+					</ApolloWrapper>
+				</body>
+			</LazyMotion>
 		</html>
 	)
 }

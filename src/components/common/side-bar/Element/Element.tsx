@@ -2,18 +2,23 @@ import { useAuth } from '@/api/hooks/useAuth'
 import { Button } from '@/components/ui/button'
 import { ISideBarElement } from '@/types/sidebar.types'
 import { NextPage } from 'next'
-import Link from 'next/link'
-import styles from './Element.module.scss'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import styles from '../SideBar.module.scss'
 
 interface IProps {
 	data: ISideBarElement
+	isOpen: string
 }
 
-const Element: NextPage<IProps> = ({ data }) => {
+const Element: NextPage<IProps> = ({ data, isOpen }) => {
 	const { Icon, href, label } = data
 	const { useLogOut } = useAuth()
+	const [loaded, setLoaded] = useState(false)
+	const { push } = useRouter()
 
 	const { loading, mutation } = useLogOut()
+	useEffect(() => setLoaded(true), [])
 
 	return label === 'Log Out' ? (
 		<Button
@@ -22,14 +27,19 @@ const Element: NextPage<IProps> = ({ data }) => {
 			variant={'ghost'}
 			className={styles.element}
 		>
-			<Icon className='size-5' />
-			{label}
+			<Icon className={styles.icon} />
+			{isOpen === 'true' && <span className={styles.text}>{label}</span>}
 		</Button>
 	) : (
-		<Link href={href} className={styles.element}>
-			<Icon className='size-5' />
-			<span>{label}</span>
-		</Link>
+		<div
+			onClick={() => {
+				push(href)
+			}}
+			className={styles.element}
+		>
+			<Icon className={styles.icon} />
+			{isOpen === 'true' && <span className={styles.text}>{label}</span>}
+		</div>
 	)
 }
 

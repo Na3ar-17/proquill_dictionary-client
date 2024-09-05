@@ -8,3 +8,7 @@ export interface ISideBarElement {
 	label: string
 	href: string
 }
+
+export const sideBarCookieName = 'isSideBarOpen'
+
+export type TypeIsSideBarOpen = 'true' | 'false'

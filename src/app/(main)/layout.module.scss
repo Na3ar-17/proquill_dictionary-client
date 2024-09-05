@@ -4,6 +4,11 @@
 		'sidebar content'
 		'sidebar content';
 	grid-template-columns: 230px 1fr;
+
+	&.full {
+		grid-template-columns: 50px 1fr;
+	}
+
 	.sidebar {
 		grid-area: sidebar;
 	}

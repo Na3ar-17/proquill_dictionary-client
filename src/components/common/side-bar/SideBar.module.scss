@@ -1,7 +1,44 @@
 .container {
-	@apply w-[230px] bg-card border-r-2 border-border h-screen fixed flex justify-center items-center;
+	@apply bg-card w-[230px] border-r-2 border-border h-screen fixed flex  justify-center items-center;
 
+	.actionIcon {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		@apply size-5 opacity-0 invisible transition-all cursor-pointer;
+	}
 	.nav {
-		@apply flex flex-col h-[80%] items-start px-2 text-sm gap-2 font-medium lg:px-4;
+		@apply flex relative  flex-col h-[80%] items-start px-2 text-sm gap-2 font-medium lg:px-4;
+
+		.element {
+			@apply flex last:mt-auto items-center gap-3 text-lg rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary;
+			.icon {
+				@apply size-5;
+			}
+		}
+	}
+
+	&.hidden {
+		@apply p-0;
+		.nav {
+			@apply transition-all p-0 w-full justify-center items-center;
+			.element {
+				@apply px-0;
+
+				.icon {
+					@apply size-[26px];
+				}
+
+				&:last-child {
+					width: 80%;
+				}
+			}
+		}
+	}
+
+	&:hover {
+		.actionIcon {
+			@apply opacity-50 visible;
+		}
 	}
 }

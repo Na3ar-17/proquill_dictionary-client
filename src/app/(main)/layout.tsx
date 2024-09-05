@@ -1,20 +1,17 @@
-import SideBar from '@/components/common/side-bar/SideBar'
 import { cookies } from 'next/headers'
-import styles from './layout.module.scss'
+import ClientLayout from './clientLayout'
 
-export default async function MainLayout({
+export default function MainLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode
 }>) {
-	const isOpen = await cookies().get('isSideBarOpen')?.value
+	const cookieStore = cookies()
+	const sideBarState = cookieStore.get('isSideBarOpen')?.value
 
 	return (
-		<main className={styles.layout}>
-			<div className={styles.sidebar}>
-				<SideBar isOpen={!!isOpen} />
-			</div>
-			<div className={styles.content}>{children}</div>
-		</main>
+		<ClientLayout sideBarState={sideBarState || 'true'}>
+			{children}
+		</ClientLayout>
 	)
 }

@@ -1,3 +1,5 @@
+'use client'
+
 import Cookies from 'js-cookie'
 import { useCallback, useState } from 'react'
 
