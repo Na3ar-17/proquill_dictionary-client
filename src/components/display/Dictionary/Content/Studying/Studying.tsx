@@ -41,7 +41,6 @@ const Studying: NextPage<IProps> = ({ id }) => {
 					},
 				},
 				onCompleted: ({ validateSelectedTranslation }) => {
-					console.log(validateSelectedTranslation)
 					form.reset()
 				},
 				refetchQueries: () => ['GetForSelectTrueTranslation'],
