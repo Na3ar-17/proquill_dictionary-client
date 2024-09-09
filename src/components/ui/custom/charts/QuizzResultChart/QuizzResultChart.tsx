@@ -23,10 +23,7 @@ interface IProps {
 	correctAnswersPercent: number
 }
 
-export function StudyingResultChart({
-	chartText,
-	correctAnswersPercent,
-}: IProps) {
+export function QuizzResultChart({ chartText, correctAnswersPercent }: IProps) {
 	const chartData = [
 		{ browser: 'safari', correctAnswersPercent, fill: 'var(--color-safari)' },
 	]
@@ -54,7 +51,7 @@ export function StudyingResultChart({
 				>
 					<RadialBarChart
 						data={chartData}
-						endAngle={0}
+						endAngle={(correctAnswersPercent * 360) / 100}
 						innerRadius={80}
 						outerRadius={140}
 					>
