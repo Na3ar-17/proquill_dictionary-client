@@ -13,8 +13,6 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "\n\t\t\tquery GetForSelectTrueTranslation($themeId: String!) {\n\t\t\t\tselectTrueTranslation(themeId: $themeId) {\n\t\t\t\t\tid\n\t\t\t\t\titemsLeft\n\t\t\t\t\tthemeId\n\t\t\t\t\tsentence\n\t\t\t\t\tvariations {\n\t\t\t\t\t\ttranslation\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t": types.GetForSelectTrueTranslationDocument,
-    "\n\t\t\tmutation validateSelectedTranslation($dto: ValidateSelectedTranslation!) {\n\t\t\t\tvalidateSelectedTranslation(validateSelectedTranslation: $dto)\n\t\t\t}\n\t\t": types.ValidateSelectedTranslationDocument,
     "\n\tmutation registration($registerDto: CreateUserInput!) {\n\t\tregister(registerDto: $registerDto) {\n\t\t\tuser {\n\t\t\t\tid\n\t\t\t\temail\n\t\t\t\tprofilePictureUrl\n\t\t\t\tfullName\n\t\t\t\tcreatedAt\n\t\t\t}\n\t\t\taccessToken\n\t\t}\n\t}\n": types.RegistrationDocument,
     "\n\tmutation login($loginDto: CreateUserInput!) {\n\t\tlogin(loginDto: $loginDto) {\n\t\t\tuser {\n\t\t\t\tid\n\t\t\t\temail\n\t\t\t\tprofilePictureUrl\n\t\t\t\tfullName\n\t\t\t}\n\t\t\taccessToken\n\t\t}\n\t}\n": types.LoginDocument,
     "\n\tmutation logOut {\n\t\tlogout\n\t}\n": types.LogOutDocument,
@@ -26,6 +24,10 @@ const documents = {
     "\n\tmutation deleteManyContent($ids: [String!]!, $themeId: String!) {\n\t\tdeleteManyContent(ids: $ids, themeId: $themeId)\n\t}\n": types.DeleteManyContentDocument,
     "\n\tmutation deleteContent($id: String!, $themeId: String!) {\n\t\tdeleteContent(id: $id, themeId: $themeId) {\n\t\t\tid\n\t\t\tcreatedAt\n\t\t\tsentence\n\t\t\ttranslation\n\t\t\ttranscription\n\t\t\tthemeId\n\t\t\tlernedCounts\n\t\t\thasLearned\n\t\t\texampleSentences\n\t\t\timageUrl\n\t\t}\n\t}\n": types.DeleteContentDocument,
     "\n\tmutation updateContent($updateContentInput: UpdateContentInput!) {\n\t\tupdateContent(updateContentInput: $updateContentInput) {\n\t\t\tid\n\t\t\tcreatedAt\n\t\t\tsentence\n\t\t\ttranslation\n\t\t\ttranscription\n\t\t\tthemeId\n\t\t\tlernedCounts\n\t\t\thasLearned\n\t\t\texampleSentences\n\t\t\timageUrl\n\t\t}\n\t}\n": types.UpdateContentDocument,
+    "\n\tquery getVariations($themeId: String!) {\n\t\tvariations(themeId: $themeId) {\n\t\t\titemsLeft\n\t\t\tthemeId\n\t\t\tsentence\n\t\t\tvariations {\n\t\t\t\ttranslation\n\t\t\t}\n\t\t}\n\t}\n": types.GetVariationsDocument,
+    "\n\tquery getResult($themeId: String!) {\n\t\tresult(themeId: $themeId) {\n\t\t\tcorrectAnswers\n\t\t}\n\t}\n": types.GetResultDocument,
+    "\n\tmutation restartMutation($themeId: String!) {\n\t\trestart(themeId: $themeId)\n\t}\n": types.RestartMutationDocument,
+    "\n\tmutation validateMutation($validateQuizDto: ValidateQuizDto!) {\n\t\tvalidate(validateQuizDto: $validateQuizDto) {\n\t\t\tisCorrect\n\t\t\tcorrectTranslation\n\t\t}\n\t}\n": types.ValidateMutationDocument,
     "\n\tquery getAllThemes {\n\t\tgetAllThemes {\n\t\t\tid\n\t\t\tcreatedAt\n\t\t\ttitle\n\t\t}\n\t}\n": types.GetAllThemesDocument,
     "\n\tquery getTheme($id: String!) {\n\t\tgetOneTheme(id: $id) {\n\t\t\ttitle\n\t\t}\n\t}\n": types.GetThemeDocument,
     "\n\tmutation createTheme {\n\t\tcreateTheme {\n\t\t\tid\n\t\t\tcreatedAt\n\t\t\ttitle\n\t\t}\n\t}\n": types.CreateThemeDocument,
@@ -48,14 +50,6 @@ const documents = {
  */
 export function graphql(source: string): unknown;
 
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "\n\t\t\tquery GetForSelectTrueTranslation($themeId: String!) {\n\t\t\t\tselectTrueTranslation(themeId: $themeId) {\n\t\t\t\t\tid\n\t\t\t\t\titemsLeft\n\t\t\t\t\tthemeId\n\t\t\t\t\tsentence\n\t\t\t\t\tvariations {\n\t\t\t\t\t\ttranslation\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t"): (typeof documents)["\n\t\t\tquery GetForSelectTrueTranslation($themeId: String!) {\n\t\t\t\tselectTrueTranslation(themeId: $themeId) {\n\t\t\t\t\tid\n\t\t\t\t\titemsLeft\n\t\t\t\t\tthemeId\n\t\t\t\t\tsentence\n\t\t\t\t\tvariations {\n\t\t\t\t\t\ttranslation\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t"];
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "\n\t\t\tmutation validateSelectedTranslation($dto: ValidateSelectedTranslation!) {\n\t\t\t\tvalidateSelectedTranslation(validateSelectedTranslation: $dto)\n\t\t\t}\n\t\t"): (typeof documents)["\n\t\t\tmutation validateSelectedTranslation($dto: ValidateSelectedTranslation!) {\n\t\t\t\tvalidateSelectedTranslation(validateSelectedTranslation: $dto)\n\t\t\t}\n\t\t"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -100,6 +94,22 @@ export function graphql(source: "\n\tmutation deleteContent($id: String!, $theme
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n\tmutation updateContent($updateContentInput: UpdateContentInput!) {\n\t\tupdateContent(updateContentInput: $updateContentInput) {\n\t\t\tid\n\t\t\tcreatedAt\n\t\t\tsentence\n\t\t\ttranslation\n\t\t\ttranscription\n\t\t\tthemeId\n\t\t\tlernedCounts\n\t\t\thasLearned\n\t\t\texampleSentences\n\t\t\timageUrl\n\t\t}\n\t}\n"): (typeof documents)["\n\tmutation updateContent($updateContentInput: UpdateContentInput!) {\n\t\tupdateContent(updateContentInput: $updateContentInput) {\n\t\t\tid\n\t\t\tcreatedAt\n\t\t\tsentence\n\t\t\ttranslation\n\t\t\ttranscription\n\t\t\tthemeId\n\t\t\tlernedCounts\n\t\t\thasLearned\n\t\t\texampleSentences\n\t\t\timageUrl\n\t\t}\n\t}\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n\tquery getVariations($themeId: String!) {\n\t\tvariations(themeId: $themeId) {\n\t\t\titemsLeft\n\t\t\tthemeId\n\t\t\tsentence\n\t\t\tvariations {\n\t\t\t\ttranslation\n\t\t\t}\n\t\t}\n\t}\n"): (typeof documents)["\n\tquery getVariations($themeId: String!) {\n\t\tvariations(themeId: $themeId) {\n\t\t\titemsLeft\n\t\t\tthemeId\n\t\t\tsentence\n\t\t\tvariations {\n\t\t\t\ttranslation\n\t\t\t}\n\t\t}\n\t}\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n\tquery getResult($themeId: String!) {\n\t\tresult(themeId: $themeId) {\n\t\t\tcorrectAnswers\n\t\t}\n\t}\n"): (typeof documents)["\n\tquery getResult($themeId: String!) {\n\t\tresult(themeId: $themeId) {\n\t\t\tcorrectAnswers\n\t\t}\n\t}\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n\tmutation restartMutation($themeId: String!) {\n\t\trestart(themeId: $themeId)\n\t}\n"): (typeof documents)["\n\tmutation restartMutation($themeId: String!) {\n\t\trestart(themeId: $themeId)\n\t}\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n\tmutation validateMutation($validateQuizDto: ValidateQuizDto!) {\n\t\tvalidate(validateQuizDto: $validateQuizDto) {\n\t\t\tisCorrect\n\t\t\tcorrectTranslation\n\t\t}\n\t}\n"): (typeof documents)["\n\tmutation validateMutation($validateQuizDto: ValidateQuizDto!) {\n\t\tvalidate(validateQuizDto: $validateQuizDto) {\n\t\t\tisCorrect\n\t\t\tcorrectTranslation\n\t\t}\n\t}\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

@@ -1,10 +1,8 @@
 'use client'
-import { useStudy } from '@/api/hooks/useStudy'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { StudyingResultChart } from '@/components/ui/custom/charts/StudyingResultChart/StudyingResultChart'
-import StudyingRadio from '@/components/ui/custom/radios/studying-radio/LearningRadio'
-import { Form, FormField } from '@/components/ui/form'
+import { Form } from '@/components/ui/form'
 import { Skeleton } from '@/components/ui/skeleton'
 import { IContentForm } from '@/types/content-form.types'
 import { htmlCleaner } from '@/utils/htmlCleaner'
@@ -16,40 +14,13 @@ interface IProps {
 }
 
 const Studying: NextPage<IProps> = ({ id }) => {
-	const { useGetForSelectTrueTranslation, useValidateSelectedTranslation } =
-		useStudy()
-	const { data, loading, error, refetch } = useGetForSelectTrueTranslation({
-		themeId: id,
-	})
-	const {
-		mutation,
-		validateSelectedTranslationData,
-		validateSelectedTranslationLoading,
-	} = useValidateSelectedTranslation()
 	const form = useForm<Pick<IContentForm, 'translation'>>({
 		mode: 'onChange',
 	})
 
-	const onSubmit = (formData: Pick<IContentForm, 'translation'>) => {
-		if (data?.selectTrueTranslation) {
-			mutation({
-				variables: {
-					dto: {
-						themeId: id,
-						currentSentenceId: data?.selectTrueTranslation.id,
-						translation: formData.translation,
-					},
-				},
-				onCompleted: ({ validateSelectedTranslation }) => {
-					form.reset()
-				},
-				refetchQueries: () => ['GetForSelectTrueTranslation'],
-			})
-		}
-	}
-
-	const isEnded = data?.selectTrueTranslation?.itemsLeft == 0
-
+	const onSubmit = (formData: Pick<IContentForm, 'translation'>) => {}
+	const isEnded = false
+	const loading = false
 	return (
 		<section className='flex justify-center items-center min-h-[95vh]'>
 			<Card className='w-[80%] relative overflow-hidden'>
@@ -60,12 +31,7 @@ const Studying: NextPage<IProps> = ({ id }) => {
 				</CardHeader>
 				<CardContent className='flex flex-col gap-12 mt-5 px-12'>
 					<div className='text-lg text-left text-white'>
-						{error && <span>{error.message}</span>}
-						{loading ? (
-							<Skeleton className='h-8' />
-						) : (
-							htmlCleaner(data?.selectTrueTranslation.sentence || '')
-						)}
+						{loading ? <Skeleton className='h-8' /> : htmlCleaner('')}
 					</div>
 					{isEnded ? (
 						<div>
@@ -81,8 +47,7 @@ const Studying: NextPage<IProps> = ({ id }) => {
 								className='flex flex-col gap-1'
 								onSubmit={form.handleSubmit(onSubmit)}
 							>
-								{error && <p>{error.message}</p>}
-								{loading
+								{/* {loading
 									? Array.from({ length: 3 }).map((el, i) => (
 											<Skeleton className='h-[42px] mt-2 last:mt-0' key={i} />
 									  ))
@@ -106,16 +71,10 @@ const Studying: NextPage<IProps> = ({ id }) => {
 													},
 												}}
 											/>
-									  ))}
+									  ))} */}
 								<div className='mt-3'>
 									{!isEnded && (
-										<Button
-											disabled={
-												!form.formState.isValid ||
-												loading ||
-												validateSelectedTranslationLoading
-											}
-										>
+										<Button disabled={!form.formState.isValid || loading}>
 											Submit
 										</Button>
 									)}
