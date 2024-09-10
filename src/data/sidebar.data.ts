@@ -6,11 +6,13 @@ export const sideBarData: ISideBarElement[] = [
 		label: 'Dashboard',
 		href: '',
 		Icon: LayoutDashboard,
+		disabled: true,
 	},
 	{
 		label: 'Profile',
 		href: '',
 		Icon: User,
+		disabled: true,
 	},
 	{
 		label: 'Dictionary',

@@ -7,6 +7,7 @@ export interface ISideBarElement {
 	>
 	label: string
 	href: string
+	disabled?: boolean
 }
 
 export const sideBarCookieName = 'isSideBarOpen'

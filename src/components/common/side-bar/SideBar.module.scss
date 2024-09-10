@@ -15,6 +15,10 @@
 			.icon {
 				@apply size-5;
 			}
+
+			&.disabled {
+				@apply opacity-80  hover:text-muted-foreground line-through;
+			}
 		}
 	}
 
