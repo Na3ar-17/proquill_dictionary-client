@@ -1,20 +1,31 @@
 'use client'
 
 import Cookies from 'js-cookie'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
-type UseCookieReturnType = [string, (newValue: string) => void, () => void]
+type UseCookieReturnType = [
+	string,
+	(newValue: string) => void,
+	() => void,
+	boolean
+]
 
 export default function useCookie(
 	name: string,
 	defaultValue: string
 ): UseCookieReturnType {
-	const [value, setValue] = useState<string>(() => {
+	const [value, setValue] = useState<string>(defaultValue)
+	const [isLoading, setIsLoading] = useState<boolean>(true)
+
+	useEffect(() => {
 		const cookie = Cookies.get(name)
-		if (cookie) return cookie
-		Cookies.set(name, defaultValue)
-		return defaultValue
-	})
+		if (cookie) {
+			setValue(cookie)
+		} else {
+			Cookies.set(name, defaultValue)
+		}
+		setIsLoading(false)
+	}, [name, defaultValue])
 
 	const updateCookie = useCallback(
 		(newValue: string) => {
@@ -29,5 +40,5 @@ export default function useCookie(
 		setValue(defaultValue)
 	}, [name, defaultValue])
 
-	return [value, updateCookie, deleteCookie]
+	return [value, updateCookie, deleteCookie, isLoading]
 }

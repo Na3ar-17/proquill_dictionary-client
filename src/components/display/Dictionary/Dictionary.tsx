@@ -2,6 +2,7 @@
 import { useTheme } from '@/api/hooks/useTheme'
 import { Button } from '@/components/ui/button'
 import Heading from '@/components/ui/custom/heading/Heading'
+import { Skeleton } from '@/components/ui/skeleton'
 import { NextPage } from 'next'
 import styles from './Dictionary.module.scss'
 import ThemeCard from './ThemeCard/ThemeCard'
@@ -11,13 +12,6 @@ const Dictionary: NextPage = () => {
 	const { data, error, loading } = useGetThemes()
 	const { mutation, mutationLoading } = useCreateTheme()
 
-	if (loading) {
-		return <div>Loading</div>
-	}
-
-	if (error) {
-		return <div>{error.message}</div>
-	}
 	return (
 		<section className={styles.container}>
 			<Heading text='Dictionary' />
@@ -30,9 +24,13 @@ const Dictionary: NextPage = () => {
 				</div>
 
 				<div className={styles.themes}>
-					{data?.getAllThemes.map((el, i) => (
-						<ThemeCard data={el} key={i} />
-					))}
+					{loading
+						? Array.from({ length: 8 }).map((el, i) => (
+								<Skeleton key={i} className='h-[95px]' />
+						  ))
+						: data?.getAllThemes.map((el, i) => (
+								<ThemeCard data={el} key={i} />
+						  ))}
 				</div>
 			</div>
 		</section>
