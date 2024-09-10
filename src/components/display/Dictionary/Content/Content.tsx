@@ -4,9 +4,10 @@ import { Button } from '@/components/ui/button'
 import ContentCardDialog from '@/components/ui/custom/content-card-dialog/ContentCardDialog'
 import Heading from '@/components/ui/custom/heading/Heading'
 import { PAGES_URL } from '@/config/pages-url.config'
-import { BookA, Trash2 } from 'lucide-react'
+import { BookA, BookmarkX, Trash2 } from 'lucide-react'
 import { NextPage } from 'next'
 import Link from 'next/link'
+import { useState } from 'react'
 import { FormProvider } from 'react-hook-form'
 import styles from './Content.module.scss'
 import ContentCard from './ContentCard/ContentCard'
@@ -29,6 +30,7 @@ const Content: NextPage<IProps> = ({ id }) => {
 	} = useContentLogic({ themeId: id })
 	const { useGetTheme } = useTheme()
 	const { data: oneThemeData, loading: oneThemeLoading } = useGetTheme({ id })
+	const [resetChecked, setResetChecked] = useState(false)
 	return (
 		<section className={styles.container}>
 			<Heading
@@ -40,11 +42,20 @@ const Content: NextPage<IProps> = ({ id }) => {
 				<div className={styles.content}>
 					<div className={styles.actions}>
 						{idsState.length >= 1 && (
-							<div className='flex items-center gap-3'>
+							<div className='flex items-center gap-2'>
 								<p className='text-sm text-zinc-500'>
-									{/* TODO: implement unchecking all */}
 									Selected {idsState.length} from {data?.getAllContent.length}
 								</p>
+								<Button
+									variant={'ghost'}
+									onClick={() => {
+										setIdsState([])
+										setResetChecked(true)
+									}}
+									className='h-0 px-3 py-5'
+								>
+									<BookmarkX className='size-5' />
+								</Button>
 								<Button variant={'ghost'} className='h-0 px-3 py-5'>
 									<Trash2
 										onClick={() => handleDelete({ ids: idsState })}
@@ -89,7 +100,9 @@ const Content: NextPage<IProps> = ({ id }) => {
 								setIdsState={setIdsState}
 								handleDelete={handleDelete}
 								data={el}
+								resetChecked={resetChecked}
 								key={el.id}
+								setResetChecked={setResetChecked}
 							/>
 						))}
 					</div>

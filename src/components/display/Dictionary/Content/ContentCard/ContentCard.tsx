@@ -10,7 +10,7 @@ import type { IContentForm } from '@/types/content-form.types'
 import { dateFormatter } from '@/utils/dateFormatter'
 import { htmlCleaner } from '@/utils/htmlCleaner'
 import { NextPage } from 'next'
-import React, { Dispatch, SetStateAction, useState } from 'react'
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import styles from './ContentCard.module.scss'
 
@@ -18,14 +18,23 @@ interface IProps {
 	data: IContent
 	setIdsState: Dispatch<SetStateAction<string[]>>
 	handleDelete: ({ ids }: { ids: string[] }) => void
+	resetChecked: boolean
+	setResetChecked: Dispatch<SetStateAction<boolean>>
 }
 
-const ContentCard: NextPage<IProps> = ({ data, setIdsState, handleDelete }) => {
-	const [isChecked, setIsChecked] = useState<boolean>(false)
+const ContentCard: NextPage<IProps> = ({
+	data,
+	setIdsState,
+	handleDelete,
+	resetChecked,
+	setResetChecked,
+}) => {
 	const { setValue } = useFormContext<IContentForm>()
 	const { onOpen } = useContentCardDialogStore()
+	const [isChecked, setIsChecked] = useState<boolean>(false)
 
 	const handleIdsState = () => {
+		setResetChecked(false)
 		setIdsState(prev => {
 			if (!prev) return prev
 			if (isChecked) {
@@ -45,7 +54,11 @@ const ContentCard: NextPage<IProps> = ({ data, setIdsState, handleDelete }) => {
 		setIsChecked(!isChecked)
 		handleIdsState()
 	}
-
+	useEffect(() => {
+		if (resetChecked) {
+			setIsChecked(false)
+		}
+	}, [resetChecked])
 	return (
 		<>
 			<BaseContextMenu
