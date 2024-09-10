@@ -1,3 +1,4 @@
+import { useTheme } from '@/api/hooks/useTheme'
 import { Card, CardHeader, CardTitle } from '@/components/ui/card'
 import BaseContextMenu from '@/components/ui/custom/context-menus/BaseContextMenu'
 import { Form } from '@/components/ui/form'
@@ -6,9 +7,10 @@ import { ITheme } from '@/entities/theme.entity'
 import { dateFormatter } from '@/utils/dateFormatter'
 import { NextPage } from 'next'
 import Link from 'next/link'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import Content from './CardContent/Content'
 import FormComponent from './Form/FormComponent'
-import { useThemeCard } from './useThemeCard'
 
 interface IProps {
 	data: ITheme
@@ -17,15 +19,31 @@ interface IProps {
 const ThemeCard: NextPage<IProps> = ({
 	data: { createdAt, title, id, learningProgress },
 }) => {
-	const {
-		form,
-		handleDelete,
-		isRename,
-		onSubmit,
-		setIsRename,
-		updataThemeLoading,
-		loading,
-	} = useThemeCard({ id, title })
+	const form = useForm<Pick<ITheme, 'title'>>({
+		mode: 'onChange',
+		values: { title },
+	})
+	const [isRename, setIsRename] = useState<boolean>(false)
+
+	const { useDeleteTheme, useUpdateTheme } = useTheme()
+
+	const { loading, mutation } = useDeleteTheme()
+	const { loading: updataThemeLoading, mutation: updateThemeMutation } =
+		useUpdateTheme()
+
+	const handleDelete = ({ ids }: { ids: string[] }) => {
+		mutation({
+			variables: { ids },
+		})
+	}
+	const onSubmit = (values: Pick<ITheme, 'title'>) => {
+		updateThemeMutation({
+			variables: { updateThemeInput: { id, title: values.title } },
+			onCompleted: () => {
+				setIsRename(false)
+			},
+		})
+	}
 
 	return (
 		<BaseContextMenu
