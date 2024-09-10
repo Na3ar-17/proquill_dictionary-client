@@ -1,0 +1,9 @@
+.indicator {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 0%;
+	height: 3px;
+	transition: all 0.3s ease;
+	@apply bg-primary;
+}

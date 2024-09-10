@@ -28,6 +28,7 @@ const Dictionary: NextPage = () => {
 						Create new theme
 					</Button>
 				</div>
+
 				<div className={styles.themes}>
 					{data?.getAllThemes.map((el, i) => (
 						<ThemeCard data={el} key={i} />

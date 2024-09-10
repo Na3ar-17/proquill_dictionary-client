@@ -7,6 +7,32 @@
 	height: 50px;
 	position: relative;
 
+	&.correct {
+		&::before {
+			@apply border-green-700;
+			height: 50px;
+		}
+
+		&:has(input:checked)::before {
+			@apply border-green-700;
+		}
+
+		input[type='radio'] {
+			@apply bg-green-600;
+		}
+
+		input[type='radio']:checked {
+			@apply bg-green-600;
+		}
+	}
+
+	&.canHover {
+		&:hover::before {
+			transition: all 0.2s ease;
+			@apply bg-accent;
+		}
+	}
+
 	&::before {
 		position: absolute;
 		content: '';
@@ -18,11 +44,6 @@
 		transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 		border-radius: 10px;
 		border: 2px solid transparent;
-	}
-
-	&:hover::before {
-		transition: all 0.2s ease;
-		@apply bg-accent;
 	}
 
 	&:has(input:checked)::before {
@@ -58,7 +79,7 @@
 			content: '';
 			width: 6px;
 			height: 6px;
-			border-radius: 50%;
+			border-radius: 100%;
 			transition: all 0.1s cubic-bezier(0.165, 0.84, 0.44, 1);
 			background-color: #fff;
 			transform: scale(0);
@@ -67,6 +88,10 @@
 		&:checked::before {
 			transform: scale(1);
 		}
+	}
+
+	&.disabled {
+		@apply cursor-not-allowed;
 	}
 }
 

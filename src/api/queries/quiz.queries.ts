@@ -4,8 +4,10 @@ export const GET_VARIATIONS_QUERY = graphql(`
 	query getVariations($themeId: String!) {
 		variations(themeId: $themeId) {
 			itemsLeft
+			totalItems
 			themeId
 			sentence
+			contentId
 			variations {
 				translation
 			}

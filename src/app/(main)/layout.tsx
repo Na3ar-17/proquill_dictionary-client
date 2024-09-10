@@ -14,7 +14,7 @@ export default function MainLayout({
 }: Readonly<{
 	children: React.ReactNode
 }>) {
-	const [IsOpen, updateCookie] = useCookie(
+	const [isOpen, updateCookie] = useCookie(
 		sideBarCookieName,
 		'true' as TypeIsSideBarOpen
 	)
@@ -23,7 +23,7 @@ export default function MainLayout({
 		<m.main
 			className={styles.layout}
 			animate={{
-				gridTemplateColumns: IsOpen === 'false' ? '50px 1fr' : '230px 1fr',
+				gridTemplateColumns: isOpen === 'false' ? '50px 1fr' : '230px 1fr',
 			}}
 			transition={{
 				type: 'spring',
@@ -33,7 +33,7 @@ export default function MainLayout({
 		>
 			<div className={styles.sidebar}>
 				<DynamicSideBar
-					isOpen={IsOpen as TypeIsSideBarOpen}
+					isOpen={isOpen as TypeIsSideBarOpen}
 					setIsOpen={updateCookie}
 				/>
 			</div>

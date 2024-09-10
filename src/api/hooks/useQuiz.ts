@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@apollo/client'
+import { useLazyQuery, useMutation, useQuery } from '@apollo/client'
 import {
 	GET_RESULT_QUERY,
 	GET_VARIATIONS_QUERY,
@@ -15,16 +15,13 @@ export const useQuiz = () => {
 		return { data, loading, error, refetch }
 	}
 
-	const useGetResult = ({ themeId }: { themeId: string }) => {
-		const {
-			data: result,
-			loading: resultLoading,
-			error: resultError,
-		} = useQuery(GET_RESULT_QUERY, {
-			variables: { themeId },
-		})
+	const useGetResult = () => {
+		const [
+			query,
+			{ data: result, loading: resultLoading, error: resultError },
+		] = useLazyQuery(GET_RESULT_QUERY)
 
-		return { result, resultLoading, resultError }
+		return { result, resultLoading, resultError, query }
 	}
 	const useRestart = ({ themeId }: { themeId: string }) => {
 		const {
@@ -43,10 +40,17 @@ export const useQuiz = () => {
 				data: validateData,
 				loading: validateLoading,
 				error: validateError,
+				reset,
 			},
 		} = useMutation(VALIDATE_MUTATION)
 
-		return { validateMutation, validateData, validateLoading, validateError }
+		return {
+			validateMutation,
+			validateData,
+			validateLoading,
+			validateError,
+			reset,
+		}
 	}
 	return { useGetVariations, useGetResult, useRestart, useValidate }
 }

@@ -24,7 +24,7 @@ const documents = {
     "\n\tmutation deleteManyContent($ids: [String!]!, $themeId: String!) {\n\t\tdeleteManyContent(ids: $ids, themeId: $themeId)\n\t}\n": types.DeleteManyContentDocument,
     "\n\tmutation deleteContent($id: String!, $themeId: String!) {\n\t\tdeleteContent(id: $id, themeId: $themeId) {\n\t\t\tid\n\t\t\tcreatedAt\n\t\t\tsentence\n\t\t\ttranslation\n\t\t\ttranscription\n\t\t\tthemeId\n\t\t\tlernedCounts\n\t\t\thasLearned\n\t\t\texampleSentences\n\t\t\timageUrl\n\t\t}\n\t}\n": types.DeleteContentDocument,
     "\n\tmutation updateContent($updateContentInput: UpdateContentInput!) {\n\t\tupdateContent(updateContentInput: $updateContentInput) {\n\t\t\tid\n\t\t\tcreatedAt\n\t\t\tsentence\n\t\t\ttranslation\n\t\t\ttranscription\n\t\t\tthemeId\n\t\t\tlernedCounts\n\t\t\thasLearned\n\t\t\texampleSentences\n\t\t\timageUrl\n\t\t}\n\t}\n": types.UpdateContentDocument,
-    "\n\tquery getVariations($themeId: String!) {\n\t\tvariations(themeId: $themeId) {\n\t\t\titemsLeft\n\t\t\tthemeId\n\t\t\tsentence\n\t\t\tvariations {\n\t\t\t\ttranslation\n\t\t\t}\n\t\t}\n\t}\n": types.GetVariationsDocument,
+    "\n\tquery getVariations($themeId: String!) {\n\t\tvariations(themeId: $themeId) {\n\t\t\titemsLeft\n\t\t\ttotalItems\n\t\t\tthemeId\n\t\t\tsentence\n\t\t\tcontentId\n\t\t\tvariations {\n\t\t\t\ttranslation\n\t\t\t}\n\t\t}\n\t}\n": types.GetVariationsDocument,
     "\n\tquery getResult($themeId: String!) {\n\t\tresult(themeId: $themeId) {\n\t\t\tcorrectAnswers\n\t\t}\n\t}\n": types.GetResultDocument,
     "\n\tmutation restartMutation($themeId: String!) {\n\t\trestart(themeId: $themeId)\n\t}\n": types.RestartMutationDocument,
     "\n\tmutation validateMutation($validateQuizDto: ValidateQuizDto!) {\n\t\tvalidate(validateQuizDto: $validateQuizDto) {\n\t\t\tisCorrect\n\t\t\tcorrectTranslation\n\t\t}\n\t}\n": types.ValidateMutationDocument,
@@ -97,7 +97,7 @@ export function graphql(source: "\n\tmutation updateContent($updateContentInput:
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n\tquery getVariations($themeId: String!) {\n\t\tvariations(themeId: $themeId) {\n\t\t\titemsLeft\n\t\t\tthemeId\n\t\t\tsentence\n\t\t\tvariations {\n\t\t\t\ttranslation\n\t\t\t}\n\t\t}\n\t}\n"): (typeof documents)["\n\tquery getVariations($themeId: String!) {\n\t\tvariations(themeId: $themeId) {\n\t\t\titemsLeft\n\t\t\tthemeId\n\t\t\tsentence\n\t\t\tvariations {\n\t\t\t\ttranslation\n\t\t\t}\n\t\t}\n\t}\n"];
+export function graphql(source: "\n\tquery getVariations($themeId: String!) {\n\t\tvariations(themeId: $themeId) {\n\t\t\titemsLeft\n\t\t\ttotalItems\n\t\t\tthemeId\n\t\t\tsentence\n\t\t\tcontentId\n\t\t\tvariations {\n\t\t\t\ttranslation\n\t\t\t}\n\t\t}\n\t}\n"): (typeof documents)["\n\tquery getVariations($themeId: String!) {\n\t\tvariations(themeId: $themeId) {\n\t\t\titemsLeft\n\t\t\ttotalItems\n\t\t\tthemeId\n\t\t\tsentence\n\t\t\tcontentId\n\t\t\tvariations {\n\t\t\t\ttranslation\n\t\t\t}\n\t\t}\n\t}\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
