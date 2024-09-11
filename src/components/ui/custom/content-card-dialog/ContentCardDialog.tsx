@@ -16,7 +16,6 @@ import { useContentDialog } from './useContentDialog'
 interface IProps {
 	themeId?: string
 }
-
 const ContentCardDialog: NextPage<IProps> = ({ themeId }) => {
 	const {
 		currentData,
@@ -31,7 +30,6 @@ const ContentCardDialog: NextPage<IProps> = ({ themeId }) => {
 		themeId: themeId || '',
 	})
 	const { onClose, isOpen } = useContentCardDialogStore()
-
 	useLayoutEffect(() => {
 		if (existsId) {
 			if (currentData) {
@@ -79,23 +77,22 @@ const ContentCardDialog: NextPage<IProps> = ({ themeId }) => {
 			<DialogContent className='min-w-[70%] z-[200]'>
 				<DialogTitle></DialogTitle>
 				<DialogDescription></DialogDescription>
-				{loading || (!isFormInitialized && existsId) ? (
-					<div>loading</div>
-				) : (
-					<Form {...form}>
-						<form
-							onSubmit={form.handleSubmit(onSubmit)}
-							className='flex flex-col gap-4'
-						>
-							<Fields control={form.control} />
-							<div className='flex justify-end items-center'>
-								<Button type='submit' variant={'secondary'}>
-									{existsId ? 'Save' : 'Create'}
-								</Button>
-							</div>
-						</form>
-					</Form>
-				)}
+				<Form {...form}>
+					<form
+						onSubmit={form.handleSubmit(onSubmit)}
+						className='flex flex-col gap-4'
+					>
+						<Fields
+							isLoading={loading || (!isFormInitialized && !!existsId)}
+							control={form.control}
+						/>
+						<div className='flex justify-end items-center'>
+							<Button type='submit' variant={'secondary'}>
+								{existsId ? 'Save' : 'Create'}
+							</Button>
+						</div>
+					</form>
+				</Form>
 			</DialogContent>
 		</Dialog>
 	)
