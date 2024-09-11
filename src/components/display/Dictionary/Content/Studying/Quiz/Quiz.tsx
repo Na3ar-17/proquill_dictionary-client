@@ -1,5 +1,6 @@
 'use client'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import ErrorMessage from '@/components/ui/custom/error/error-message/ErrorMessage'
 import { Skeleton } from '@/components/ui/skeleton'
 import { cn } from '@/lib/utils'
 import { IContentForm } from '@/types/content-form.types'
@@ -27,6 +28,7 @@ const Quiz: NextPage<IProps> = ({ id }) => {
 		result,
 		resultLoading,
 		validateData,
+		error,
 		handleValidate,
 	} = useQuizLogic({ form, themeId: id })
 	return (
@@ -59,6 +61,7 @@ const Quiz: NextPage<IProps> = ({ id }) => {
 							htmlCleaner(data?.variations.sentence || '')
 						)}
 					</div>
+					{error && <ErrorMessage message={error.message} />}
 					{isEnded ? (
 						<Result
 							correctAnswers={result?.result.correctAnswers || 0}
