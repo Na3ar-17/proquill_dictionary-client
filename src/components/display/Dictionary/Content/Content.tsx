@@ -3,6 +3,7 @@ import { useTheme } from '@/api/hooks/useTheme'
 import { Button } from '@/components/ui/button'
 import ContentCardDialog from '@/components/ui/custom/content-card-dialog/ContentCardDialog'
 import Heading from '@/components/ui/custom/heading/Heading'
+import { Skeleton } from '@/components/ui/skeleton'
 import { PAGES_URL } from '@/config/pages-url.config'
 import { BookA, BookmarkX, Trash2 } from 'lucide-react'
 import { NextPage } from 'next'
@@ -20,13 +21,12 @@ interface IProps {
 const Content: NextPage<IProps> = ({ id }) => {
 	const {
 		data,
-		error,
 		handleDelete,
-		loading,
 		methods,
 		onOpen,
 		idsState,
 		setIdsState,
+		loading,
 	} = useContentLogic({ themeId: id })
 	const { useGetTheme } = useTheme()
 	const { data: oneThemeData, loading: oneThemeLoading } = useGetTheme({ id })
@@ -92,19 +92,20 @@ const Content: NextPage<IProps> = ({ id }) => {
 						</div>
 					</div>
 					<div className={styles.sentences}>
-						{error && <div>{error.message}</div>}
-						{loading && <div>Loading...</div>}
-
-						{data?.getAllContent?.map(el => (
-							<ContentCard
-								setIdsState={setIdsState}
-								handleDelete={handleDelete}
-								data={el}
-								resetChecked={resetChecked}
-								key={el.id}
-								setResetChecked={setResetChecked}
-							/>
-						))}
+						{loading
+							? Array.from({ length: 15 }).map((_, i) => (
+									<Skeleton key={i} className='h-[85px]' />
+							  ))
+							: data?.getAllContent?.map(el => (
+									<ContentCard
+										setIdsState={setIdsState}
+										handleDelete={handleDelete}
+										data={el}
+										resetChecked={resetChecked}
+										key={el.id}
+										setResetChecked={setResetChecked}
+									/>
+							  ))}
 					</div>
 				</div>
 				<ContentCardDialog themeId={id} />
