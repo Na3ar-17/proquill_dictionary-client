@@ -9,7 +9,7 @@ import ThemeCard from './ThemeCard/ThemeCard'
 
 const Dictionary: NextPage = () => {
 	const { useGetThemes, useCreateTheme } = useTheme()
-	const { data, error, loading } = useGetThemes()
+	const { data, loading } = useGetThemes()
 	const { mutation, mutationLoading } = useCreateTheme()
 
 	return (

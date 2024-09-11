@@ -1,5 +1,4 @@
 import { cn } from '@/lib/utils'
-import { NextPage } from 'next'
 import { forwardRef, InputHTMLAttributes } from 'react'
 
 interface IProps extends InputHTMLAttributes<HTMLInputElement> {

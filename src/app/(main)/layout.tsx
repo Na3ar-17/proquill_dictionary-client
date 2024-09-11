@@ -9,9 +9,6 @@ import Loading from './loading'
 
 const DynamicSideBar = dynamic(
 	() => import('@/components/common/side-bar/SideBar')
-	// {
-	// 	loading: () => <Loading />,
-	// }
 )
 
 export default function MainLayout({

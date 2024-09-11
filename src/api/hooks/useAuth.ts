@@ -47,7 +47,7 @@ export const useAuth = () => {
 	}
 
 	const useLogOut = () => {
-		const [mutation, { data, error, loading }] = useMutation(LOGOUT_MUTATION, {
+		const [mutation, { loading }] = useMutation(LOGOUT_MUTATION, {
 			context: {
 				fetchOptions: {
 					credentials: 'include',

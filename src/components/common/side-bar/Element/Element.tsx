@@ -4,7 +4,6 @@ import { cn } from '@/lib/utils'
 import { ISideBarElement } from '@/types/sidebar.types'
 import { NextPage } from 'next'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
 import styles from '../SideBar.module.scss'
 
 interface IProps {
@@ -15,11 +14,9 @@ interface IProps {
 const Element: NextPage<IProps> = ({ data, isOpen }) => {
 	const { Icon, href, label, disabled } = data
 	const { useLogOut } = useAuth()
-	const [loaded, setLoaded] = useState(false)
 	const { push } = useRouter()
 
 	const { loading, mutation } = useLogOut()
-	useEffect(() => setLoaded(true), [])
 
 	return label === 'Log Out' ? (
 		<Button

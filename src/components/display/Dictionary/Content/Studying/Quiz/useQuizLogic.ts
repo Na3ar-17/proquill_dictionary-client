@@ -17,8 +17,7 @@ export const useQuizLogic = ({
 
 	const { query, result, resultLoading } = useGetResult()
 	const { restartMutation } = useRestart({ themeId })
-	const { validateData, validateLoading, validateMutation, reset } =
-		useValidate()
+	const { validateData, validateMutation, reset } = useValidate()
 
 	const handleRestart = () => {
 		restartMutation({

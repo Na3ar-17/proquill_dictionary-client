@@ -20,18 +20,3 @@ export function ApolloWrapper({ children }: React.PropsWithChildren) {
 		</ApolloNextAppProvider>
 	)
 }
-
-// 'use client'
-// import { link } from '@/config/graphql.config'
-// import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
-
-// function makeClient() {
-// 	return new ApolloClient({
-// 		cache: new InMemoryCache(),
-// 		link,
-// 	})
-// }
-
-// export function ApolloWrapper({ children }: React.PropsWithChildren) {
-// 	return <ApolloProvider client={makeClient()}>{children}</ApolloProvider>
-// }

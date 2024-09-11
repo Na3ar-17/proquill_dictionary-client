@@ -1,8 +1,7 @@
 import { NextPage } from 'next'
 import './MainLoader.css'
-interface IProps {}
 
-const MainLoader: NextPage<IProps> = ({}) => {
+const MainLoader: NextPage = () => {
 	return (
 		<div className='container'>
 			<div className='spinner'>

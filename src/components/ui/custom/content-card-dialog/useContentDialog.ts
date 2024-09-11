@@ -17,7 +17,7 @@ export const useContentDialog = ({ themeId }: IProps) => {
 	const existsId = form.watch('id')
 
 	const { useGetOneContent, useCreateContent, useUpdateContent } = useContent()
-	const { data, error, loading, previousData } = useGetOneContent({
+	const { data, loading, previousData } = useGetOneContent({
 		themeId: themeId || '',
 		id: existsId,
 	})

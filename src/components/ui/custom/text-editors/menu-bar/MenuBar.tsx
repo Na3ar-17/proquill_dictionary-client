@@ -1,8 +1,6 @@
 import { Toggle } from '@/components/ui/toggle'
-import ListItem from '@tiptap/extension-list-item'
-import { Editor, EditorProvider, useCurrentEditor } from '@tiptap/react'
-import StarterKit from '@tiptap/starter-kit'
-import { Bold, Italic, Strikethrough } from 'lucide-react'
+import { Editor } from '@tiptap/react'
+import { Bold, Italic } from 'lucide-react'
 import { NextPage } from 'next'
 interface IProps {
 	editor: Editor | null

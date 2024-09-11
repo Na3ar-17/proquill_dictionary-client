@@ -3,7 +3,7 @@ import { GET_USER_QUERY } from '../queries/user.queries'
 
 export const useUser = () => {
 	const useGetUser = () => {
-		const { data, loading, error } = useQuery(GET_USER_QUERY, {
+		const { data, loading } = useQuery(GET_USER_QUERY, {
 			context: {
 				fetchOptions: {
 					credentials: 'include',
