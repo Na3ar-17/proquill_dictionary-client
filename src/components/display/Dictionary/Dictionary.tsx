@@ -1,6 +1,7 @@
 'use client'
 import { useTheme } from '@/api/hooks/useTheme'
 import { Button } from '@/components/ui/button'
+import EmptyMessage from '@/components/ui/custom/empty-message/EmptyMessage'
 import ErrorMessage from '@/components/ui/custom/error/error-message/ErrorMessage'
 import Heading from '@/components/ui/custom/heading/Heading'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -25,11 +26,15 @@ const Dictionary: NextPage = () => {
 				</div>
 				<div className={styles.themes}>
 					{error && <ErrorMessage message={error.message} />}
-					{loading
-						? Array.from({ length: 8 }).map((el, i) => (
-								<Skeleton key={i} className='h-[95px]' />
-						  ))
-						: data?.themes.map((el, i) => <ThemeCard data={el} key={i} />)}
+					{loading ? (
+						Array.from({ length: 8 }).map((el, i) => (
+							<Skeleton key={i} className='h-[95px]' />
+						))
+					) : data?.themes.length == 0 ? (
+						<EmptyMessage message='You dont have any themes yet!' />
+					) : (
+						data?.themes.map((el, i) => <ThemeCard data={el} key={i} />)
+					)}
 				</div>
 			</div>
 		</section>

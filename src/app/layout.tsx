@@ -1,11 +1,15 @@
 import { ThemeProvider } from '@/providers/theme-provider'
 import { LazyMotion, domAnimation } from 'framer-motion'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Noto_Sans_Mono } from 'next/font/google'
 import { Toaster } from 'react-hot-toast'
 import { ApolloWrapper } from './ApolloWrapper'
 import './globals.scss'
 const inter = Inter({ subsets: ['latin'] })
+const noto_Sans_Mono = Noto_Sans_Mono({
+	subsets: ['latin'],
+	weight: ['900', '800', '700', '600', '500', '400'],
+})
 
 export const metadata: Metadata = {
 	title: 'Proquill.dictionary',
@@ -22,7 +26,7 @@ export default function RootLayout({
 				<body
 					suppressHydrationWarning={true}
 					suppressContentEditableWarning={true}
-					className={inter.className}
+					className={noto_Sans_Mono.className}
 				>
 					<ApolloWrapper>
 						<ThemeProvider

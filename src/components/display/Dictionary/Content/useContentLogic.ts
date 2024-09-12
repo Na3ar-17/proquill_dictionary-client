@@ -1,5 +1,4 @@
 import { useContent } from '@/api/hooks/useContent'
-import { useContentCardDialogStore } from '@/store/content-dialog.store'
 import { IContentForm } from '@/types/content-form.types'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -11,7 +10,6 @@ interface IProps {
 
 export const useContentLogic = ({ themeId }: IProps) => {
 	const methods = useForm<IContentForm>()
-	const { onOpen } = useContentCardDialogStore()
 	const [idsState, setIdsState] = useState<string[]>([])
 	const { useGetContent, useDeleteManyContent, useDeleteOneContent } =
 		useContent()
@@ -45,7 +43,7 @@ export const useContentLogic = ({ themeId }: IProps) => {
 	return {
 		methods,
 		handleDelete,
-		onOpen,
+
 		data,
 		error,
 		loading,

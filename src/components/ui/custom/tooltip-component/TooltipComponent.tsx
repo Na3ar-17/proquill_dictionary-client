@@ -16,7 +16,7 @@ const TooltipComponent: NextPage<IProps> = ({ children, label }) => {
 			<Tooltip>
 				<TooltipTrigger>{children}</TooltipTrigger>
 				<TooltipContent>
-					<p>{label}</p>
+					<p className='text-sm'>{label}</p>
 				</TooltipContent>
 			</Tooltip>
 		</TooltipProvider>
