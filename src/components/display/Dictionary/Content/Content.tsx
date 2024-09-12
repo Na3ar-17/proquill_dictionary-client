@@ -2,6 +2,7 @@
 import { useTheme } from '@/api/hooks/useTheme'
 import { Button } from '@/components/ui/button'
 import ContentCardDialog from '@/components/ui/custom/content-card-dialog/ContentCardDialog'
+import ErrorMessage from '@/components/ui/custom/error/error-message/ErrorMessage'
 import Heading from '@/components/ui/custom/heading/Heading'
 import { Skeleton } from '@/components/ui/skeleton'
 import { PAGES_URL } from '@/config/pages-url.config'
@@ -27,6 +28,7 @@ const Content: NextPage<IProps> = ({ id }) => {
 		idsState,
 		setIdsState,
 		loading,
+		error,
 	} = useContentLogic({ themeId: id })
 	const { useGetTheme } = useTheme()
 	const { data: theme, loading: themeLoading } = useGetTheme({ id })
@@ -88,6 +90,7 @@ const Content: NextPage<IProps> = ({ id }) => {
 						</div>
 					</div>
 					<div className={styles.sentences}>
+						{error && <ErrorMessage message={error.message} />}
 						{loading
 							? Array.from({ length: 15 }).map((_, i) => (
 									<Skeleton key={i} className='h-[85px]' />

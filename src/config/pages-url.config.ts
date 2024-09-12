@@ -1,5 +1,5 @@
 class PagesUrl {
-	private root = 'https://proquill-dictionary-client.onrender.com'
+	private root = 'http://localhost:3000'
 
 	MAIN: string
 	REGISTER: string
