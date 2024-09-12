@@ -1,8 +1,8 @@
-import { GetVariationsQuery } from '@/gql/graphql'
+import { QuizSession } from '@/gql/graphql'
 import { NextPage } from 'next'
 import styles from './Indicator.module.scss'
 interface IProps {
-	data: GetVariationsQuery | undefined
+	data: QuizSession | undefined
 }
 
 const Indicator: NextPage<IProps> = ({ data }) => {
@@ -11,9 +11,7 @@ const Indicator: NextPage<IProps> = ({ data }) => {
 			style={{
 				width:
 					data?.variations &&
-					`${
-						(1 - data.variations.itemsLeft / data.variations.totalItems) * 100
-					}%`,
+					`${(1 - data.itemsLeft / data.totalItems) * 100}%`,
 			}}
 			className={styles.indicator}
 		></div>
