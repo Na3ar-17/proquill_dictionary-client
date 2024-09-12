@@ -17,7 +17,7 @@ const documents = {
     "\n\tmutation login($loginDto: CreateUserDto!) {\n\t\tlogin(loginDto: $loginDto) {\n\t\t\tuser {\n\t\t\t\tid\n\t\t\t\temail\n\t\t\t\tprofilePictureUrl\n\t\t\t\tfullName\n\t\t\t}\n\t\t\taccessToken\n\t\t}\n\t}\n": types.LoginDocument,
     "\n\tmutation logOut {\n\t\tlogout\n\t}\n": types.LogOutDocument,
     "\n\tmutation tokens {\n\t\ttokens {\n\t\t\taccessToken\n\t\t}\n\t}\n": types.TokensDocument,
-    "\n\tquery contents($themeId: String!) {\n\t\tcontents(themeId: $themeId) {\n\t\t\tid\n\t\t\tcreatedAt\n\t\t\tsentence\n\t\t\ttranslation\n\t\t\ttranscription\n\t\t\tthemeId\n\t\t\tlernedCounts\n\t\t\thasLearned\n\t\t\texampleSentences\n\t\t\timageUrl\n\t\t}\n\t}\n": types.ContentsDocument,
+    "\n\tquery contents($themeId: String!) {\n\t\tcontents(themeId: $themeId) {\n\t\t\tid\n\t\t\tcreatedAt\n\t\t\tsentence\n\t\t\ttranslation\n\t\t\ttranscription\n\t\t\tthemeId\n\t\t\tlernedCounts\n\t\t\thasLearned\n\t\t\texampleSentences\n\t\t\timageUrl\n\t\t\tupdatedAt\n\t\t}\n\t}\n": types.ContentsDocument,
     "\n\tquery contentLength($themeId: String!) {\n\t\tcontent_length(themeId: $themeId)\n\t}\n": types.ContentLengthDocument,
     "\n\tquery content($id: String!, $themeId: String!) {\n\t\tcontent(id: $id, themeId: $themeId) {\n\t\t\tid\n\t\t\tcreatedAt\n\t\t\tsentence\n\t\t\ttranslation\n\t\t\ttranscription\n\t\t\tthemeId\n\t\t\tlernedCounts\n\t\t\thasLearned\n\t\t\texampleSentences\n\t\t\timageUrl\n\t\t}\n\t}\n": types.ContentDocument,
     "\n\tmutation newContent($createContentDto: CreateContentDto!) {\n\t\tnew_content(createContentDto: $createContentDto) {\n\t\t\tid\n\t\t\tcreatedAt\n\t\t\tsentence\n\t\t\ttranslation\n\t\t\ttranscription\n\t\t\tthemeId\n\t\t\tlernedCounts\n\t\t\thasLearned\n\t\t\texampleSentences\n\t\t\timageUrl\n\t\t}\n\t}\n": types.NewContentDocument,
@@ -68,7 +68,7 @@ export function graphql(source: "\n\tmutation tokens {\n\t\ttokens {\n\t\t\tacce
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n\tquery contents($themeId: String!) {\n\t\tcontents(themeId: $themeId) {\n\t\t\tid\n\t\t\tcreatedAt\n\t\t\tsentence\n\t\t\ttranslation\n\t\t\ttranscription\n\t\t\tthemeId\n\t\t\tlernedCounts\n\t\t\thasLearned\n\t\t\texampleSentences\n\t\t\timageUrl\n\t\t}\n\t}\n"): (typeof documents)["\n\tquery contents($themeId: String!) {\n\t\tcontents(themeId: $themeId) {\n\t\t\tid\n\t\t\tcreatedAt\n\t\t\tsentence\n\t\t\ttranslation\n\t\t\ttranscription\n\t\t\tthemeId\n\t\t\tlernedCounts\n\t\t\thasLearned\n\t\t\texampleSentences\n\t\t\timageUrl\n\t\t}\n\t}\n"];
+export function graphql(source: "\n\tquery contents($themeId: String!) {\n\t\tcontents(themeId: $themeId) {\n\t\t\tid\n\t\t\tcreatedAt\n\t\t\tsentence\n\t\t\ttranslation\n\t\t\ttranscription\n\t\t\tthemeId\n\t\t\tlernedCounts\n\t\t\thasLearned\n\t\t\texampleSentences\n\t\t\timageUrl\n\t\t\tupdatedAt\n\t\t}\n\t}\n"): (typeof documents)["\n\tquery contents($themeId: String!) {\n\t\tcontents(themeId: $themeId) {\n\t\t\tid\n\t\t\tcreatedAt\n\t\t\tsentence\n\t\t\ttranslation\n\t\t\ttranscription\n\t\t\tthemeId\n\t\t\tlernedCounts\n\t\t\thasLearned\n\t\t\texampleSentences\n\t\t\timageUrl\n\t\t\tupdatedAt\n\t\t}\n\t}\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

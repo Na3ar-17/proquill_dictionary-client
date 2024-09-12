@@ -13,6 +13,7 @@ export const GET_CONTENT_QUERY = graphql(`
 			hasLearned
 			exampleSentences
 			imageUrl
+			updatedAt
 		}
 	}
 `)
