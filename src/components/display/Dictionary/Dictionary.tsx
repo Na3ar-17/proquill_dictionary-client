@@ -28,9 +28,7 @@ const Dictionary: NextPage = () => {
 						? Array.from({ length: 8 }).map((el, i) => (
 								<Skeleton key={i} className='h-[95px]' />
 						  ))
-						: data?.getAllThemes.map((el, i) => (
-								<ThemeCard data={el} key={i} />
-						  ))}
+						: data?.themes.map((el, i) => <ThemeCard data={el} key={i} />)}
 				</div>
 			</div>
 		</section>

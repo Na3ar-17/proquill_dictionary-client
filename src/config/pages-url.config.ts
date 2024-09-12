@@ -1,4 +1,5 @@
 class PagesUrl {
+	//EDIT
 	private root = 'http://localhost:3000'
 
 	MAIN: string

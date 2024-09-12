@@ -1,7 +1,7 @@
-import { IContent } from '@/entities/content.entity'
+import { Content } from '@/gql/graphql'
 
 export interface IContentForm
 	extends Pick<
-		IContent,
+		Content,
 		'sentence' | 'transcription' | 'translation' | 'themeId' | 'id'
 	> {}

@@ -1,5 +1,4 @@
 import { GET_NEW_TOKENS_MUTATION } from '@/api/queries/auth.queries'
-import { GetNewTokensMutation } from '@/gql/graphql'
 import { EnumTokens } from '@/types/auth-token.types'
 import { EnumApolloErrors } from '@/types/errors.types'
 import { createHttpLink, FetchResult, from, Observable } from '@apollo/client'
@@ -13,7 +12,7 @@ import {
 import cookies from 'js-cookie'
 
 export const httpLink = createHttpLink({
-	uri: 'http://localhost:4200/graphql',
+	uri: process.env.NEXT_PUBLIC_API_URL,
 	credentials: 'include',
 })
 
@@ -30,12 +29,12 @@ export const authLink = setContext((_, { headers }) => {
 
 async function getNewTokens() {
 	try {
-		const { data } = await client.mutate<GetNewTokensMutation>({
+		const { data } = await client.mutate({
 			mutation: GET_NEW_TOKENS_MUTATION,
 		})
 
-		if (data?.getNewTokens.accessToken) {
-			cookies.set(EnumTokens.ACCESS_TOKEN, data.getNewTokens.accessToken)
+		if (data?.tokens.accessToken) {
+			cookies.set(EnumTokens.ACCESS_TOKEN, data.tokens.accessToken)
 		}
 	} catch (error) {
 		console.log('Error fetching new tokens:', error)

@@ -20,11 +20,11 @@ const Content: NextPage<IProps> = ({ wordsLearned, themeId }) => {
 			<p className='text-base text-zinc-500 font-semibold'>
 				{isContentLengthLoading
 					? 'loading'
-					: data?.getContentLength
-					? data.getContentLength > 0 && (
+					: data?.content_length
+					? data?.content_length > 0 && (
 							<span>
-								{`${data.getContentLength} item${
-									data.getContentLength > 1 ? 's' : ''
+								{`${data?.content_length} item${
+									data?.content_length > 1 ? 's' : ''
 								}`}
 							</span>
 					  )

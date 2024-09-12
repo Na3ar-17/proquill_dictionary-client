@@ -18,16 +18,16 @@ export const useContentLogic = ({ themeId }: IProps) => {
 	const { data, error, loading } = useGetContent({
 		themeId,
 	})
-	const { mutation } = useDeleteManyContent()
+	const { mutation } = useDeleteManyContent({ themeId })
 	const { deleteOneContentMutation } = useDeleteOneContent()
 
 	const handleDelete = ({ ids }: { ids: string[] }) => {
 		if (ids.length == 1) {
 			deleteOneContentMutation({
 				variables: { id: ids[0], themeId },
-				onCompleted: ({ deleteContent }) => {
-					if (idsState.includes(deleteContent?.id)) {
-						setIdsState(prev => prev.filter(el => el !== deleteContent.id))
+				onCompleted: ({ delete_content }) => {
+					if (idsState.includes(delete_content?.id)) {
+						setIdsState(prev => prev.filter(el => el !== delete_content.id))
 					}
 					toast.success('Successfully deleted')
 				},

@@ -87,7 +87,7 @@ const ContentCardDialog: NextPage<IProps> = ({ themeId }) => {
 							control={form.control}
 						/>
 						<div className='flex justify-end items-center'>
-							<Button type='submit' variant={'secondary'}>
+							<Button type='submit' size={'lg'}>
 								{existsId ? 'Save' : 'Create'}
 							</Button>
 						</div>

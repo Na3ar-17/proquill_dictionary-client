@@ -3,7 +3,7 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import ContentCardDialog from '@/components/ui/custom/content-card-dialog/ContentCardDialog'
 import BaseContextMenu from '@/components/ui/custom/context-menus/BaseContextMenu'
-import { IContent } from '@/entities/content.entity'
+import { Content } from '@/gql/graphql'
 import { cn } from '@/lib/utils'
 import { useContentCardDialogStore } from '@/store/content-dialog.store'
 import type { IContentForm } from '@/types/content-form.types'
@@ -15,7 +15,7 @@ import { useFormContext } from 'react-hook-form'
 import styles from './ContentCard.module.scss'
 
 interface IProps {
-	data: IContent
+	data: Content
 	setIdsState: Dispatch<SetStateAction<string[]>>
 	handleDelete: ({ ids }: { ids: string[] }) => void
 	resetChecked: boolean

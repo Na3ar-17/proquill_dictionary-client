@@ -36,7 +36,11 @@ export const useContent = () => {
 	}
 	const useCreateContent = () => {
 		const mutation = useMutation(CREATE_CONTENT_MUTATION, {
-			refetchQueries: ['getAllContent'],
+			refetchQueries: [
+				{
+					query: GET_CONTENT_QUERY,
+				},
+			],
 			onCompleted: () => {
 				toast.success('Successfully created nontent')
 			},
@@ -45,11 +49,16 @@ export const useContent = () => {
 		return mutation
 	}
 
-	const useDeleteManyContent = () => {
+	const useDeleteManyContent = ({ themeId }: { themeId: string }) => {
 		const [mutation, { loading, error, data }] = useMutation(
 			DELETE_MANY_CONTENT_MUTATION,
 			{
-				refetchQueries: ['getAllContent'],
+				refetchQueries: [
+					{
+						query: GET_CONTENT_QUERY,
+						variables: { themeId },
+					},
+				],
 			}
 		)
 		return { mutation, loading, error, data }
@@ -59,14 +68,23 @@ export const useContent = () => {
 		const { '0': deleteOneContentMutation } = useMutation(
 			DELETE_CONTENT_MUTATION,
 			{
-				refetchQueries: ['getAllContent'],
+				refetchQueries: ({ data }) => [
+					{
+						query: GET_CONTENT_QUERY,
+						variables: { themeId: data?.delete_content.themeId },
+					},
+				],
 			}
 		)
 		return { deleteOneContentMutation }
 	}
 	const useUpdateContent = () => {
 		const mutation = useMutation(UPDATE_CONTENT_MUTATION, {
-			refetchQueries: ['getAllContent'],
+			refetchQueries: [
+				{
+					query: GET_CONTENT_QUERY,
+				},
+			],
 		})
 
 		return mutation

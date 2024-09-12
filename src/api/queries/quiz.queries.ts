@@ -1,7 +1,7 @@
 import { graphql } from '@/gql'
 
 export const GET_VARIATIONS_QUERY = graphql(`
-	query getVariations($themeId: String!) {
+	query variations($themeId: String!) {
 		variations(themeId: $themeId) {
 			itemsLeft
 			totalItems
@@ -15,19 +15,19 @@ export const GET_VARIATIONS_QUERY = graphql(`
 	}
 `)
 export const GET_RESULT_QUERY = graphql(`
-	query getResult($themeId: String!) {
+	query result($themeId: String!) {
 		result(themeId: $themeId) {
 			correctAnswers
 		}
 	}
 `)
 export const RESTART_MUTATION = graphql(`
-	mutation restartMutation($themeId: String!) {
+	mutation restart($themeId: String!) {
 		restart(themeId: $themeId)
 	}
 `)
 export const VALIDATE_MUTATION = graphql(`
-	mutation validateMutation($validateQuizDto: ValidateQuizDto!) {
+	mutation validate($validateQuizDto: ValidateQuizDto!) {
 		validate(validateQuizDto: $validateQuizDto) {
 			isCorrect
 			correctTranslation

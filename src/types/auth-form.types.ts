@@ -1,4 +1,5 @@
-import { IUser } from '@/entities/user.entity'
-export interface IAuthFormData extends Pick<IUser, 'email' | 'fullName'> {
+import { User } from '@/gql/graphql'
+
+export interface IAuthFormData extends Pick<User, 'email' | 'fullName'> {
 	password: string
 }

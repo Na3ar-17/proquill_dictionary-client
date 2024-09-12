@@ -3,7 +3,7 @@ import { Card, CardHeader, CardTitle } from '@/components/ui/card'
 import BaseContextMenu from '@/components/ui/custom/context-menus/BaseContextMenu'
 import { Form } from '@/components/ui/form'
 import { PAGES_URL } from '@/config/pages-url.config'
-import { ITheme } from '@/entities/theme.entity'
+import { Theme } from '@/gql/graphql'
 import { dateFormatter } from '@/utils/dateFormatter'
 import { NextPage } from 'next'
 import Link from 'next/link'
@@ -13,13 +13,13 @@ import Content from './CardContent/Content'
 import FormComponent from './Form/FormComponent'
 
 interface IProps {
-	data: ITheme
+	data: Theme
 }
 
 const ThemeCard: NextPage<IProps> = ({
 	data: { createdAt, title, id, learningProgress },
 }) => {
-	const form = useForm<Pick<ITheme, 'title'>>({
+	const form = useForm<Pick<Theme, 'title'>>({
 		mode: 'onChange',
 		values: { title },
 	})
@@ -36,9 +36,9 @@ const ThemeCard: NextPage<IProps> = ({
 			variables: { ids },
 		})
 	}
-	const onSubmit = (values: Pick<ITheme, 'title'>) => {
+	const onSubmit = (values: Pick<Theme, 'title'>) => {
 		updateThemeMutation({
-			variables: { updateThemeInput: { id, title: values.title } },
+			variables: { updateThemeDto: { id, title: values.title } },
 			onCompleted: () => {
 				setIsRename(false)
 			},
@@ -54,7 +54,7 @@ const ThemeCard: NextPage<IProps> = ({
 			{loading ? (
 				<div className='h-[52px] bg-card'></div>
 			) : (
-				<Card className='grid hover:bg-muted transition-colors px-2 overflow-hidden relative grid-cols-[300px_1fr] items-center'>
+				<Card className='grid hover:bg-muted transition-colors px-2 overflow-hidden relative grid-cols-2 items-center'>
 					<CardHeader>
 						<CardTitle>
 							{isRename ? (

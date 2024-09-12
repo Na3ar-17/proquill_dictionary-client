@@ -39,7 +39,7 @@ export type Content = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
-export type CreateContentInput = {
+export type CreateContentDto = {
   exampleSentences?: InputMaybe<Array<Scalars['String']['input']>>;
   imageUrl?: InputMaybe<Scalars['String']['input']>;
   sentence: Scalars['String']['input'];
@@ -48,7 +48,7 @@ export type CreateContentInput = {
   translation: Scalars['String']['input'];
 };
 
-export type CreateUserInput = {
+export type CreateUserDto = {
   email: Scalars['String']['input'];
   fullName?: InputMaybe<Scalars['String']['input']>;
   password: Scalars['String']['input'];
@@ -59,61 +59,61 @@ export type LearningProgress = {
   accuracyRate?: Maybe<Scalars['Int']['output']>;
   createdAt: Scalars['DateTime']['output'];
   lastStudiedAt?: Maybe<Scalars['DateTime']['output']>;
-  themeId: Scalars['String']['output'];
+  themeId?: Maybe<Scalars['String']['output']>;
   updatedAt: Scalars['DateTime']['output'];
-  userId: Scalars['String']['output'];
+  userId?: Maybe<Scalars['String']['output']>;
   wordsLearned: Scalars['Int']['output'];
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createContent: Content;
-  createTheme: Theme;
-  deleteContent: Content;
-  deleteManyContent: Scalars['Int']['output'];
-  deleteOneOrMoreTheme: Scalars['Int']['output'];
-  getNewTokens: TokensResponse;
+  delete_content: Content;
+  delete_many_content: Scalars['Int']['output'];
+  delete_one_or_more_theme: Scalars['Int']['output'];
   login: AuthResponse;
   logout: Scalars['Boolean']['output'];
+  new_content: Content;
+  new_theme: Theme;
   register: AuthResponse;
   restart: Scalars['Boolean']['output'];
-  updateContent: Content;
+  tokens: TokensResponse;
   updateLearningProgress: LearningProgress;
-  updateTheme: Theme;
-  updateUser: User;
+  update_content: Content;
+  update_theme: Theme;
+  update_user: User;
   validate: ValidationResult;
 };
 
 
-export type MutationCreateContentArgs = {
-  createContentInput: CreateContentInput;
-};
-
-
-export type MutationDeleteContentArgs = {
+export type MutationDelete_ContentArgs = {
   id: Scalars['String']['input'];
   themeId: Scalars['String']['input'];
 };
 
 
-export type MutationDeleteManyContentArgs = {
+export type MutationDelete_Many_ContentArgs = {
   ids: Array<Scalars['String']['input']>;
   themeId: Scalars['String']['input'];
 };
 
 
-export type MutationDeleteOneOrMoreThemeArgs = {
+export type MutationDelete_One_Or_More_ThemeArgs = {
   ids: Array<Scalars['String']['input']>;
 };
 
 
 export type MutationLoginArgs = {
-  loginDto: CreateUserInput;
+  loginDto: CreateUserDto;
+};
+
+
+export type MutationNew_ContentArgs = {
+  createContentDto: CreateContentDto;
 };
 
 
 export type MutationRegisterArgs = {
-  registerDto: CreateUserInput;
+  registerDto: CreateUserDto;
 };
 
 
@@ -122,23 +122,23 @@ export type MutationRestartArgs = {
 };
 
 
-export type MutationUpdateContentArgs = {
-  updateContentInput: UpdateContentInput;
-};
-
-
 export type MutationUpdateLearningProgressArgs = {
-  updateLearningProgressInput: UpdateLearningProgressInput;
+  updateLearningProgressDto: UpdateLearningProgressDto;
 };
 
 
-export type MutationUpdateThemeArgs = {
-  updateThemeInput: UpdateThemeInput;
+export type MutationUpdate_ContentArgs = {
+  updateContentDto: UpdateContentDto;
 };
 
 
-export type MutationUpdateUserArgs = {
-  updateUserInput: UpdateUserInput;
+export type MutationUpdate_ThemeArgs = {
+  updateThemeDto: UpdateThemeDto;
+};
+
+
+export type MutationUpdate_UserArgs = {
+  updateUserDto: UpdateUserDto;
 };
 
 
@@ -148,24 +148,30 @@ export type MutationValidateArgs = {
 
 export type Query = {
   __typename?: 'Query';
+  content: Content;
+  content_length: Scalars['Int']['output'];
+  contents: Array<Content>;
   findOne: User;
-  getAllContent: Array<Content>;
-  getAllThemes: Array<Theme>;
-  getContentLength: Scalars['Int']['output'];
   getLearningProgress: LearningProgress;
-  getOneContent: Content;
-  getOneTheme: Theme;
   result: Result;
+  theme: Theme;
+  themes: Array<Theme>;
   variations: QuizSession;
 };
 
 
-export type QueryGetAllContentArgs = {
+export type QueryContentArgs = {
+  id: Scalars['String']['input'];
   themeId: Scalars['String']['input'];
 };
 
 
-export type QueryGetContentLengthArgs = {
+export type QueryContent_LengthArgs = {
+  themeId: Scalars['String']['input'];
+};
+
+
+export type QueryContentsArgs = {
   themeId: Scalars['String']['input'];
 };
 
@@ -175,19 +181,13 @@ export type QueryGetLearningProgressArgs = {
 };
 
 
-export type QueryGetOneContentArgs = {
-  id: Scalars['String']['input'];
-  themeId: Scalars['String']['input'];
-};
-
-
-export type QueryGetOneThemeArgs = {
-  id: Scalars['String']['input'];
-};
-
-
 export type QueryResultArgs = {
   themeId: Scalars['String']['input'];
+};
+
+
+export type QueryThemeArgs = {
+  id: Scalars['String']['input'];
 };
 
 
@@ -217,7 +217,7 @@ export type Theme = {
   learningProgress: LearningProgress;
   title?: Maybe<Scalars['String']['output']>;
   updatedAt: Scalars['DateTime']['output'];
-  user: User;
+  user?: Maybe<User>;
   userId: Scalars['String']['output'];
 };
 
@@ -226,7 +226,7 @@ export type TokensResponse = {
   accessToken: Scalars['String']['output'];
 };
 
-export type UpdateContentInput = {
+export type UpdateContentDto = {
   exampleSentences?: InputMaybe<Array<Scalars['String']['input']>>;
   hasLearned?: InputMaybe<Scalars['Boolean']['input']>;
   id: Scalars['String']['input'];
@@ -238,19 +238,19 @@ export type UpdateContentInput = {
   translation: Scalars['String']['input'];
 };
 
-export type UpdateLearningProgressInput = {
+export type UpdateLearningProgressDto = {
   accuracyRate?: InputMaybe<Scalars['Int']['input']>;
   lastStudiedAt?: InputMaybe<Scalars['DateTime']['input']>;
   themeId: Scalars['String']['input'];
   wordsLearned?: InputMaybe<Scalars['Int']['input']>;
 };
 
-export type UpdateThemeInput = {
+export type UpdateThemeDto = {
   id: Scalars['String']['input'];
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type UpdateUserInput = {
+export type UpdateUserDto = {
   email?: InputMaybe<Scalars['String']['input']>;
   fullName?: InputMaybe<Scalars['String']['input']>;
   password?: InputMaybe<Scalars['String']['input']>;
@@ -286,14 +286,14 @@ export type Variations = {
 };
 
 export type RegistrationMutationVariables = Exact<{
-  registerDto: CreateUserInput;
+  registerDto: CreateUserDto;
 }>;
 
 
 export type RegistrationMutation = { __typename?: 'Mutation', register: { __typename?: 'AuthResponse', accessToken: string, user: { __typename?: 'User', id: string, email: string, profilePictureUrl?: string | null, fullName?: string | null, createdAt: any } } };
 
 export type LoginMutationVariables = Exact<{
-  loginDto: CreateUserInput;
+  loginDto: CreateUserDto;
 }>;
 
 
@@ -304,39 +304,39 @@ export type LogOutMutationVariables = Exact<{ [key: string]: never; }>;
 
 export type LogOutMutation = { __typename?: 'Mutation', logout: boolean };
 
-export type GetNewTokensMutationVariables = Exact<{ [key: string]: never; }>;
+export type TokensMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetNewTokensMutation = { __typename?: 'Mutation', getNewTokens: { __typename?: 'TokensResponse', accessToken: string } };
+export type TokensMutation = { __typename?: 'Mutation', tokens: { __typename?: 'TokensResponse', accessToken: string } };
 
-export type GetAllContentQueryVariables = Exact<{
+export type ContentsQueryVariables = Exact<{
   themeId: Scalars['String']['input'];
 }>;
 
 
-export type GetAllContentQuery = { __typename?: 'Query', getAllContent: Array<{ __typename?: 'Content', id: string, createdAt: any, sentence: string, translation: string, transcription?: string | null, themeId: string, lernedCounts: number, hasLearned: boolean, exampleSentences?: Array<string> | null, imageUrl?: string | null }> };
+export type ContentsQuery = { __typename?: 'Query', contents: Array<{ __typename?: 'Content', id: string, createdAt: any, sentence: string, translation: string, transcription?: string | null, themeId: string, lernedCounts: number, hasLearned: boolean, exampleSentences?: Array<string> | null, imageUrl?: string | null }> };
 
-export type GetContentLengthQueryVariables = Exact<{
+export type ContentLengthQueryVariables = Exact<{
   themeId: Scalars['String']['input'];
 }>;
 
 
-export type GetContentLengthQuery = { __typename?: 'Query', getContentLength: number };
+export type ContentLengthQuery = { __typename?: 'Query', content_length: number };
 
-export type GetOneContentQueryVariables = Exact<{
+export type ContentQueryVariables = Exact<{
   id: Scalars['String']['input'];
   themeId: Scalars['String']['input'];
 }>;
 
 
-export type GetOneContentQuery = { __typename?: 'Query', getOneContent: { __typename?: 'Content', id: string, createdAt: any, sentence: string, translation: string, transcription?: string | null, themeId: string, lernedCounts: number, hasLearned: boolean, exampleSentences?: Array<string> | null, imageUrl?: string | null } };
+export type ContentQuery = { __typename?: 'Query', content: { __typename?: 'Content', id: string, createdAt: any, sentence: string, translation: string, transcription?: string | null, themeId: string, lernedCounts: number, hasLearned: boolean, exampleSentences?: Array<string> | null, imageUrl?: string | null } };
 
-export type CrateContentMutationVariables = Exact<{
-  createContentInput: CreateContentInput;
+export type NewContentMutationVariables = Exact<{
+  createContentDto: CreateContentDto;
 }>;
 
 
-export type CrateContentMutation = { __typename?: 'Mutation', createContent: { __typename?: 'Content', id: string, createdAt: any, sentence: string, translation: string, transcription?: string | null, themeId: string, lernedCounts: number, hasLearned: boolean, exampleSentences?: Array<string> | null, imageUrl?: string | null } };
+export type NewContentMutation = { __typename?: 'Mutation', new_content: { __typename?: 'Content', id: string, createdAt: any, sentence: string, translation: string, transcription?: string | null, themeId: string, lernedCounts: number, hasLearned: boolean, exampleSentences?: Array<string> | null, imageUrl?: string | null } };
 
 export type DeleteManyContentMutationVariables = Exact<{
   ids: Array<Scalars['String']['input']> | Scalars['String']['input'];
@@ -344,7 +344,7 @@ export type DeleteManyContentMutationVariables = Exact<{
 }>;
 
 
-export type DeleteManyContentMutation = { __typename?: 'Mutation', deleteManyContent: number };
+export type DeleteManyContentMutation = { __typename?: 'Mutation', delete_many_content: number };
 
 export type DeleteContentMutationVariables = Exact<{
   id: Scalars['String']['input'];
@@ -352,98 +352,92 @@ export type DeleteContentMutationVariables = Exact<{
 }>;
 
 
-export type DeleteContentMutation = { __typename?: 'Mutation', deleteContent: { __typename?: 'Content', id: string, createdAt: any, sentence: string, translation: string, transcription?: string | null, themeId: string, lernedCounts: number, hasLearned: boolean, exampleSentences?: Array<string> | null, imageUrl?: string | null } };
+export type DeleteContentMutation = { __typename?: 'Mutation', delete_content: { __typename?: 'Content', id: string, createdAt: any, sentence: string, translation: string, transcription?: string | null, themeId: string, lernedCounts: number, hasLearned: boolean, exampleSentences?: Array<string> | null, imageUrl?: string | null } };
 
 export type UpdateContentMutationVariables = Exact<{
-  updateContentInput: UpdateContentInput;
+  updateContentDto: UpdateContentDto;
 }>;
 
 
-export type UpdateContentMutation = { __typename?: 'Mutation', updateContent: { __typename?: 'Content', id: string, createdAt: any, sentence: string, translation: string, transcription?: string | null, themeId: string, lernedCounts: number, hasLearned: boolean, exampleSentences?: Array<string> | null, imageUrl?: string | null } };
+export type UpdateContentMutation = { __typename?: 'Mutation', update_content: { __typename?: 'Content', id: string, createdAt: any, sentence: string, translation: string, transcription?: string | null, themeId: string, lernedCounts: number, hasLearned: boolean, exampleSentences?: Array<string> | null, imageUrl?: string | null } };
 
-export type GetVariationsQueryVariables = Exact<{
+export type VariationsQueryVariables = Exact<{
   themeId: Scalars['String']['input'];
 }>;
 
 
-export type GetVariationsQuery = { __typename?: 'Query', variations: { __typename?: 'QuizSession', itemsLeft: number, totalItems: number, themeId: string, sentence: string, contentId: string, variations: Array<{ __typename?: 'Variations', translation: string }> } };
+export type VariationsQuery = { __typename?: 'Query', variations: { __typename?: 'QuizSession', itemsLeft: number, totalItems: number, themeId: string, sentence: string, contentId: string, variations: Array<{ __typename?: 'Variations', translation: string }> } };
 
-export type GetResultQueryVariables = Exact<{
+export type ResultQueryVariables = Exact<{
   themeId: Scalars['String']['input'];
 }>;
 
 
-export type GetResultQuery = { __typename?: 'Query', result: { __typename?: 'Result', correctAnswers: number } };
+export type ResultQuery = { __typename?: 'Query', result: { __typename?: 'Result', correctAnswers: number } };
 
-export type RestartMutationMutationVariables = Exact<{
+export type RestartMutationVariables = Exact<{
   themeId: Scalars['String']['input'];
 }>;
 
 
-export type RestartMutationMutation = { __typename?: 'Mutation', restart: boolean };
+export type RestartMutation = { __typename?: 'Mutation', restart: boolean };
 
-export type ValidateMutationMutationVariables = Exact<{
+export type ValidateMutationVariables = Exact<{
   validateQuizDto: ValidateQuizDto;
 }>;
 
 
-export type ValidateMutationMutation = { __typename?: 'Mutation', validate: { __typename?: 'ValidationResult', isCorrect: boolean, correctTranslation: string } };
+export type ValidateMutation = { __typename?: 'Mutation', validate: { __typename?: 'ValidationResult', isCorrect: boolean, correctTranslation: string } };
 
-export type GetAllThemesQueryVariables = Exact<{ [key: string]: never; }>;
+export type ThemesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllThemesQuery = { __typename?: 'Query', getAllThemes: Array<{ __typename?: 'Theme', id: string, createdAt: any, title?: string | null }> };
+export type ThemesQuery = { __typename?: 'Query', themes: Array<{ __typename?: 'Theme', id: string, createdAt: any, title?: string | null, updatedAt: any, userId: string, learningProgress: { __typename?: 'LearningProgress', wordsLearned: number, createdAt: any, updatedAt: any } }> };
 
-export type GetThemeQueryVariables = Exact<{
+export type ThemeQueryVariables = Exact<{
   id: Scalars['String']['input'];
 }>;
 
 
-export type GetThemeQuery = { __typename?: 'Query', getOneTheme: { __typename?: 'Theme', title?: string | null } };
+export type ThemeQuery = { __typename?: 'Query', theme: { __typename?: 'Theme', title?: string | null } };
 
 export type CreateThemeMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CreateThemeMutation = { __typename?: 'Mutation', createTheme: { __typename?: 'Theme', id: string, createdAt: any, title?: string | null } };
+export type CreateThemeMutation = { __typename?: 'Mutation', new_theme: { __typename?: 'Theme', id: string, createdAt: any, title?: string | null } };
 
 export type DeleteThemeMutationVariables = Exact<{
   ids: Array<Scalars['String']['input']> | Scalars['String']['input'];
 }>;
 
 
-export type DeleteThemeMutation = { __typename?: 'Mutation', deleteOneOrMoreTheme: number };
+export type DeleteThemeMutation = { __typename?: 'Mutation', delete_one_or_more_theme: number };
 
 export type UpdateThemeMutationVariables = Exact<{
-  updateThemeInput: UpdateThemeInput;
+  updateThemeDto: UpdateThemeDto;
 }>;
 
 
-export type UpdateThemeMutation = { __typename?: 'Mutation', updateTheme: { __typename?: 'Theme', id: string, createdAt: any, title?: string | null } };
-
-export type GetUserQueryVariables = Exact<{ [key: string]: never; }>;
+export type UpdateThemeMutation = { __typename?: 'Mutation', update_theme: { __typename?: 'Theme', id: string, createdAt: any, title?: string | null } };
 
 
-export type GetUserQuery = { __typename?: 'Query', findOne: { __typename?: 'User', id: string, email: string, fullName?: string | null, profilePictureUrl?: string | null } };
-
-
-export const RegistrationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"registration"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"registerDto"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateUserInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"register"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"registerDto"},"value":{"kind":"Variable","name":{"kind":"Name","value":"registerDto"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"profilePictureUrl"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessToken"}}]}}]}}]} as unknown as DocumentNode<RegistrationMutation, RegistrationMutationVariables>;
-export const LoginDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"login"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"loginDto"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateUserInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"login"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"loginDto"},"value":{"kind":"Variable","name":{"kind":"Name","value":"loginDto"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"profilePictureUrl"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessToken"}}]}}]}}]} as unknown as DocumentNode<LoginMutation, LoginMutationVariables>;
+export const RegistrationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"registration"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"registerDto"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateUserDto"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"register"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"registerDto"},"value":{"kind":"Variable","name":{"kind":"Name","value":"registerDto"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"profilePictureUrl"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessToken"}}]}}]}}]} as unknown as DocumentNode<RegistrationMutation, RegistrationMutationVariables>;
+export const LoginDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"login"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"loginDto"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateUserDto"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"login"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"loginDto"},"value":{"kind":"Variable","name":{"kind":"Name","value":"loginDto"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"profilePictureUrl"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessToken"}}]}}]}}]} as unknown as DocumentNode<LoginMutation, LoginMutationVariables>;
 export const LogOutDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"logOut"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"logout"}}]}}]} as unknown as DocumentNode<LogOutMutation, LogOutMutationVariables>;
-export const GetNewTokensDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"getNewTokens"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getNewTokens"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessToken"}}]}}]}}]} as unknown as DocumentNode<GetNewTokensMutation, GetNewTokensMutationVariables>;
-export const GetAllContentDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getAllContent"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"themeId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getAllContent"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"themeId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"themeId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"sentence"}},{"kind":"Field","name":{"kind":"Name","value":"translation"}},{"kind":"Field","name":{"kind":"Name","value":"transcription"}},{"kind":"Field","name":{"kind":"Name","value":"themeId"}},{"kind":"Field","name":{"kind":"Name","value":"lernedCounts"}},{"kind":"Field","name":{"kind":"Name","value":"hasLearned"}},{"kind":"Field","name":{"kind":"Name","value":"exampleSentences"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}}]}}]}}]} as unknown as DocumentNode<GetAllContentQuery, GetAllContentQueryVariables>;
-export const GetContentLengthDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getContentLength"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"themeId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getContentLength"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"themeId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"themeId"}}}]}]}}]} as unknown as DocumentNode<GetContentLengthQuery, GetContentLengthQueryVariables>;
-export const GetOneContentDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getOneContent"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"themeId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getOneContent"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}},{"kind":"Argument","name":{"kind":"Name","value":"themeId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"themeId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"sentence"}},{"kind":"Field","name":{"kind":"Name","value":"translation"}},{"kind":"Field","name":{"kind":"Name","value":"transcription"}},{"kind":"Field","name":{"kind":"Name","value":"themeId"}},{"kind":"Field","name":{"kind":"Name","value":"lernedCounts"}},{"kind":"Field","name":{"kind":"Name","value":"hasLearned"}},{"kind":"Field","name":{"kind":"Name","value":"exampleSentences"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}}]}}]}}]} as unknown as DocumentNode<GetOneContentQuery, GetOneContentQueryVariables>;
-export const CrateContentDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"crateContent"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"createContentInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateContentInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createContent"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"createContentInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"createContentInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"sentence"}},{"kind":"Field","name":{"kind":"Name","value":"translation"}},{"kind":"Field","name":{"kind":"Name","value":"transcription"}},{"kind":"Field","name":{"kind":"Name","value":"themeId"}},{"kind":"Field","name":{"kind":"Name","value":"lernedCounts"}},{"kind":"Field","name":{"kind":"Name","value":"hasLearned"}},{"kind":"Field","name":{"kind":"Name","value":"exampleSentences"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}}]}}]}}]} as unknown as DocumentNode<CrateContentMutation, CrateContentMutationVariables>;
-export const DeleteManyContentDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"deleteManyContent"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"ids"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"themeId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteManyContent"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"ids"},"value":{"kind":"Variable","name":{"kind":"Name","value":"ids"}}},{"kind":"Argument","name":{"kind":"Name","value":"themeId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"themeId"}}}]}]}}]} as unknown as DocumentNode<DeleteManyContentMutation, DeleteManyContentMutationVariables>;
-export const DeleteContentDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"deleteContent"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"themeId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteContent"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}},{"kind":"Argument","name":{"kind":"Name","value":"themeId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"themeId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"sentence"}},{"kind":"Field","name":{"kind":"Name","value":"translation"}},{"kind":"Field","name":{"kind":"Name","value":"transcription"}},{"kind":"Field","name":{"kind":"Name","value":"themeId"}},{"kind":"Field","name":{"kind":"Name","value":"lernedCounts"}},{"kind":"Field","name":{"kind":"Name","value":"hasLearned"}},{"kind":"Field","name":{"kind":"Name","value":"exampleSentences"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}}]}}]}}]} as unknown as DocumentNode<DeleteContentMutation, DeleteContentMutationVariables>;
-export const UpdateContentDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"updateContent"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"updateContentInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateContentInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateContent"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"updateContentInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"updateContentInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"sentence"}},{"kind":"Field","name":{"kind":"Name","value":"translation"}},{"kind":"Field","name":{"kind":"Name","value":"transcription"}},{"kind":"Field","name":{"kind":"Name","value":"themeId"}},{"kind":"Field","name":{"kind":"Name","value":"lernedCounts"}},{"kind":"Field","name":{"kind":"Name","value":"hasLearned"}},{"kind":"Field","name":{"kind":"Name","value":"exampleSentences"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}}]}}]}}]} as unknown as DocumentNode<UpdateContentMutation, UpdateContentMutationVariables>;
-export const GetVariationsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getVariations"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"themeId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"variations"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"themeId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"themeId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"itemsLeft"}},{"kind":"Field","name":{"kind":"Name","value":"totalItems"}},{"kind":"Field","name":{"kind":"Name","value":"themeId"}},{"kind":"Field","name":{"kind":"Name","value":"sentence"}},{"kind":"Field","name":{"kind":"Name","value":"contentId"}},{"kind":"Field","name":{"kind":"Name","value":"variations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"translation"}}]}}]}}]}}]} as unknown as DocumentNode<GetVariationsQuery, GetVariationsQueryVariables>;
-export const GetResultDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getResult"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"themeId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"result"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"themeId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"themeId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"correctAnswers"}}]}}]}}]} as unknown as DocumentNode<GetResultQuery, GetResultQueryVariables>;
-export const RestartMutationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"restartMutation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"themeId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"restart"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"themeId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"themeId"}}}]}]}}]} as unknown as DocumentNode<RestartMutationMutation, RestartMutationMutationVariables>;
-export const ValidateMutationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"validateMutation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"validateQuizDto"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ValidateQuizDto"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"validateQuizDto"},"value":{"kind":"Variable","name":{"kind":"Name","value":"validateQuizDto"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"isCorrect"}},{"kind":"Field","name":{"kind":"Name","value":"correctTranslation"}}]}}]}}]} as unknown as DocumentNode<ValidateMutationMutation, ValidateMutationMutationVariables>;
-export const GetAllThemesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getAllThemes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getAllThemes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]} as unknown as DocumentNode<GetAllThemesQuery, GetAllThemesQueryVariables>;
-export const GetThemeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getTheme"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getOneTheme"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]} as unknown as DocumentNode<GetThemeQuery, GetThemeQueryVariables>;
-export const CreateThemeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createTheme"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createTheme"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]} as unknown as DocumentNode<CreateThemeMutation, CreateThemeMutationVariables>;
-export const DeleteThemeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"deleteTheme"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"ids"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteOneOrMoreTheme"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"ids"},"value":{"kind":"Variable","name":{"kind":"Name","value":"ids"}}}]}]}}]} as unknown as DocumentNode<DeleteThemeMutation, DeleteThemeMutationVariables>;
-export const UpdateThemeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"updateTheme"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"updateThemeInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateThemeInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateTheme"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"updateThemeInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"updateThemeInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]} as unknown as DocumentNode<UpdateThemeMutation, UpdateThemeMutationVariables>;
-export const GetUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"findOne"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"profilePictureUrl"}}]}}]}}]} as unknown as DocumentNode<GetUserQuery, GetUserQueryVariables>;
+export const TokensDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"tokens"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tokens"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessToken"}}]}}]}}]} as unknown as DocumentNode<TokensMutation, TokensMutationVariables>;
+export const ContentsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"contents"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"themeId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contents"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"themeId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"themeId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"sentence"}},{"kind":"Field","name":{"kind":"Name","value":"translation"}},{"kind":"Field","name":{"kind":"Name","value":"transcription"}},{"kind":"Field","name":{"kind":"Name","value":"themeId"}},{"kind":"Field","name":{"kind":"Name","value":"lernedCounts"}},{"kind":"Field","name":{"kind":"Name","value":"hasLearned"}},{"kind":"Field","name":{"kind":"Name","value":"exampleSentences"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}}]}}]}}]} as unknown as DocumentNode<ContentsQuery, ContentsQueryVariables>;
+export const ContentLengthDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"contentLength"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"themeId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content_length"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"themeId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"themeId"}}}]}]}}]} as unknown as DocumentNode<ContentLengthQuery, ContentLengthQueryVariables>;
+export const ContentDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"content"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"themeId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}},{"kind":"Argument","name":{"kind":"Name","value":"themeId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"themeId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"sentence"}},{"kind":"Field","name":{"kind":"Name","value":"translation"}},{"kind":"Field","name":{"kind":"Name","value":"transcription"}},{"kind":"Field","name":{"kind":"Name","value":"themeId"}},{"kind":"Field","name":{"kind":"Name","value":"lernedCounts"}},{"kind":"Field","name":{"kind":"Name","value":"hasLearned"}},{"kind":"Field","name":{"kind":"Name","value":"exampleSentences"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}}]}}]}}]} as unknown as DocumentNode<ContentQuery, ContentQueryVariables>;
+export const NewContentDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"newContent"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"createContentDto"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateContentDto"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"new_content"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"createContentDto"},"value":{"kind":"Variable","name":{"kind":"Name","value":"createContentDto"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"sentence"}},{"kind":"Field","name":{"kind":"Name","value":"translation"}},{"kind":"Field","name":{"kind":"Name","value":"transcription"}},{"kind":"Field","name":{"kind":"Name","value":"themeId"}},{"kind":"Field","name":{"kind":"Name","value":"lernedCounts"}},{"kind":"Field","name":{"kind":"Name","value":"hasLearned"}},{"kind":"Field","name":{"kind":"Name","value":"exampleSentences"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}}]}}]}}]} as unknown as DocumentNode<NewContentMutation, NewContentMutationVariables>;
+export const DeleteManyContentDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"deleteManyContent"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"ids"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"themeId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"delete_many_content"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"ids"},"value":{"kind":"Variable","name":{"kind":"Name","value":"ids"}}},{"kind":"Argument","name":{"kind":"Name","value":"themeId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"themeId"}}}]}]}}]} as unknown as DocumentNode<DeleteManyContentMutation, DeleteManyContentMutationVariables>;
+export const DeleteContentDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"deleteContent"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"themeId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"delete_content"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}},{"kind":"Argument","name":{"kind":"Name","value":"themeId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"themeId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"sentence"}},{"kind":"Field","name":{"kind":"Name","value":"translation"}},{"kind":"Field","name":{"kind":"Name","value":"transcription"}},{"kind":"Field","name":{"kind":"Name","value":"themeId"}},{"kind":"Field","name":{"kind":"Name","value":"lernedCounts"}},{"kind":"Field","name":{"kind":"Name","value":"hasLearned"}},{"kind":"Field","name":{"kind":"Name","value":"exampleSentences"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}}]}}]}}]} as unknown as DocumentNode<DeleteContentMutation, DeleteContentMutationVariables>;
+export const UpdateContentDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"updateContent"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"updateContentDto"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateContentDto"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_content"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"updateContentDto"},"value":{"kind":"Variable","name":{"kind":"Name","value":"updateContentDto"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"sentence"}},{"kind":"Field","name":{"kind":"Name","value":"translation"}},{"kind":"Field","name":{"kind":"Name","value":"transcription"}},{"kind":"Field","name":{"kind":"Name","value":"themeId"}},{"kind":"Field","name":{"kind":"Name","value":"lernedCounts"}},{"kind":"Field","name":{"kind":"Name","value":"hasLearned"}},{"kind":"Field","name":{"kind":"Name","value":"exampleSentences"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}}]}}]}}]} as unknown as DocumentNode<UpdateContentMutation, UpdateContentMutationVariables>;
+export const VariationsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"variations"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"themeId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"variations"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"themeId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"themeId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"itemsLeft"}},{"kind":"Field","name":{"kind":"Name","value":"totalItems"}},{"kind":"Field","name":{"kind":"Name","value":"themeId"}},{"kind":"Field","name":{"kind":"Name","value":"sentence"}},{"kind":"Field","name":{"kind":"Name","value":"contentId"}},{"kind":"Field","name":{"kind":"Name","value":"variations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"translation"}}]}}]}}]}}]} as unknown as DocumentNode<VariationsQuery, VariationsQueryVariables>;
+export const ResultDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"result"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"themeId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"result"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"themeId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"themeId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"correctAnswers"}}]}}]}}]} as unknown as DocumentNode<ResultQuery, ResultQueryVariables>;
+export const RestartDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"restart"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"themeId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"restart"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"themeId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"themeId"}}}]}]}}]} as unknown as DocumentNode<RestartMutation, RestartMutationVariables>;
+export const ValidateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"validate"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"validateQuizDto"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ValidateQuizDto"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"validateQuizDto"},"value":{"kind":"Variable","name":{"kind":"Name","value":"validateQuizDto"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"isCorrect"}},{"kind":"Field","name":{"kind":"Name","value":"correctTranslation"}}]}}]}}]} as unknown as DocumentNode<ValidateMutation, ValidateMutationVariables>;
+export const ThemesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"themes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"themes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}},{"kind":"Field","name":{"kind":"Name","value":"learningProgress"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"wordsLearned"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<ThemesQuery, ThemesQueryVariables>;
+export const ThemeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"theme"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"theme"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]} as unknown as DocumentNode<ThemeQuery, ThemeQueryVariables>;
+export const CreateThemeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createTheme"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"new_theme"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]} as unknown as DocumentNode<CreateThemeMutation, CreateThemeMutationVariables>;
+export const DeleteThemeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"deleteTheme"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"ids"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"delete_one_or_more_theme"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"ids"},"value":{"kind":"Variable","name":{"kind":"Name","value":"ids"}}}]}]}}]} as unknown as DocumentNode<DeleteThemeMutation, DeleteThemeMutationVariables>;
+export const UpdateThemeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"updateTheme"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"updateThemeDto"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateThemeDto"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_theme"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"updateThemeDto"},"value":{"kind":"Variable","name":{"kind":"Name","value":"updateThemeDto"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]} as unknown as DocumentNode<UpdateThemeMutation, UpdateThemeMutationVariables>;

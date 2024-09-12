@@ -2,10 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { PAGES_URL } from './config/pages-url.config'
 import { EnumTokens } from './types/auth-token.types'
 
-export default async function middleware(
-	request: NextRequest,
-	response: NextResponse
-) {
+export default async function middleware(request: NextRequest) {
 	const { url, cookies } = request
 	const refreshToken = cookies.get(EnumTokens.REFRESH_TOKEN)?.value
 

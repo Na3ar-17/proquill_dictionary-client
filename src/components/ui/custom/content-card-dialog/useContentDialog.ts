@@ -24,15 +24,15 @@ export const useContentDialog = ({ themeId }: IProps) => {
 
 	const [mutation] = useCreateContent()
 	const { '0': updateMutation } = useUpdateContent()
-	const currentData = data?.getOneContent
-	const prevData = previousData?.getOneContent
+	const currentData = data?.content
+	const prevData = previousData?.content
 
 	const onSubmit = (data: IContentForm) => {
 		const { id, ...rest } = data
 		if (existsId) {
 			updateMutation({
 				variables: {
-					updateContentInput: {
+					updateContentDto: {
 						...data,
 						id: existsId,
 					},
@@ -49,7 +49,7 @@ export const useContentDialog = ({ themeId }: IProps) => {
 		} else {
 			mutation({
 				variables: {
-					createContentInput: {
+					createContentDto: {
 						...rest,
 						themeId: themeId || '',
 					},

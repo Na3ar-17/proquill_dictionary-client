@@ -78,7 +78,7 @@ const Quiz: NextPage<IProps> = ({ id }) => {
 							}
 							loading={loading}
 							onSubmit={onSubmit}
-							data={data}
+							data={data?.variations}
 							handleValidate={handleValidate}
 							validateData={validateData}
 							form={form}

@@ -1,4 +1,5 @@
 import { useQuiz } from '@/api/hooks/useQuiz'
+import { GET_VARIATIONS_QUERY } from '@/api/queries/quiz.queries'
 import { ValidateQuizDto } from '@/gql/graphql'
 import { IContentForm } from '@/types/content-form.types'
 import { useEffect } from 'react'
@@ -22,8 +23,12 @@ export const useQuizLogic = ({
 
 	const handleRestart = () => {
 		restartMutation({
-			variables: { themeId },
-			refetchQueries: ['getVariations'],
+			refetchQueries: [
+				{
+					query: GET_VARIATIONS_QUERY,
+					variables: { themeId },
+				},
+			],
 		})
 	}
 

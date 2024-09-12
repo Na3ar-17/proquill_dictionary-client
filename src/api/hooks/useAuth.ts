@@ -22,7 +22,7 @@ export const useAuth = () => {
 					},
 				},
 				onCompleted: ({ register }) => {
-					cookie.set('accessToken', register.accessToken)
+					cookie.set(EnumTokens.ACCESS_TOKEN, register.accessToken)
 					replace(PAGES_URL.DICTIONARY)
 				},
 			}

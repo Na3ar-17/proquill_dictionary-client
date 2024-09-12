@@ -2,11 +2,7 @@ import { Button } from '@/components/ui/button'
 import LearningRadio from '@/components/ui/custom/radios/learning-radio/LearningRadio'
 import { Form, FormField } from '@/components/ui/form'
 import { Skeleton } from '@/components/ui/skeleton'
-import {
-	GetVariationsQuery,
-	ValidateMutationMutation,
-	ValidateQuizDto,
-} from '@/gql/graphql'
+import { QuizSession, ValidateMutation, ValidateQuizDto } from '@/gql/graphql'
 import { IContentForm } from '@/types/content-form.types'
 import { htmlCleaner } from '@/utils/htmlCleaner'
 import { NextPage } from 'next'
@@ -15,11 +11,11 @@ import { UseFormReturn } from 'react-hook-form'
 interface IProps {
 	onSubmit: () => void
 	loading: boolean
-	data: GetVariationsQuery | undefined
+	data: QuizSession | undefined
 	isEnded: boolean
 	isButtonDisabled: boolean
 	handleValidate: (dto: ValidateQuizDto) => void
-	validateData: ValidateMutationMutation | null | undefined
+	validateData: ValidateMutation | null | undefined
 	form: UseFormReturn<Pick<IContentForm, 'translation'>, any, undefined>
 }
 
@@ -34,7 +30,7 @@ const FormComponent: NextPage<IProps> = props => {
 					? Array.from({ length: 3 }).map((el, i) => (
 							<Skeleton className='h-[46px] mt-2 last:mt-0' key={i} />
 					  ))
-					: props.data?.variations.variations?.map((el, i) => (
+					: props.data?.variations?.map((el, i) => (
 							<FormField
 								key={i}
 								control={props.form.control}
@@ -47,9 +43,9 @@ const FormComponent: NextPage<IProps> = props => {
 									<LearningRadio
 										onChange={() => {
 											props.handleValidate({
-												contentId: props.data?.variations.contentId || '',
+												contentId: props.data?.contentId || '',
 												translation: el.translation,
-												themeId: props.data?.variations.themeId || '',
+												themeId: props.data?.themeId || '',
 											})
 											onChange(el.translation)
 										}}

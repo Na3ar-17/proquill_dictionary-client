@@ -29,22 +29,18 @@ const Content: NextPage<IProps> = ({ id }) => {
 		loading,
 	} = useContentLogic({ themeId: id })
 	const { useGetTheme } = useTheme()
-	const { data: oneThemeData, loading: oneThemeLoading } = useGetTheme({ id })
+	const { data: theme, loading: themeLoading } = useGetTheme({ id })
 	const [resetChecked, setResetChecked] = useState(false)
 	return (
 		<section className={styles.container}>
-			<Heading
-				text={
-					oneThemeLoading ? 'loading' : oneThemeData?.getOneTheme.title || ''
-				}
-			/>
+			<Heading text={themeLoading ? 'loading' : theme?.theme.title || ''} />
 			<FormProvider {...methods}>
 				<div className={styles.content}>
 					<div className={styles.actions}>
 						{idsState.length >= 1 && (
 							<div className='flex items-center gap-2'>
 								<p className='text-sm text-zinc-500'>
-									Selected {idsState.length} from {data?.getAllContent.length}
+									Selected {idsState.length} from {data?.contents.length}
 								</p>
 								<Button
 									variant={'ghost'}
@@ -96,7 +92,7 @@ const Content: NextPage<IProps> = ({ id }) => {
 							? Array.from({ length: 15 }).map((_, i) => (
 									<Skeleton key={i} className='h-[85px]' />
 							  ))
-							: data?.getAllContent?.map(el => (
+							: data?.contents?.map(el => (
 									<ContentCard
 										setIdsState={setIdsState}
 										handleDelete={handleDelete}

@@ -1,12 +1,12 @@
 import { Button } from '@/components/ui/button'
 import TransparentField from '@/components/ui/custom/fields/transparent-field/TransparentField'
 import { FormField } from '@/components/ui/form'
-import { ITheme } from '@/entities/theme.entity'
+import { Theme } from '@/gql/graphql'
 import { NextPage } from 'next'
 import { UseFormReturn } from 'react-hook-form'
 
 interface IProps {
-	form: UseFormReturn<Pick<ITheme, 'title'>, any, undefined>
+	form: UseFormReturn<Pick<Theme, 'title'>, any, undefined>
 	onSubmit: () => void
 	buttonDisabled: boolean
 }

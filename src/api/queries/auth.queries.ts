@@ -1,7 +1,7 @@
 import { graphql } from '@/gql'
 
 export const REGISTER_MUTATION = graphql(`
-	mutation registration($registerDto: CreateUserInput!) {
+	mutation registration($registerDto: CreateUserDto!) {
 		register(registerDto: $registerDto) {
 			user {
 				id
@@ -16,7 +16,7 @@ export const REGISTER_MUTATION = graphql(`
 `)
 
 export const LOGIN_MUTATION = graphql(`
-	mutation login($loginDto: CreateUserInput!) {
+	mutation login($loginDto: CreateUserDto!) {
 		login(loginDto: $loginDto) {
 			user {
 				id
@@ -36,8 +36,8 @@ export const LOGOUT_MUTATION = graphql(`
 `)
 
 export const GET_NEW_TOKENS_MUTATION = graphql(`
-	mutation getNewTokens {
-		getNewTokens {
+	mutation tokens {
+		tokens {
 			accessToken
 		}
 	}

@@ -7,8 +7,7 @@ import {
 import { Pencil, Trash2 } from 'lucide-react'
 import { NextPage } from 'next'
 import { PropsWithChildren } from 'react'
-interface IProps extends PropsWithChildren {}
-const ContentCardContextMenu: NextPage<IProps> = ({ children }) => {
+const ContentCardContextMenu: NextPage = ({ children }: PropsWithChildren) => {
 	return (
 		<ContextMenu>
 			<ContextMenuTrigger>{children}</ContextMenuTrigger>
