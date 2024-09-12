@@ -85,7 +85,7 @@ const Quiz: NextPage<IProps> = ({ id }) => {
 						/>
 					)}
 				</CardContent>
-				<Indicator data={data} />
+				<Indicator data={data?.variations} />
 			</Card>
 		</section>
 	)
