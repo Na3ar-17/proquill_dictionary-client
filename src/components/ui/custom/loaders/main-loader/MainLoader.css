@@ -1,6 +1,6 @@
-.container {
-	@apply inset-0 w-screen fixed bg-background;
-	z-index: 100;
+.loader {
+	@apply fixed inset-0  bg-background;
+	z-index: 1000;
 }
 .spinner {
 	width: 70.4px;
