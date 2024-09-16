@@ -54,7 +54,7 @@ const ThemeCard: NextPage<IProps> = ({
 			{loading ? (
 				<div className='h-[52px] bg-card'></div>
 			) : (
-				<Card className='grid hover:bg-muted transition-colors px-2 overflow-hidden relative grid-cols-2 items-center'>
+				<Card className='grid px-2 hover:bg-muted-foreground/5 transition-colors duration-500 overflow-hidden relative grid-cols-2 items-center'>
 					<CardHeader>
 						<CardTitle>
 							{isRename ? (
