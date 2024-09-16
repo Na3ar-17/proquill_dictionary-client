@@ -1,4 +1,6 @@
+import { Theme } from '@/gql/graphql'
 import { useMutation, useQuery } from '@apollo/client'
+import { useEffect, useState } from 'react'
 import {
 	CREATE_THEME_MUTATION,
 	DELETE_THEME_MUTATION,
@@ -9,14 +11,23 @@ import {
 
 export const useTheme = () => {
 	const useGetThemes = () => {
+		const [themes, setThemes] = useState<Theme[] | undefined>(undefined)
 		const { data, loading, error } = useQuery(GET_THEMES_QUERY, {
 			errorPolicy: 'all',
+			onCompleted: data => {
+				setThemes(data.themes)
+			},
 		})
 
+		useEffect(() => {
+			if (data) setThemes(data.themes)
+		}, [data])
+
 		return {
-			data,
+			themes,
 			loading,
 			error,
+			setThemes,
 		}
 	}
 	const useGetTheme = ({ id }: { id: string }) => {

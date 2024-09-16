@@ -7,33 +7,38 @@ import { Theme } from '@/gql/graphql'
 import { dateFormatter } from '@/utils/dateFormatter'
 import { NextPage } from 'next'
 import Link from 'next/link'
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 import Content from './CardContent/Content'
 import FormComponent from './Form/FormComponent'
 
 interface IProps {
 	data: Theme
+	setThemes: Dispatch<SetStateAction<Theme[] | undefined>>
 }
 
-const ThemeCard: NextPage<IProps> = ({
-	data: { createdAt, title, id, learningProgress },
-}) => {
+const ThemeCard: NextPage<IProps> = ({ setThemes, data }) => {
+	const { createdAt, title, id, learningProgress } = data
 	const form = useForm<Pick<Theme, 'title'>>({
 		mode: 'onChange',
 		values: { title },
 	})
 	const [isRename, setIsRename] = useState<boolean>(false)
-
 	const { useDeleteTheme, useUpdateTheme } = useTheme()
-
 	const { loading, mutation } = useDeleteTheme()
 	const { loading: updataThemeLoading, mutation: updateThemeMutation } =
 		useUpdateTheme()
-
 	const handleDelete = ({ ids }: { ids: string[] }) => {
+		setThemes(prev => {
+			if (!prev) return prev
+			return prev.filter(el => !ids.includes(el.id))
+		})
 		mutation({
 			variables: { ids },
+			onError: ({ message }) => {
+				toast.error(message)
+			},
 		})
 	}
 	const onSubmit = (values: Pick<Theme, 'title'>) => {

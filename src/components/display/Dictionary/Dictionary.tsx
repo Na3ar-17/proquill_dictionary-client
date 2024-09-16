@@ -11,7 +11,7 @@ import ThemeCard from './ThemeCard/ThemeCard'
 
 const Dictionary: NextPage = () => {
 	const { useGetThemes, useCreateTheme } = useTheme()
-	const { data, loading, error } = useGetThemes()
+	const { themes, loading, error, setThemes } = useGetThemes()
 	const { mutation, mutationLoading } = useCreateTheme()
 
 	return (
@@ -30,10 +30,12 @@ const Dictionary: NextPage = () => {
 						Array.from({ length: 8 }).map((el, i) => (
 							<Skeleton key={i} className='h-[95px]' />
 						))
-					) : data?.themes.length == 0 ? (
+					) : themes?.length == 0 ? (
 						<EmptyMessage message='You dont have any themes yet!' />
 					) : (
-						data?.themes.map((el, i) => <ThemeCard data={el} key={i} />)
+						themes?.map((el, i) => (
+							<ThemeCard data={el} key={i} setThemes={setThemes} />
+						))
 					)}
 				</div>
 			</div>
