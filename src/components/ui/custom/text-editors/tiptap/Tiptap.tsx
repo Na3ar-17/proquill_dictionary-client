@@ -14,7 +14,7 @@ interface IProps {
 const TipTap: NextPage<IProps> = ({ content, onChange }) => {
 	const editor = useEditor({
 		extensions: [StarterKit.configure()],
-		content: content,
+		content,
 		onUpdate: ({ editor }) => {
 			if (onChange) {
 				onChange(editor.getHTML())
@@ -23,7 +23,7 @@ const TipTap: NextPage<IProps> = ({ content, onChange }) => {
 		editorProps: {
 			attributes: {
 				class:
-					'min-h-[80px] resize w-full break-words rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+					'min-h-[120px] w-full break-words rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
 			},
 		},
 		immediatelyRender: false,
