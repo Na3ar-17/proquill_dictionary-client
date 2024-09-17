@@ -2,6 +2,7 @@ import { useMutation, useQuery } from '@apollo/client'
 import toast from 'react-hot-toast'
 import {
 	CREATE_CONTENT_MUTATION,
+	CREATE_MANY_CONTENT_MUTATION,
 	DELETE_CONTENT_MUTATION,
 	DELETE_MANY_CONTENT_MUTATION,
 	GET_CONTENT_LENGTH,
@@ -43,6 +44,20 @@ export const useContent = () => {
 			],
 			onCompleted: () => {
 				toast.success('Successfully created nontent')
+			},
+		})
+
+		return mutation
+	}
+	const useCreateManyContent = () => {
+		const mutation = useMutation(CREATE_MANY_CONTENT_MUTATION, {
+			refetchQueries: [
+				{
+					query: GET_CONTENT_QUERY,
+				},
+			],
+			onCompleted: () => {
+				toast.success('Successfully created contents')
 			},
 		})
 
@@ -106,5 +121,6 @@ export const useContent = () => {
 		useGetOneContent,
 		useDeleteOneContent,
 		useGetContentLength,
+		useCreateManyContent,
 	}
 }
