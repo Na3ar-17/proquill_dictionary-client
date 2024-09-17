@@ -55,6 +55,11 @@ export const CREATE_CONTENT_MUTATION = graphql(`
 		}
 	}
 `)
+export const CREATE_MANY_CONTENT_MUTATION = graphql(`
+	mutation newContents($createManyContentDto: [CreateContentDto!]!) {
+		new_contents(createManyContentDto: $createManyContentDto)
+	}
+`)
 export const DELETE_MANY_CONTENT_MUTATION = graphql(`
 	mutation deleteManyContent($ids: [String!]!, $themeId: String!) {
 		delete_many_content(ids: $ids, themeId: $themeId)
