@@ -19,15 +19,16 @@ interface IProps {
 	handleDelete: ({ ids }: { ids: string[] }) => void
 }
 
-const Actions: NextPage<IProps> = ({
-	handleDelete,
-	idsState,
-	contentsLength,
-	themeId,
-	methods,
-	setIdsState,
-	setResetChecked,
-}) => {
+const Actions: NextPage<IProps> = props => {
+	const {
+		handleDelete,
+		idsState,
+		contentsLength,
+		themeId,
+		methods,
+		setIdsState,
+		setResetChecked,
+	} = props
 	const { onOpen } = useContentCardDialogStore()
 
 	return (
@@ -76,7 +77,8 @@ const Actions: NextPage<IProps> = ({
 					</Link>
 				</Button>
 			</TooltipComponent>
-			<div>
+			<div className='flex items-center gap-3'>
+				<Button variant={'secondary'}>Create many</Button>
 				<Button
 					onClick={() => {
 						methods.reset({
