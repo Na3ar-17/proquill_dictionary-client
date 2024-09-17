@@ -1,6 +1,6 @@
 'use client'
 import { useTheme } from '@/api/hooks/useTheme'
-import ContentCardDialog from '@/components/ui/custom/content-card-dialog/ContentCardDialog'
+import ContentCardDialog from '@/components/ui/custom/dialogs/content-card-dialog/ContentCardDialog'
 import EmptyMessage from '@/components/ui/custom/empty-message/EmptyMessage'
 import ErrorMessage from '@/components/ui/custom/error/error-message/ErrorMessage'
 import Heading from '@/components/ui/custom/heading/Heading'

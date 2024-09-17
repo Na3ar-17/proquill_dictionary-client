@@ -8,8 +8,9 @@ import {
 import { useContentCardDialogStore } from '@/store/content-dialog.store'
 import { NextPage } from 'next'
 import { useEffect, useLayoutEffect } from 'react'
-import { Button } from '../../button'
-import { Form } from '../../form'
+
+import { Button } from '@/components/ui/button'
+import { Form } from '@/components/ui/form'
 import Fields from './FIelds/Fields'
 import { useContentDialog } from './useContentDialog'
 

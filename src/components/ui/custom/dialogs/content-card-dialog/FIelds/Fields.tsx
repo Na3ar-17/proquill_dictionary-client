@@ -9,7 +9,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { IContentForm } from '@/types/content-form.types'
 import { NextPage } from 'next'
 import { Control } from 'react-hook-form'
-import TipTap from '../../text-editors/tiptap/Tiptap'
+import TipTap from '../../../text-editors/tiptap/Tiptap'
 
 interface IProps {
 	control: Control<IContentForm>
