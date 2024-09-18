@@ -58,6 +58,9 @@ export const useContentDialog = ({ themeId }: IProps) => {
 					form.reset()
 					onClose()
 				},
+				onError: ({ message }) => {
+					toast.error(message)
+				},
 				refetchQueries: [GET_CONTENT_QUERY],
 			})
 		}
