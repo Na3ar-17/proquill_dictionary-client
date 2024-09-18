@@ -49,11 +49,12 @@ export const useContent = () => {
 
 		return mutation
 	}
-	const useCreateManyContent = () => {
+	const useCreateManyContent = ({ themeId }: { themeId: string }) => {
 		const mutation = useMutation(CREATE_MANY_CONTENT_MUTATION, {
 			refetchQueries: [
 				{
 					query: GET_CONTENT_QUERY,
+					variables: { themeId },
 				},
 			],
 			onCompleted: () => {

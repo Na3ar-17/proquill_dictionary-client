@@ -17,6 +17,7 @@ interface IProps {
 	setIdsState: Dispatch<SetStateAction<string[]>>
 	setResetChecked: Dispatch<SetStateAction<boolean>>
 	handleDelete: ({ ids }: { ids: string[] }) => void
+	onCreateManyContentDialogOpen: () => void
 }
 
 const Actions: NextPage<IProps> = props => {
@@ -28,6 +29,7 @@ const Actions: NextPage<IProps> = props => {
 		methods,
 		setIdsState,
 		setResetChecked,
+		onCreateManyContentDialogOpen,
 	} = props
 	const { onOpen } = useContentCardDialogStore()
 
@@ -78,7 +80,9 @@ const Actions: NextPage<IProps> = props => {
 				</Button>
 			</TooltipComponent>
 			<div className='flex items-center gap-3'>
-				<Button variant={'secondary'}>Create many</Button>
+				<Button onClick={onCreateManyContentDialogOpen} variant={'secondary'}>
+					Create many
+				</Button>
 				<Button
 					onClick={() => {
 						methods.reset({

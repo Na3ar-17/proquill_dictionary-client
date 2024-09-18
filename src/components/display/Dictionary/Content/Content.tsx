@@ -1,6 +1,7 @@
 'use client'
 import { useTheme } from '@/api/hooks/useTheme'
 import ContentCardDialog from '@/components/ui/custom/dialogs/content-card-dialog/ContentCardDialog'
+import CreateManyContentDialog from '@/components/ui/custom/dialogs/create-many-content-dialog/CreateManyContentDialog'
 import EmptyMessage from '@/components/ui/custom/empty-message/EmptyMessage'
 import ErrorMessage from '@/components/ui/custom/error/error-message/ErrorMessage'
 import Heading from '@/components/ui/custom/heading/Heading'
@@ -18,6 +19,7 @@ interface IProps {
 }
 
 const Content: NextPage<IProps> = ({ id }) => {
+	const [isOpen, setIsOpen] = useState<boolean>(false)
 	const { data, handleDelete, methods, idsState, setIdsState, loading, error } =
 		useContentLogic({ themeId: id })
 	const { useGetTheme } = useTheme()
@@ -37,6 +39,7 @@ const Content: NextPage<IProps> = ({ id }) => {
 						setIdsState={setIdsState}
 						setResetChecked={setResetChecked}
 						handleDelete={handleDelete}
+						onCreateManyContentDialogOpen={() => setIsOpen(true)}
 					/>
 					<div className={styles.sentences}>
 						{error && <ErrorMessage message={error.message} />}
@@ -61,6 +64,11 @@ const Content: NextPage<IProps> = ({ id }) => {
 					</div>
 				</div>
 				<ContentCardDialog themeId={id} />
+				<CreateManyContentDialog
+					isOpen={isOpen}
+					onClose={() => setIsOpen(false)}
+					themeId={id}
+				/>
 			</FormProvider>
 		</section>
 	)
