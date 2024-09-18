@@ -56,24 +56,26 @@ const Actions: NextPage<IProps> = props => {
 					</Button>
 				</div>
 			)}
-			{contentsLength < 10 ? (
-				<TooltipComponent
-					label={'This theme must include at least 10 contents'}
-				>
-					<div className='cursor-not-allowed opacity-50 flex px-4 py-2 items-center gap-2 w-full h-full'>
+			<div>
+				{contentsLength < 10 ? (
+					<TooltipComponent
+						label={'This theme must include at least 10 contents'}
+					>
+						<div className='cursor-not-allowed opacity-50 flex px-4 py-2 items-center gap-2 w-full h-full'>
+							<p>Study</p>
+							<BookA className='size-5' />
+						</div>
+					</TooltipComponent>
+				) : (
+					<Link
+						className='flex px-4 py-2 items-center gap-2 w-full h-full'
+						href={`${PAGES_URL.DICTIONARY}/${themeId}/studying`}
+					>
 						<p>Study</p>
 						<BookA className='size-5' />
-					</div>
-				</TooltipComponent>
-			) : (
-				<Link
-					className='flex px-4 py-2 items-center gap-2 w-full h-full'
-					href={`${PAGES_URL.DICTIONARY}/${themeId}/studying`}
-				>
-					<p>Study</p>
-					<BookA className='size-5' />
-				</Link>
-			)}
+					</Link>
+				)}
+			</div>
 			<div className='flex items-center gap-3'>
 				<Button onClick={onCreateManyContentDialogOpen} variant={'secondary'}>
 					Create many
