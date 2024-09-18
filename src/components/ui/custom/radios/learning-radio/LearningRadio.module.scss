@@ -57,7 +57,7 @@
 	}
 
 	input[type='radio'] {
-		@apply bg-background;
+		@apply bg-primary/80;
 
 		appearance: none;
 		width: 17px;
