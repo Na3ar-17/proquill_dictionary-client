@@ -59,6 +59,9 @@ export const useContent = () => {
 			onCompleted: () => {
 				toast.success('Successfully created contents')
 			},
+			onError: ({ message }) => {
+				toast.error(message)
+			},
 		})
 
 		return mutation

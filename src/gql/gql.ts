@@ -21,7 +21,7 @@ const documents = {
     "\n\tquery contentLength($themeId: String!) {\n\t\tcontent_length(themeId: $themeId)\n\t}\n": types.ContentLengthDocument,
     "\n\tquery content($id: String!, $themeId: String!) {\n\t\tcontent(id: $id, themeId: $themeId) {\n\t\t\tid\n\t\t\tcreatedAt\n\t\t\tsentence\n\t\t\ttranslation\n\t\t\ttranscription\n\t\t\tthemeId\n\t\t\tlernedCounts\n\t\t\thasLearned\n\t\t\texampleSentences\n\t\t\timageUrl\n\t\t}\n\t}\n": types.ContentDocument,
     "\n\tmutation newContent($createContentDto: CreateContentDto!) {\n\t\tnew_content(createContentDto: $createContentDto) {\n\t\t\tid\n\t\t\tcreatedAt\n\t\t\tsentence\n\t\t\ttranslation\n\t\t\ttranscription\n\t\t\tthemeId\n\t\t\tlernedCounts\n\t\t\thasLearned\n\t\t\texampleSentences\n\t\t\timageUrl\n\t\t}\n\t}\n": types.NewContentDocument,
-    "\n\tmutation newContents($createManyContentDto: [CreateContentDto!]!) {\n\t\tnew_contents(createManyContentDto: $createManyContentDto)\n\t}\n": types.NewContentsDocument,
+    "\n\tmutation newContents($createManyContentDto: CreateManyContentDto!) {\n\t\tnew_contents(createManyContentDto: $createManyContentDto)\n\t}\n": types.NewContentsDocument,
     "\n\tmutation deleteManyContent($ids: [String!]!, $themeId: String!) {\n\t\tdelete_many_content(ids: $ids, themeId: $themeId)\n\t}\n": types.DeleteManyContentDocument,
     "\n\tmutation deleteContent($id: String!, $themeId: String!) {\n\t\tdelete_content(id: $id, themeId: $themeId) {\n\t\t\tid\n\t\t\tcreatedAt\n\t\t\tsentence\n\t\t\ttranslation\n\t\t\ttranscription\n\t\t\tthemeId\n\t\t\tlernedCounts\n\t\t\thasLearned\n\t\t\texampleSentences\n\t\t\timageUrl\n\t\t}\n\t}\n": types.DeleteContentDocument,
     "\n\tmutation updateContent($updateContentDto: UpdateContentDto!) {\n\t\tupdate_content(updateContentDto: $updateContentDto) {\n\t\t\tid\n\t\t\tcreatedAt\n\t\t\tsentence\n\t\t\ttranslation\n\t\t\ttranscription\n\t\t\tthemeId\n\t\t\tlernedCounts\n\t\t\thasLearned\n\t\t\texampleSentences\n\t\t\timageUrl\n\t\t}\n\t}\n": types.UpdateContentDocument,
@@ -85,7 +85,7 @@ export function graphql(source: "\n\tmutation newContent($createContentDto: Crea
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n\tmutation newContents($createManyContentDto: [CreateContentDto!]!) {\n\t\tnew_contents(createManyContentDto: $createManyContentDto)\n\t}\n"): (typeof documents)["\n\tmutation newContents($createManyContentDto: [CreateContentDto!]!) {\n\t\tnew_contents(createManyContentDto: $createManyContentDto)\n\t}\n"];
+export function graphql(source: "\n\tmutation newContents($createManyContentDto: CreateManyContentDto!) {\n\t\tnew_contents(createManyContentDto: $createManyContentDto)\n\t}\n"): (typeof documents)["\n\tmutation newContents($createManyContentDto: CreateManyContentDto!) {\n\t\tnew_contents(createManyContentDto: $createManyContentDto)\n\t}\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

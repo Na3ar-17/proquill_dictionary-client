@@ -56,7 +56,7 @@ export const CREATE_CONTENT_MUTATION = graphql(`
 	}
 `)
 export const CREATE_MANY_CONTENT_MUTATION = graphql(`
-	mutation newContents($createManyContentDto: [CreateContentDto!]!) {
+	mutation newContents($createManyContentDto: CreateManyContentDto!) {
 		new_contents(createManyContentDto: $createManyContentDto)
 	}
 `)
