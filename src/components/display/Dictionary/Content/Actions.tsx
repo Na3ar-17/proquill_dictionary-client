@@ -65,11 +65,12 @@ const Actions: NextPage<IProps> = props => {
 						: ''
 				}
 			>
-				<Button
-					disabled={contentsLength < 10}
-					variant={'outline'}
-					className='p-0'
-				>
+				{contentsLength < 10 ? (
+					<div className='cursor-not-allowed opacity-50 flex px-4 py-2 items-center gap-2 w-full h-full'>
+						<p>Study</p>
+						<BookA className='size-5' />
+					</div>
+				) : (
 					<Link
 						className='flex px-4 py-2 items-center gap-2 w-full h-full'
 						href={`${PAGES_URL.DICTIONARY}/${themeId}/studying`}
@@ -77,7 +78,7 @@ const Actions: NextPage<IProps> = props => {
 						<p>Study</p>
 						<BookA className='size-5' />
 					</Link>
-				</Button>
+				)}
 			</TooltipComponent>
 			<div className='flex items-center gap-3'>
 				<Button onClick={onCreateManyContentDialogOpen} variant={'secondary'}>
