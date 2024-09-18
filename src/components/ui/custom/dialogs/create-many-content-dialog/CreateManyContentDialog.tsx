@@ -7,6 +7,7 @@ import {
 	DialogTitle,
 } from '@/components/ui/dialog'
 import { Textarea } from '@/components/ui/textarea'
+import { CreateContentManyDataInput } from '@/gql/graphql'
 import { ICreateManyContentDialogForm } from '@/types/content-dialog.types'
 import { NextPage } from 'next'
 import { useForm } from 'react-hook-form'
@@ -38,11 +39,13 @@ const CreateManyContentDialog: NextPage<IProps> = ({
 	const [mutation, { loading }] = useCreateManyContent({ themeId })
 
 	const onSubmit = (data: ICreateManyContentDialogForm) => {
+		const parsedData: CreateContentManyDataInput[] = JSON.parse(data.jsonData)
+
 		mutation({
 			variables: {
 				createManyContentDto: {
 					themeId,
-					data: JSON.parse(data.jsonData),
+					data: parsedData,
 				},
 			},
 			onCompleted: () => {
