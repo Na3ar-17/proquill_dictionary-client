@@ -20,7 +20,6 @@ export default async function middleware(request: NextRequest) {
 	if (!refreshToken && !isAuthPage) {
 		return NextResponse.redirect(new URL(PAGES_URL.LOGIN, url))
 	}
-
 	return NextResponse.next()
 }
 

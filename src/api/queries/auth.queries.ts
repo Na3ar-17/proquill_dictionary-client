@@ -42,3 +42,9 @@ export const GET_NEW_TOKENS_MUTATION = graphql(`
 		}
 	}
 `)
+
+export const VALIDATE_REFRESH_TOKEN = graphql(`
+	mutation validateRefreshToken {
+		validate_refresh_token
+	}
+`)

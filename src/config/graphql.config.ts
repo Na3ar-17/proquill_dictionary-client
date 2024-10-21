@@ -1,9 +1,9 @@
 import { GET_NEW_TOKENS_MUTATION } from '@/api/queries/auth.queries'
 import { EnumTokens } from '@/types/auth-token.types'
 import { EnumApolloErrors } from '@/types/errors.types'
-import { createHttpLink, FetchResult, from, Observable } from '@apollo/client'
+import { createHttpLink, from, Observable } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
-import { ErrorResponse, onError } from '@apollo/client/link/error'
+import { onError } from '@apollo/client/link/error'
 import { removeTypenameFromVariables } from '@apollo/client/link/remove-typename'
 import {
 	ApolloClient,
@@ -41,38 +41,32 @@ async function getNewTokens() {
 		throw error
 	}
 }
-export const errorLink = onError(
-	({ forward, operation, graphQLErrors, networkError }: ErrorResponse) => {
-		if (graphQLErrors) {
-			for (const err of graphQLErrors) {
-				if (err?.extensions?.code === EnumApolloErrors.UNAUTHENTICATED) {
-					return new Observable<FetchResult>(observer => {
-						getNewTokens()
-							.then(() => {
-								const oldHeaders = operation.getContext().headers
-								const newAccessToken = cookies.get(EnumTokens.ACCESS_TOKEN)
 
-								operation.setContext({
-									headers: {
-										...oldHeaders,
-										authorization: newAccessToken
-											? `Bearer ${newAccessToken}`
-											: '',
-									},
-								})
-								forward(operation).subscribe({
-									next: observer.next.bind(observer),
-									error: observer.error.bind(observer),
-									complete: observer.complete.bind(observer),
-								})
-							})
-							.catch(error => {
-								console.error('Token refresh failed', error)
-								observer.error(err)
-							})
+export const errorLink = onError(
+	({ forward, operation, graphQLErrors, networkError }) => {
+		if (
+			graphQLErrors?.some(
+				err => err?.extensions?.code === EnumApolloErrors.UNAUTHENTICATED
+			)
+		) {
+			return new Observable(observer => {
+				getNewTokens()
+					.then(() => {
+						const oldHeaders = operation.getContext().headers
+						const newAccessToken = cookies.get(EnumTokens.ACCESS_TOKEN)
+						operation.setContext({
+							headers: {
+								...oldHeaders,
+								authorization: newAccessToken ? `Bearer ${newAccessToken}` : '',
+							},
+						})
+						forward(operation).subscribe(observer)
 					})
-				}
-			}
+					.catch(error => {
+						console.error('Token refresh failed', error)
+						observer.error(error)
+					})
+			})
 		}
 
 		if (networkError) {
