@@ -56,7 +56,7 @@ const CodeExample: NextPage = () => {
 			</HoverCardTrigger>
 			<HoverCardContent className='w-fit'>
 				<p className='text-sm'>{'"transcription"'} is optional</p>
-				<div className='p-3 bg-[#08090a] rounded-md mt-2 relative'>
+				<div className='p-3 bg-black rounded-md mt-2 relative'>
 					{isCopied ? (
 						<div className='absolute right-4 top-4 border border-solid border-border rounded-md p-2'>
 							<ClipboardCheck className='size-4' />

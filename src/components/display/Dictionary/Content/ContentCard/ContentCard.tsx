@@ -45,7 +45,7 @@ const ContentCard: NextPage<IProps> = ({
 		})
 	}
 	const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-		if (e.ctrlKey) {
+		if (e.ctrlKey && 'id' in e.target && e.target.id !== 'checkbox') {
 			setIsChecked(!isChecked)
 			handleIdsState()
 		}
@@ -76,6 +76,7 @@ const ContentCard: NextPage<IProps> = ({
 							className={styles.checkbox}
 							checked={isChecked}
 							onCheckedChange={onCheckedChange}
+							id='checkbox'
 						/>
 						<div
 							onClick={(e: React.MouseEvent<HTMLParagraphElement>) => {
